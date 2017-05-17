@@ -20,3 +20,5 @@ class Dialogue {
         return ass;
     }
 }
+
+module.exports = Dialogue;

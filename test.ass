@@ -6,23 +6,18 @@ ScriptType: v4.00+
 WrapStyle: 0
 ScaledBorderAndShadow: yes
 YCbCr Matrix: None
+PlayResX: 1920
+PlayResY: 1080
 
 [Aegisub Project Garbage]
 Audio File: dummy-audio:silence?sr=44100&bd=16&ch=1&ln=396900000
+Video File: ?dummy:59.940000:4500000:1920:1080:129:129:129:c
+Video AR Value: 1.777778
+Video Zoom Percent: 0.250000
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Default,Arial,20,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2,2,2,10,10,10,1
-Style: 響JP,VD-LogoG-Bold-P,35,&H0070D8FF,&H000000FF,&H0000A0FF,&H00000000,0,0,0,0,100,100,0,0,1,0,0,2,10,10,75,1
-Style: 響CN,DFZongYi-GB Otf W7,40,&H0070D8FF,&H000000FF,&H0000A0FF,&H00000000,0,0,0,0,100,100,0,0,1,2,0,2,10,10,25,1
-Style: 響CN1,DFZongYi-GB Otf W7,40,&H0070D8FF,&H000000FF,&H0000A0FF,&H00000000,0,0,0,0,100,100,0,0,1,2,0,2,10,10,25,1
-Style: 響CN2,DFZongYi-GB Otf W7,40,&H0070D8FF,&H000000FF,&H0000A0FF,&H00000000,0,0,0,0,100,100,0,0,1,2,0,2,10,10,25,1
-Style: マリアCN,方正大标宋_GBK,43,&H00FFFFFF,&H000000FF,&H00D0D0D8,&H00000000,0,0,0,0,100,100,0,0,1,2,0,2,10,10,20,1
-Style: JP,Kozuka Gothic Pro B,45,&H00FFFFFF,&H000000FF,&H00FF5800,&H80000000,0,0,0,0,100,100,2,0,1,2,2,2,10,10,70,1
-Style: CN,方正大黑_GBK,37,&H00FFFFFF,&H000000FF,&H00FF5800,&H80000000,0,0,0,0,100,100,0.8,0,1,2,2,2,10,10,20,1
-Style: JP1,Kozuka Gothic Pro B,45,&H00FFFFFF,&H000000FF,&H00FF5800,&H80000000,0,0,0,0,100,100,2,0,1,2,2,2,10,10,70,1
-Style: CN1,方正大黑_GBK,37,&H00FFFFFF,&H000000FF,&H00FF5800,&H80000000,0,0,0,0,100,100,0.8,0,1,2,2,2,10,10,20,1
-Style: dymy_logo,微软雅黑,32,&H8CC6C6C6,&H000000FF,&H8C000000,&H00FFFFFF,-1,0,0,0,100,98,0.5,0,1,2,0,1,87,10,20,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

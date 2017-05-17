@@ -1,48 +1,89 @@
 const Log = require('../utils/Log.js')
-
+// Entities
+const Dialogue = require('./Entities/Dialogue.js');
+const Style = require('./Entities/Style.js');
 module.exports = {
     parse(content, options = {}) {
         // 按行划分。
         let assArray = content.split(/\r\n/);
 
+        // 解析设置信息
+        let metaInfo = {};
+        metaInfo.resolution = {};
+        let widthLine = assArray.filter(line => line.startsWith("PlayResX"));
+        if (widthLine.length === 1) {
+            metaInfo.resolution.width = parseInt(widthLine[0].split("PlayResX:")[1].trim());
+        }
+        else {
+            Log.warning("Ass 文件分辨率设定缺失或存在多个");
+        }
+        let heightLine = assArray.filter(line => line.startsWith("PlayResY"));
+        if (heightLine.length === 1){
+            metaInfo.resolution.height = parseInt(heightLine[0].split("PlayResY:")[1].trim());
+        }
+        else{
+            Log.warning("Ass 文件分辨率设定缺失或存在多个");
+        }
+
+        console.log(metaInfo);
         // 解析样式
         let assStyles = assArray.filter(line => line.startsWith('Style'));
         let parsedAssStyles = {};
         assStyles.forEach(line => {
+            let format = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
+            let parsedStyle = {};
             try {
-                let splitedStyleLine = line.split('Style:');
-                let styleName = splitedStyleLine[1].trim().split(',')[0];
-                parsedAssStyles[styleName] = line;
+                line.split('Style:')[1].trim().split(',').forEach((property, index, lineArray) => {
+                    parsedStyle[format[index]] = property;
+                })
             }
             catch (e) {
-                Log.error("invalid_ass", "ASS 文件格式不正确");
+                Log.error("invalid_ass", "Ass 文件不合法");
             }
+            parsedAssStyles[parsedStyle.Name] = new Style(parsedStyle);
         })
 
         // 解析一般行
         let assLines = assArray.filter(line => line.startsWith('Dialogue'));
-        let parsedAssLines = [];
+        let parsedAssDialogs = [];
         assLines.forEach(line => {
             let format = ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect"];
-            let parsedLine = {};
+            let parsedDialog = {};
             try {
                 line.split('Dialogue:')[1].trim().split(',').forEach((property, index, lineArray) => {
                     if (index <= 8) {
-                        parsedLine[format[index]] = property;
+                        parsedDialog[format[index]] = property;
                     }
                     else {
                         // 对文本可能含有逗号的特殊处理
-                        parsedLine['Text'] = lineArray.slice(9).join(',');
+                        parsedDialog['Text'] = lineArray.slice(9).join(',');
                         throw {}; // 停止遍历
                     }
                 })
             }
             catch (e) {
-                
+
             }
-            parsedAssLines.push(parsedLine);
+            parsedAssDialogs.push(new Dialogue(parsedDialog));
+
+
         });
 
-        console.log(parsedAssLines);
+        // 链接样式
+
+        parsedAssDialogs.forEach((dialog, index) => {
+            if (parsedAssStyles[dialog.style] !== undefined) {
+                dialog.style = parsedAssStyles[dialog.style];
+            }
+            else {
+                Log.error("unknown_style", `Ass 存在对话行未指定样式 Line:${index + 1}`);
+            }
+        })
+
+        return {
+            dialogs: parsedAssDialogs,
+            styles: parsedAssStyles,
+            metaInfo: metaInfo
+        }
     }
 }

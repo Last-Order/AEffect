@@ -14,8 +14,12 @@ class AEffect{
                 Log.error("file_not_found", "找不到指定的文件");
                 return false;
             }
-            AssParser.parse(data);
+            let result = AssParser.parse(data);
+            console.log(result);
         })
+    }
+    loadFromText(text){
+        let result = AssParser.parse(text);
     }
 }
     

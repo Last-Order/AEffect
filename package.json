@@ -1,9 +1,9 @@
 {
-  "name": "AEffect",
+  "name": "aeffect",
   "version": "1.0.0",
   "description": "A simple tool to generate ass subtitle file with effect labels.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Eridanus Sora <sora@sound.moe>",
   "license": "MIT",
@@ -13,7 +13,8 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-plumber": "^1.1.0",
-    "gulp-watch": "^4.3.11"
+    "gulp-watch": "^4.3.11",
+    "mocha": "^3.4.1"
   },
   "engines": {
     "node": ">= 7.0.0",
