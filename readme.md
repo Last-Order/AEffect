@@ -5,7 +5,7 @@ AEffect 是一个为 JavaScript 使用者准备的，ASS 特效字幕生成工�
 ## Getting Started
 
 ### Installation
-```shell
+```
 npm install aeffect
 ```
 
@@ -22,7 +22,7 @@ const AEffect = require("aeffect");
 **使用 Async/Await**
 
 ```JavaScript
-(async ()=>{
+(async () => {
     let AE = new AEffect();
     await AE.loadFromFile("path_to_your_ass_file");
 
@@ -33,7 +33,7 @@ const AEffect = require("aeffect");
     })
 
     console.log(AE.build());
-})
+})();
 
 ```
 
@@ -50,4 +50,21 @@ AE.loadFromFile("path_to_your_ass_file").then(() => {
 
     console.log(AE.build())
 })
+```
+
+更多说明请参阅 API 文档。
+
+## Contributing
+
+### Setting up development environment
+```bash
+git clone https://github.com/Last-Order/AEffect
+cd ./AEffect
+npm install
+npm install -g typescript # skip if typescript is already installed
+```
+
+### Start watching source files
+```bash
+tsc
 ```
