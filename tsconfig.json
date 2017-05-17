@@ -1,0 +1,10 @@
+{
+    "files": ["./src/AEffect.ts"],
+    "compilerOptions": {
+        "target": "es6",
+        "outDir": "dist",
+        "declaration": true,
+        "module": "commonjs",
+        "watch": true
+    }
+}

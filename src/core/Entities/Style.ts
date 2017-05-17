@@ -1,5 +1,8 @@
 class Style {
-    constructor(properties = {}){
+    primaryColour: String;
+    outlineColour: String;
+    backColour: String;
+    constructor(properties = {}) {
          ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
          .forEach((name, index) => {
             this[name[0].toLowerCase() + name.slice(1)] = properties[name];
@@ -38,4 +41,5 @@ class Style {
         this.backColour = value;
     }
 }
-module.exports = Style;
+
+export default Style;

@@ -1,16 +1,28 @@
-'use strict';
-
-var _Loader = require('/src/core/Loader.js');
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var AEffect = function AEffect() {
-    _classCallCheck(this, AEffect);
-
-    this.subtitles = [];
-    this.subtitlesGroupByStyle = {};
-};
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require('fs');
+const Log_1 = require("./utils/Log");
+const AssParser_1 = require("./core/AssParser");
+class AEffect {
+    constructor() {
+        this.metaInfo = {};
+        this.dialogs = [];
+        this.styles = {};
+    }
+    loadFromFile(path, encoding = 'utf-8') {
+        fs.readFile(path, encoding, (error, data) => {
+            if (error) {
+                Log_1.default.error("file_not_found", "找不到指定的文件");
+                return false;
+            }
+            let result = AssParser_1.default.parse(data);
+            this.metaInfo = result.metaInfo;
+            this.dialogs = result.dialogs;
+            this.styles = result.styles;
+        });
+    }
+    loadFromText(text) {
+        let result = AssParser_1.default.parse(text);
+    }
+}
+new AEffect().loadFromFile("D:\\Git\\AEffect\\test.ass");

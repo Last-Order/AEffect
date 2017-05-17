@@ -21,4 +21,4 @@ class Dialogue {
     }
 }
 
-module.exports = Dialogue;
+export default Dialogue;
