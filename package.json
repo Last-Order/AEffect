@@ -2,12 +2,13 @@
   "name": "aeffect",
   "version": "1.0.0",
   "description": "A simple tool to generate ass subtitle file with effect labels.",
+  "main": "./dist/AEffect.js",
   "scripts": {
     "test": "mocha",
     "start": "tsc"
   },
   "author": "Eridanus Sora <sora@sound.moe>",
-  "license": "MIT",
+  "license": "Apache",
   "devDependencies": {
     "@types/node": "^7.0.18",
     "babel-preset-env": "^1.4.0",

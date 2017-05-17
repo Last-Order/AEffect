@@ -72,10 +72,7 @@ class AEffect {
 (() => __awaiter(this, void 0, void 0, function* () {
     let AE = new AEffect();
     yield AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-    AE.select({
-        "style": "Default",
-        "name": "actor"
-    }).forEach(dialog => {
+    AE.select().forEach(dialog => {
         dialog.addBlur(2);
     });
     console.log(AE.build());

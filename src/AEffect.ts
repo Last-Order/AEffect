@@ -86,10 +86,7 @@ class AEffect implements AEffect {
     let AE = new AEffect()
     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
     
-    AE.select({
-        "style": "Default",
-        "name": "actor"
-    }).forEach(dialog => {
+    AE.select().forEach(dialog => {
         dialog.addBlur(2);
     })
 
