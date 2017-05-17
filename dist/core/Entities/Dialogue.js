@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Ass Dialogue 类
  */
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Dialogue {
     constructor(properties = {}) {
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {

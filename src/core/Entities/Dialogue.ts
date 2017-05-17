@@ -1,7 +1,19 @@
 /**
  * Ass Dialogue 类
  */
+
+import Style from './Style';
+
 class Dialogue {
+    style: Style;
+    start: string;
+    end: string;
+    name: string;
+    marginL: string;
+    marginR: string;
+    marginV: string;
+    effect: string;
+    text: string;
     constructor(properties = {}){
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
             this[name[0].toLowerCase() + name.slice(1)] = properties[name]; 

@@ -29,7 +29,6 @@ exports.default = {
         else {
             Log_1.default.warning("Ass 文件分辨率设定缺失或存在多个");
         }
-        console.log(metaInfo);
         // 解析样式
         let assStyles = assArray.filter(line => line.startsWith('Style'));
         let parsedAssStyles = {};
@@ -48,7 +47,7 @@ exports.default = {
             }
             parsedAssStyles[parsedStyle.Name] = new Style_1.default(parsedStyle);
         });
-        // 解析一般行
+        // 解析对话行
         let assLines = assArray.filter(line => line.startsWith('Dialogue'));
         let parsedAssDialogs = [];
         assLines.forEach(line => {

@@ -1,13 +1,4 @@
 declare var _default: {
-    parse(content: String, options?: {}): {
-        dialogs: any[];
-        styles: {};
-        metaInfo: {
-            resolution: {
-                width: any;
-                height: any;
-            };
-        };
-    };
+    parse(content: string, options?: {}): any;
 };
 export default _default;

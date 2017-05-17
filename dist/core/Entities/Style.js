@@ -27,6 +27,12 @@ class Style {
     set primaryColor(value) {
         this.primaryColour = value;
     }
+    get SecondaryColor() {
+        return this.secondaryColour;
+    }
+    set SecondaryColor(value) {
+        this.secondaryColour = value;
+    }
     get outlineColor() {
         return this.outlineColour;
     }

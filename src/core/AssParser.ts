@@ -6,9 +6,13 @@ import Style from './Entities/Style';
 interface parsedStyle {
     Name: string
 }
-
+interface ParseResult{
+    metaInfo: object;
+    dialogs: Dialogue[];
+    styles: object;
+}
 export default {
-    parse(content: String, options = {}) {
+    parse(content: string, options = {}) : any{
         // 按行划分。
         let assArray = content.split(/\r\n/);
 
@@ -35,7 +39,6 @@ export default {
             Log.warning("Ass 文件分辨率设定缺失或存在多个");
         }
 
-        console.log(metaInfo);
         // 解析样式
         let assStyles = assArray.filter(line => line.startsWith('Style'));
         let parsedAssStyles = {};
@@ -55,7 +58,7 @@ export default {
             parsedAssStyles[parsedStyle.Name] = new Style(parsedStyle);
         });
 
-        // 解析一般行
+        // 解析对话行
         let assLines = assArray.filter(line => line.startsWith('Dialogue'));
         let parsedAssDialogs = [];
         assLines.forEach(line => {
@@ -91,7 +94,6 @@ export default {
                 Log.error("unknown_style", `Ass 存在对话行未指定样式 Line:${index + 1}`);
             }
         })
-
         return {
             dialogs: parsedAssDialogs,
             styles: parsedAssStyles,

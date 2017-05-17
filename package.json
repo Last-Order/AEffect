@@ -4,7 +4,7 @@
   "description": "A simple tool to generate ass subtitle file with effect labels.",
   "scripts": {
     "test": "mocha",
-    "start": "tsc",
+    "start": "tsc"
   },
   "author": "Eridanus Sora <sora@sound.moe>",
   "license": "MIT",

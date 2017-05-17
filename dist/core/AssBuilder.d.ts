@@ -1,11 +1,8 @@
-declare const Dialogue: any;
-/**
- *
- */
+import AEffect from '../AEffect';
 declare class AssBuilder {
     /**
-     *
-     * @param {Dialogue} dialog
+     * @param AEffect
      */
-    static build(dialog: any): void;
+    static build(AEffect: AEffect): string;
 }
+export default AssBuilder;

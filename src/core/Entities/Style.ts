@@ -1,7 +1,26 @@
 class Style {
-    primaryColour: String;
-    outlineColour: String;
-    backColour: String;
+    name: string;
+    fontname: string;
+    primaryColour: string;
+    secondaryColour: string;
+    outlineColour: string;
+    backColour: string;
+    bold: string;
+    italic: string;
+    underline: string;
+    strikeOut: string;
+    scaleX: string;
+    scaleY: string;
+    spacing: string;
+    angle: string;
+    borderStyle: string;
+    outline: string;
+    shadow: string;
+    alignment: string;
+    marginL: string;
+    marginR: string;
+    marginV: string;
+    encoding: string;
     constructor(properties = {}) {
          ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
          .forEach((name, index) => {
@@ -27,6 +46,12 @@ class Style {
     }
     set primaryColor(value){
         this.primaryColour = value;
+    }
+    get SecondaryColor(){
+        return this.secondaryColour;
+    }
+    set SecondaryColor(value){
+        this.secondaryColour = value;
     }
     get outlineColor(){
         return this.outlineColour;
