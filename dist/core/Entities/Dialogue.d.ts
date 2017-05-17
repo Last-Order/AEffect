@@ -17,5 +17,10 @@ declare class Dialogue {
      * @override
      */
     toString(): string;
+    /**
+     * 添加模糊
+     * @param blur 模糊强度
+     */
+    addBlur(blur: number): void;
 }
 export default Dialogue;

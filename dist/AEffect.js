@@ -15,7 +15,12 @@ const AssBuilder_1 = require("./core/AssBuilder");
 const Selector_1 = require("./core/Selector");
 class AEffect {
     constructor() {
-        this.metaInfo = {};
+        this.metaInfo = {
+            resolution: {
+                width: undefined,
+                height: undefined
+            }
+        };
         this.dialogs = [];
         this.styles = {};
     }
@@ -59,7 +64,7 @@ class AEffect {
     select(condition = {}) {
         if (this.dialogs.length === 0) {
             Log_1.default.error("empty_ass", "请先载入含有对话句的 Ass 文件");
-            return false;
+            return;
         }
         return Selector_1.default.select(this, condition);
     }
@@ -67,9 +72,12 @@ class AEffect {
 (() => __awaiter(this, void 0, void 0, function* () {
     let AE = new AEffect();
     yield AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-    console.log(AE.select({
+    AE.select({
         "style": "Default",
         "name": "actor"
-    }));
+    }).forEach(dialog => {
+        dialog.addBlur(2);
+    });
+    console.log(AE.build());
 }))();
 exports.default = AEffect;

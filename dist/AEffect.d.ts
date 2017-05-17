@@ -2,7 +2,12 @@ import Dialogue from './core/Entities/Dialogue';
 interface AEffect {
     styles: object;
     dialogs: Dialogue[];
-    metaInfo: object;
+    metaInfo: {
+        resolution: {
+            width: number;
+            height: number;
+        };
+    };
     loadFromFile(path: string, encoding?: string): any;
     loadFromText(text: string): any;
 }
@@ -12,6 +17,6 @@ declare class AEffect implements AEffect {
     /**
      * 字幕选择器
      */
-    select(condition?: {}): false | Dialogue[];
+    select(condition?: {}): Dialogue[];
 }
 export default AEffect;

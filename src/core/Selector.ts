@@ -3,7 +3,7 @@ import AEffect from '../AEffect';
 import Dialogue from './Entities/Dialogue';
 
 class Selector{
-    static select(AE:AEffect, condition: object){
+    static select(AE:AEffect, condition: object): Dialogue[]{
         let dialogs = AE.dialogs;
         for (let key of Object.keys(condition)){
             dialogs = dialogs.filter((dialog) => {

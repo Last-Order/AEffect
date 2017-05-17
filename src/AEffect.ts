@@ -10,7 +10,12 @@ import Style from './core/Entities/Style';
 interface AEffect {
     styles: object;
     dialogs: Dialogue[];
-    metaInfo: object;
+    metaInfo: {
+        resolution: {
+            width: number;
+            height: number;
+        }
+    };
 
     loadFromFile(path: string, encoding?: string);
     loadFromText(text: string);
@@ -18,7 +23,12 @@ interface AEffect {
 
 class AEffect implements AEffect {
     constructor() {
-        this.metaInfo = {};
+        this.metaInfo = {
+            resolution: {
+                width: undefined,
+                height: undefined
+            }
+        };
         this.dialogs = [];
         this.styles = {};
     }
@@ -56,7 +66,7 @@ class AEffect implements AEffect {
         return this;
     }
 
-    build(){
+    build() {
         return AssBuilder.build(this);
     }
 
@@ -64,22 +74,26 @@ class AEffect implements AEffect {
      * 字幕选择器
      */
     select(condition = {}) {
-        if (this.dialogs.length === 0){
+        if (this.dialogs.length === 0) {
             Log.error("empty_ass", "请先载入含有对话句的 Ass 文件");
-            return false;
+            return;
         }
         return Selector.select(this, condition);
     }
 }
 
-(async ()=>{
+(async () => {
     let AE = new AEffect()
     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-
-    console.log(AE.select({
+    
+    AE.select({
         "style": "Default",
         "name": "actor"
-    }));
+    }).forEach(dialog => {
+        dialog.addBlur(2);
+    })
+
+    console.log(AE.build());
 })()
 
 

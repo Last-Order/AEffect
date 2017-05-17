@@ -16,10 +16,22 @@ class Dialogue {
         let ass = "Dialogue: ";
         let temp = [];
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
-            temp.push(this[name[0].toLowerCase() + name.slice(1)]);
+            if (name === "Style") {
+                temp.push(this.style.name);
+            }
+            else {
+                temp.push(this[name[0].toLowerCase() + name.slice(1)]);
+            }
         });
         ass += temp.join(',');
         return ass;
+    }
+    /**
+     * 添加模糊
+     * @param blur 模糊强度
+     */
+    addBlur(blur) {
+        this.text = `{\\blur${blur}}` + this.text;
     }
 }
 exports.default = Dialogue;
