@@ -8,21 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require('fs');
+const fs = require("fs");
 const Log_1 = require("./utils/Log");
 const AssParser_1 = require("./core/AssParser");
 const AssBuilder_1 = require("./core/AssBuilder");
 const Selector_1 = require("./core/Selector");
+const MetaInfo_1 = require("./core/Entities/MetaInfo");
 class AEffect {
     constructor() {
-        this.metaInfo = {
-            resolution: {
-                width: undefined,
-                height: undefined
-            }
-        };
+        this.styles = new Map();
         this.dialogs = [];
-        this.styles = {};
+        this.metaInfo = new MetaInfo_1.default();
     }
     /**
      * 从文件读取字幕
@@ -34,7 +30,7 @@ class AEffect {
             fs.readFile(path, encoding, (error, data) => {
                 if (error) {
                     Log_1.default.error("file_not_found", "找不到指定的文件");
-                    reject();
+                    reject(error);
                 }
                 let result = AssParser_1.default.parse(data);
                 this.metaInfo = result.metaInfo;
@@ -78,3 +74,4 @@ class AEffect {
     console.log(AE.build());
 }))();
 exports.default = AEffect;
+//# sourceMappingURL=AEffect.js.map

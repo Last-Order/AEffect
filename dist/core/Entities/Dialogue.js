@@ -1,7 +1,7 @@
+"use strict";
 /**
  * Ass Dialogue 类
  */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Dialogue {
     constructor(properties = {}) {
@@ -35,3 +35,4 @@ class Dialogue {
     }
 }
 exports.default = Dialogue;
+//# sourceMappingURL=Dialogue.js.map

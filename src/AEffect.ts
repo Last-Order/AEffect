@@ -1,4 +1,5 @@
-const fs = require('fs');
+import * as fs from 'fs'
+
 import Log from './utils/Log';
 import AssParser from './core/AssParser';
 import AssBuilder from './core/AssBuilder';
@@ -6,31 +7,17 @@ import Selector from './core/Selector';
 
 import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
+import MetaInfo from './core/Entities/MetaInfo'
 
-interface AEffect {
-    styles: object;
+class AEffect{
+    styles: Map<string, Style>;
     dialogs: Dialogue[];
-    metaInfo: {
-        resolution: {
-            width: number;
-            height: number;
-        }
-    };
+    metaInfo: MetaInfo;
 
-    loadFromFile(path: string, encoding?: string);
-    loadFromText(text: string);
-}
-
-class AEffect implements AEffect {
     constructor() {
-        this.metaInfo = {
-            resolution: {
-                width: undefined,
-                height: undefined
-            }
-        };
+        this.styles = new Map();
         this.dialogs = [];
-        this.styles = {};
+        this.metaInfo = new MetaInfo();
     }
 
     /**
@@ -43,7 +30,7 @@ class AEffect implements AEffect {
             fs.readFile(path, encoding, (error, data) => {
                 if (error) {
                     Log.error("file_not_found", "找不到指定的文件");
-                    reject();
+                    reject(error);
                 }
                 let result = AssParser.parse(data);
                 this.metaInfo = result.metaInfo;
