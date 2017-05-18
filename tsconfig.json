@@ -4,7 +4,9 @@
         "outDir": "dist",
         "declaration": true,
         "module": "commonjs",
-        "sourceMap": true
+        "sourceMap": true,
+        "lib": ["es7"],
+        "watch": true
     },
     "include": [
         "src/**/*"

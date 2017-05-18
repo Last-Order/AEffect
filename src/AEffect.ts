@@ -72,7 +72,7 @@ class AEffect{
 (async () => {
     let AE = new AEffect()
     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-    
+
     AE.select().forEach(dialog => {
         dialog.addBlur(2);
     })

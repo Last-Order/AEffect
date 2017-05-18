@@ -14,6 +14,7 @@ Audio File: dummy-audio:silence?sr=44100&bd=16&ch=1&ln=396900000
 Video File: ?dummy:59.940000:4500000:1920:1080:129:129:129:c
 Video AR Value: 1.777778
 Video Zoom Percent: 0.250000
+Active Line: 2
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
@@ -23,4 +24,4 @@ Style: Default,Arial,20,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,测试字幕,,
 Dialogue: 0,0:00:05.00,0:00:07.00,Default,actor,0,0,0,,{\k50}有k{\k112}值的字{\k38}幕
-Dialogue: 0,0:00:07.00,0:00:09.00,Default,,0,0,0,,
+Comment: 0,0:00:07.00,0:00:09.00,Default,,0,0,0,,
