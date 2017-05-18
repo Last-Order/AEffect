@@ -13,8 +13,10 @@ interface ParseResult{
 }
 export default {
     parse(content: string, options = {}) : any{
-        // 按行划分。
-        let assArray = content.split(/\r\n/);
+        // 清除所有\r
+        content = content.replace(/\r/g, "");
+        // 按\n划分。
+        let assArray = content.split(/\n/);
 
         // 解析设置信息
         let metaInfo = {
