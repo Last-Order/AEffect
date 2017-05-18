@@ -24,4 +24,30 @@ describe("正在测试颜色类", () => {
             expect(color.green).to.be.equal(0);
         });
     });
+    describe("HTML代码解析", ()=>{
+        it("正常测试", ()=>{
+            let color = Color.HTML("#C0FF00");
+            expect([color.red, color.green, color.blue]).to.be.deep.equal([192, 255, 0]);
+        });
+    });
+    describe("ASS代码解析", ()=>{
+        it("正常测试", ()=>{
+            let color = Color.ASS("&H004D4D9A");
+            expect([color.red, color.green, color.blue, color.alpha]).to.be.deep.equal([154, 77, 77, 0]);
+        });
+        it("短代码", ()=>{
+            let color = Color.ShortASS("&HD8DB54");
+            expect([color.red, color.green, color.blue, color.alpha]).to.be.deep.equal([84, 219, 216, 0]);
+        });
+    });
+    describe("生成ASS代码", ()=>{
+        it("普通ass代码", ()=>{
+            let color = new Color(51, 66, 109, 0);
+            expect(color.toString()).to.be.equal("&H006D4233");
+        });
+        it("短ass代码", ()=>{
+            let color = new Color(51, 66, 109, 0);
+            expect(color.toShortString()).to.be.equal("&H6D4233");
+        });
+    });
 });
