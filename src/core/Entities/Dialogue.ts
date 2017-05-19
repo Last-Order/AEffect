@@ -2,16 +2,18 @@
  * Ass Dialogue 类
  */
 
-import Style from './Style';
+import Style from './Style'
+import Time from './Time'
 
 class Dialogue {
+    layer: number;
+    start: Time;
+    end: Time;
     style: Style;
-    start: string;
-    end: string;
-    name: string;
-    marginL: string;
-    marginR: string;
-    marginV: string;
+    name: string; // 说话人
+    marginL: number = 0;
+    marginR: number = 0;
+    marginV: number = 0;
     effect: string;
     text: string;
     constructor(properties = {}, styleMap = {}) {
