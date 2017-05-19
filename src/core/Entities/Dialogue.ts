@@ -14,9 +14,22 @@ class Dialogue {
     marginV: string;
     effect: string;
     text: string;
-    constructor(properties = {}) {
+    constructor(properties = {}, styleMap = {}) {
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
-            this[name[0].toLowerCase() + name.slice(1)] = properties[name];
+            if (properties[name]){
+                // 该属性存在
+                if (name === "Style"){
+                    if (styleMap[properties[name]]){
+                        this.style = styleMap[properties[name]];
+                    }
+                    else{
+                        throw new Error("Ass 存在对话行未指定样式");
+                    }
+                }
+                else{
+                    this[name[0].toLowerCase() + name.slice(1)] = properties[name];
+                }
+            }
         })
     }
     /**

@@ -4,6 +4,7 @@ const Log_1 = require("../utils/Log");
 // Entities
 const Dialogue_1 = require("./Entities/Dialogue");
 const Style_1 = require("./Entities/Style");
+const MetaInfo_1 = require("./Entities/MetaInfo");
 exports.default = {
     parse(content, options = {}) {
         // 清除所有\r
@@ -37,12 +38,7 @@ exports.default = {
             }
         });
         // 解析设置信息
-        let metaInfo = {
-            resolution: {
-                width: undefined,
-                height: undefined
-            }
-        };
+        let metaInfo = new MetaInfo_1.default();
         let widthLine = metaInfoBlock.filter(line => line.startsWith("PlayResX"));
         if (widthLine.length === 1) {
             metaInfo.resolution.width = parseInt(widthLine[0].split("PlayResX:")[1].trim());
@@ -80,7 +76,7 @@ exports.default = {
         // 根据格式解析样式行
         styleBlock.forEach(line => {
             let parsedStyle = {
-                Name: undefined
+                Name: "___AEffect_unknown_style__B"
             };
             line.split('Style:')[1].trim().split(',').forEach((property, index, lineArray) => {
                 if (index <= styleFormat.length - 1) {
@@ -138,17 +134,13 @@ exports.default = {
                 catch (e) {
                 }
             });
-            parsedAssDialogs.push(new Dialogue_1.default(parsedDialog));
+            try {
+                parsedAssDialogs.push(new Dialogue_1.default(parsedDialog, parsedAssStyles));
+            }
+            catch (e) {
+            }
         });
         // 链接样式
-        parsedAssDialogs.forEach((dialog, index) => {
-            if (parsedAssStyles[dialog.style] !== undefined) {
-                dialog.style = parsedAssStyles[dialog.style];
-            }
-            else {
-                Log_1.default.error("unknown_style", `Ass 存在对话行未指定样式 Line:${index + 1}`);
-            }
-        });
         return {
             dialogs: parsedAssDialogs,
             styles: parsedAssStyles,

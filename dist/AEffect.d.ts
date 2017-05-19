@@ -2,7 +2,9 @@ import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo';
 declare class AEffect {
-    styles: Map<string, Style>;
+    styles: {
+        [index: string]: Style;
+    };
     dialogs: Dialogue[];
     metaInfo: MetaInfo;
     constructor();
