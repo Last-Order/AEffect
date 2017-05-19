@@ -2,14 +2,16 @@
  * Ass Dialogue 类
  */
 import Style from './Style';
+import Time from './Time';
 declare class Dialogue {
+    layer: number;
+    start: Time;
+    end: Time;
     style: Style;
-    start: string;
-    end: string;
     name: string;
-    marginL: string;
-    marginR: string;
-    marginV: string;
+    marginL: number;
+    marginR: number;
+    marginV: number;
     effect: string;
     text: string;
     constructor(properties?: {}, styleMap?: {});
@@ -17,10 +19,5 @@ declare class Dialogue {
      * @override
      */
     toString(): string;
-    /**
-     * 添加模糊
-     * @param blur 模糊强度
-     */
-    addBlur(blur: number): void;
 }
 export default Dialogue;
