@@ -1,4 +1,4 @@
-import '../../utils/Leftpad.ts'
+import '../../utils/Leftpad'
 
 class Time{
     second: number;
@@ -7,7 +7,7 @@ class Time{
     }
     toString(): string {
         let hour = (~~(this.second / 3600)).toString();
-        let minute = (~~(this.second / 60 % 60)).toString();
+        let minute = (~~(this.second / 60 % 60)).toString().leftpad(2, '0');
         let secondOriNum = this.second % 60;
         let second: string;
         if (secondOriNum < 10) {
