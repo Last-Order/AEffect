@@ -64,5 +64,8 @@ class Style {
         this.backColour = value;
     }
 }
+class StyleError extends Error {
+}
+exports.StyleError = StyleError;
 exports.default = Style;
 //# sourceMappingURL=Style.js.map

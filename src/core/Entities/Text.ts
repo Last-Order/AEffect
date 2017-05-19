@@ -1,7 +1,7 @@
 import Effect from '../Effects/base/Effect'
 
 class Text{
-    groups: TextGroup[];
+    groups: TextGroup[] = [];
     originalText: string;
     constructor(text: string){
         this.originalText = text;

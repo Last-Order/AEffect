@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 Number.prototype.checkBound = function (min, max) {
     if (min > max) {
         throw new RangeError("min number should small than max number.");

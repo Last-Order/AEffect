@@ -1,7 +1,7 @@
 export {  };
 declare global  {
     interface String {
-        leftpad(length: number, fill: string): string;
+        explode(separator: string, limit: number): string[];
     }
 }
 export {};

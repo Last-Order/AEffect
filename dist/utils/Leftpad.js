@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 String.prototype.leftpad = function (length, fill) {
     if (fill.length !== 1) {
         throw new RangeError("fill key should be 1 character.");

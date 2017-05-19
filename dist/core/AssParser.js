@@ -5,6 +5,10 @@ const Log_1 = require("../utils/Log");
 const Dialogue_1 = require("./Entities/Dialogue");
 const Style_1 = require("./Entities/Style");
 const MetaInfo_1 = require("./Entities/MetaInfo");
+const Time_1 = require("./Entities/Time");
+const Text_1 = require("./Entities/Text");
+require("../utils/Explode");
+require("../utils/ToFirstLowerCase");
 exports.default = {
     parse(content, options = {}) {
         // 清除所有\r
@@ -113,25 +117,48 @@ exports.default = {
         eventBlock = eventBlock.slice(1);
         // 根据样式格式解析对话行
         eventBlock.forEach(line => {
-            let parsedDialog = {};
+            let parsedDialog = {
+                layer: 0,
+                start: new Time_1.default(0),
+                end: new Time_1.default(0),
+                styleName: null,
+                name: "",
+                marginL: 0,
+                marginR: 0,
+                marginV: 0,
+                effect: "",
+                text: null,
+                isComment: false
+            };
             let dialogBody;
             if (line.startsWith("Comment:")) {
                 dialogBody = line.split("Comment:")[1].trim();
+                parsedDialog.isComment = true;
             }
             else {
                 dialogBody = line.split("Dialogue:")[1].trim();
             }
-            dialogBody.split(",").forEach((property, index, lineArray) => {
-                try {
-                    if (index <= dialogFormat.length - 2) {
-                        parsedDialog[dialogFormat[index]] = property;
-                    }
-                    else {
-                        parsedDialog['Text'] = lineArray.slice(dialogFormat.length - 1).join(',');
-                        throw new Error(); // 停止遍历
-                    }
-                }
-                catch (e) {
+            dialogBody.explode(",", dialogFormat.length).forEach((propertyValue, index) => {
+                let propertyKey = dialogFormat[index].toFirstLowerCase();
+                switch (propertyKey) {
+                    case 'layer':
+                    case 'marginL':
+                    case 'marginR':
+                    case 'marginV':
+                        parsedDialog[propertyKey] = parseInt(propertyValue);
+                        break;
+                    case 'styleName':
+                    case 'name':
+                    case 'effect':
+                        parsedDialog[propertyKey] = propertyValue;
+                        break;
+                    case 'start':
+                    case 'end':
+                        parsedDialog[propertyKey] = Time_1.default.parse(propertyValue);
+                        break;
+                    case 'text':
+                        parsedDialog[propertyKey] = new Text_1.default(propertyValue);
+                        break;
                 }
             });
             try {

@@ -3,6 +3,20 @@
  */
 import Style from './Style';
 import Time from './Time';
+import Text from './Text';
+export interface DialogueConstructProperties {
+    layer: number;
+    start: Time;
+    end: Time;
+    styleName: string;
+    name: string;
+    marginL: number;
+    marginR: number;
+    marginV: number;
+    effect: string;
+    text: Text;
+    isComment: boolean;
+}
 declare class Dialogue {
     layer: number;
     start: Time;
@@ -13,8 +27,11 @@ declare class Dialogue {
     marginR: number;
     marginV: number;
     effect: string;
-    text: string;
-    constructor(properties?: {}, styleMap?: {});
+    text: Text;
+    isComment: boolean;
+    constructor(properties: DialogueConstructProperties, styleMap: {
+        [index: string]: Style;
+    });
     /**
      * @override
      */

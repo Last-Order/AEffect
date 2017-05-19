@@ -1,6 +1,8 @@
 import Dialogue from './Entities/Dialogue';
 import Style from './Entities/Style';
 import MetaInfo from './Entities/MetaInfo';
+import '../utils/Explode';
+import '../utils/ToFirstLowerCase';
 export interface ParseResult {
     metaInfo: MetaInfo;
     dialogs: Dialogue[];

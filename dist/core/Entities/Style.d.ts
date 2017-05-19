@@ -49,4 +49,6 @@ declare class Style {
     outlineColor: Color;
     backColor: Color;
 }
+export declare class StyleError extends Error {
+}
 export default Style;
