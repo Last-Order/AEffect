@@ -64,7 +64,12 @@ npm install
 npm install -g typescript # skip if typescript is already installed
 ```
 
-### Start watching source files
+### Starting watching source files
 ```bash
 tsc
+```
+
+### Running Unit Tests
+```bash
+    npm run test
 ```
