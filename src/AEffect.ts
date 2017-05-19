@@ -32,11 +32,13 @@ class AEffect{
                     Log.error("file_not_found", "找不到指定的文件");
                     reject(error);
                 }
-                let result = AssParser.parse(data);
-                this.metaInfo = result.metaInfo;
-                this.dialogs = result.dialogs;
-                this.styles = result.styles;
-                resolve(this)
+                else{
+                    let result = AssParser.parse(data);
+                    this.metaInfo = result.metaInfo;
+                    this.dialogs = result.dialogs;
+                    this.styles = result.styles;
+                    resolve(this)
+                }
             })
         })
     }
@@ -47,9 +49,11 @@ class AEffect{
      */
     loadFromText(text) {
         let result = AssParser.parse(text);
-        this.metaInfo = result.metaInfo;
-        this.dialogs = result.dialogs;
-        this.styles = result.styles;
+        if (result){
+            this.metaInfo = result.metaInfo;
+            this.dialogs = result.dialogs;
+            this.styles = result.styles;
+        }
         return this;
     }
 
@@ -69,16 +73,16 @@ class AEffect{
     }
 }
 
-(async () => {
-    let AE = new AEffect()
-    await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-
-    AE.select().forEach(dialog => {
-        dialog.addBlur(2);
-    })
-
-    console.log(AE.build());
-})()
+// (async () => {
+//     let AE = new AEffect()
+//     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
+//
+//     AE.select().forEach(dialog => {
+//         dialog.addBlur(2);
+//     })
+//
+//     console.log(AE.build());
+// })()
 
 
 export default AEffect;
