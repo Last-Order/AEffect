@@ -51,14 +51,6 @@ class Dialogue {
         ass += temp.join(',');
         return ass;
     }
-
-    /**
-     * 添加模糊
-     * @param blur 模糊强度
-     */
-    addBlur(blur: number){
-        this.text = `{\\blur${blur}}` + this.text;
-    }
 }
 
 export default Dialogue;

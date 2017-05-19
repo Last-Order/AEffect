@@ -5,6 +5,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Dialogue {
     constructor(properties = {}, styleMap = {}) {
+        this.marginL = 0;
+        this.marginR = 0;
+        this.marginV = 0;
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
             if (properties[name]) {
                 // 该属性存在
@@ -38,13 +41,6 @@ class Dialogue {
         });
         ass += temp.join(',');
         return ass;
-    }
-    /**
-     * 添加模糊
-     * @param blur 模糊强度
-     */
-    addBlur(blur) {
-        this.text = `{\\blur${blur}}` + this.text;
     }
 }
 exports.default = Dialogue;

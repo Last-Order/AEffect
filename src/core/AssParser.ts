@@ -163,8 +163,6 @@ export default {
             }
         });
 
-        // 链接样式
-
         return {
             dialogs: parsedAssDialogs,
             styles: parsedAssStyles,
