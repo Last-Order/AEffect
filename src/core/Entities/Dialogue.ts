@@ -4,6 +4,25 @@
 
 import Style from './Style'
 import Time from './Time'
+import Text from './Text'
+
+import { StyleError } from './Style'
+
+import {Blur} from './Text'
+
+export interface DialogueConstructProperties{
+    layer: number;
+    start: Time;
+    end: Time;
+    styleName: string;
+    name: string;
+    marginL: number;
+    marginR: number;
+    marginV: number;
+    effect: string;
+    text: Text;
+    isComment: boolean;
+}
 
 class Dialogue {
     layer: number;
@@ -15,20 +34,21 @@ class Dialogue {
     marginR: number = 0;
     marginV: number = 0;
     effect: string;
-    text: string;
-    constructor(properties = {}, styleMap = {}) {
-        ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
-            if (properties[name]){
+    text: Text;
+    isComment: boolean;
+    constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}) {
+        ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
+            if (properties[name]) {
                 // 该属性存在
-                if (name === "Style"){
-                    if (styleMap[properties[name]]){
+                if (name === "styleName") {
+                    if (styleMap[properties[name]]) {
                         this.style = styleMap[properties[name]];
                     }
-                    else{
-                        throw new Error("Ass 存在对话行未指定样式");
+                    else {
+                        throw new StyleError("Ass 存在对话行未指定样式");
                     }
                 }
-                else{
+                else {
                     this[name[0].toLowerCase() + name.slice(1)] = properties[name];
                 }
             }
@@ -39,13 +59,16 @@ class Dialogue {
      */
     toString() {
         let ass = "Dialogue: ";
-        let temp = [];
+        if(this.isComment){
+            ass = "Comment: ";
+        }
+        let temp: string[] = [];
         ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"].forEach((name, index) => {
             if (name === "Style") {
                 temp.push(this.style.name);
             }
             else {
-                temp.push(this[name[0].toLowerCase() + name.slice(1)]);
+                temp.push(this[name[0].toLowerCase() + name.slice(1)].toString());
             }
         })
         ass += temp.join(',');
@@ -56,8 +79,8 @@ class Dialogue {
      * 添加模糊
      * @param blur 模糊强度
      */
-    addBlur(blur: number){
-        this.text = `{\\blur${blur}}` + this.text;
+    addBlur(blur: number) {
+        this.text.groups[0].effectGroup.push(new Blur(blur));
     }
 }
 

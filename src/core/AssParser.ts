@@ -1,8 +1,14 @@
 import Log from '../utils/Log'
 // Entities
-import Dialogue from './Entities/Dialogue';
-import Style from './Entities/Style';
+import Dialogue from './Entities/Dialogue'
+import { DialogueConstructProperties } from './Entities/Dialogue'
+import Style from './Entities/Style'
 import MetaInfo from './Entities/MetaInfo'
+import Time from './Entities/Time'
+import Text from './Entities/Text'
+
+import '../utils/Explode'
+import '../utils/ToFirstLowerCase'
 
 
 export interface ParseResult {
@@ -133,32 +139,54 @@ export default {
 
         // 根据样式格式解析对话行
         eventBlock.forEach(line => {
-            let parsedDialog: { [index: string]: string } = {};
+            let parsedDialog: DialogueConstructProperties = {
+                layer: 0,
+                start: new Time(0),
+                end: new Time(0),
+                styleName: null,
+                name: "",
+                marginL: 0,
+                marginR: 0,
+                marginV: 0,
+                effect: "",
+                text: null,
+                isComment: false
+            };
             let dialogBody: string;
             if (line.startsWith("Comment:")) {
                 dialogBody = line.split("Comment:")[1].trim();
+                parsedDialog.isComment = true;
             }
             else {
                 dialogBody = line.split("Dialogue:")[1].trim();
             }
-            dialogBody.split(",").forEach((property, index, lineArray) => {
-                try {
-                    if (index <= dialogFormat.length - 2) {
-                        parsedDialog[dialogFormat[index]] = property;
-                    }
-                    else {
-                        parsedDialog['Text'] = lineArray.slice(dialogFormat.length - 1).join(',');
-                        throw new Error(); // 停止遍历
-                    }
-                }
-                catch (e) {
-
+            dialogBody.explode(",", dialogFormat.length).forEach((propertyValue, index) => {
+                let propertyKey = dialogFormat[index].toFirstLowerCase();
+                switch(propertyKey){
+                    case 'layer': 
+                    case 'marginL':
+                    case 'marginR':
+                    case 'marginV':
+                        parsedDialog[propertyKey] = parseInt(propertyValue);
+                        break;
+                    case 'styleName':
+                    case 'name':
+                    case 'effect':
+                        parsedDialog[propertyKey] = propertyValue;
+                        break;
+                    case 'start':
+                    case 'end':
+                        parsedDialog[propertyKey] = Time.parse(propertyValue);
+                        break;
+                    case 'text':
+                        parsedDialog[propertyKey] = new Text(propertyValue);
+                        break;
                 }
             });
-            try{
+            try {
                 parsedAssDialogs.push(new Dialogue(parsedDialog, parsedAssStyles));
             }
-            catch(e){
+            catch (e) {
 
             }
         });

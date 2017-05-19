@@ -1,10 +1,10 @@
 import Color from './Color'
 
-export enum BorderStyle{
+export enum BorderStyle {
     BorderAndShadow = 1, // 边框+阴影
     PureBackground = 3 // 纯色背景
 }
-export enum Alignment{
+export enum Alignment {
     UndefinedAlignment,
     LeftBottom,
     Bottom,
@@ -42,49 +42,51 @@ class Style {
     marginV: number; // 垂直边距
     encoding: number; // Codepage Number （请使用Unicode编码来避免此字段 GBK:134）
     constructor(properties = {}) {
-         ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
-         .forEach((name, index) => {
-            this[name[0].toLowerCase() + name.slice(1)] = properties[name];
-         });
+        ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
+            .forEach((name, index) => {
+                this[name[0].toLowerCase() + name.slice(1)] = properties[name];
+            });
     }
-     /**
-     * @override
-     */ 
-    toString(){
+    /**
+    * @override
+    */
+    toString() {
         let ass = "Style: ";
         let temp = [];
         ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
-        .forEach(name => {
-            temp.push(this[name[0].toLowerCase() + name.slice(1)]);
-        });
+            .forEach(name => {
+                temp.push(this[name[0].toLowerCase() + name.slice(1)]);
+            });
         ass += temp.join(',');
         return ass;
     }
     // 别名
-    get primaryColor(){
+    get primaryColor() {
         return this.primaryColour;
     }
-    set primaryColor(value){
+    set primaryColor(value) {
         this.primaryColour = value;
     }
-    get SecondaryColor(){
+    get SecondaryColor() {
         return this.secondaryColour;
     }
-    set SecondaryColor(value){
+    set SecondaryColor(value) {
         this.secondaryColour = value;
     }
-    get outlineColor(){
+    get outlineColor() {
         return this.outlineColour;
     }
-    set outlineColor(value){
+    set outlineColor(value) {
         this.outlineColour = value;
     }
-    get backColor(){
+    get backColor() {
         return this.backColour;
     }
-    set backColor(value){
+    set backColor(value) {
         this.backColour = value;
     }
 }
+
+export class StyleError extends Error { }
 
 export default Style;
