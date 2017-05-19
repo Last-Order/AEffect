@@ -2,17 +2,17 @@ import Log from '../utils/Log'
 // Entities
 import Dialogue from './Entities/Dialogue';
 import Style from './Entities/Style';
+import MetaInfo from './Entities/MetaInfo'
 
-interface parsedStyle {
-    Name: string
-}
-interface ParseResult {
-    metaInfo: object;
+
+export interface ParseResult {
+    metaInfo: MetaInfo;
     dialogs: Dialogue[];
-    styles: object;
+    styles: {[index: string]:Style};
 }
+
 export default {
-    parse(content: string, options = {}): any{
+    parse(content: string, options = {}): ParseResult {
         // 清除所有\r
         content = content.replace(/\r/g, "");
         // 按\n划分。
@@ -24,10 +24,10 @@ export default {
             return;
         }
 
-        let metaInfoBlock = [];
-        let styleBlock = [];
-        let eventBlock = [];
-        let nowBlock;
+        let metaInfoBlock: string[] = [];
+        let styleBlock: string[] = [];
+        let eventBlock: string[] = [];
+        let nowBlock:string[];
         assArray.forEach(line => {
             if (line.trim().startsWith("[")) {
                 try {
@@ -47,12 +47,7 @@ export default {
         });
 
         // 解析设置信息
-        let metaInfo = {
-            resolution: {
-                width: undefined,
-                height: undefined
-            }
-        };
+        let metaInfo = new MetaInfo();
 
         let widthLine = metaInfoBlock.filter(line => line.startsWith("PlayResX"));
         if (widthLine.length === 1) {
@@ -70,22 +65,22 @@ export default {
         }
 
         // 解析样式
-        let parsedAssStyles = {};
+        let parsedAssStyles:{[value: string]:Style} = {};
         let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
 
-        if (!styleBlock[0].trim().startsWith("Format:")){
+        if (!styleBlock[0].trim().startsWith("Format:")) {
             Log.error("missing_style_format", "Ass 文件样式部分缺少格式定义");
             return;
         }
 
         // 解析样式格式定义
         let styleFormatLine = styleBlock[0].split("Format:")[1].trim().split(",");
-        let styleFormat = [];
-        for (let styleFormatKey of styleFormatLine){
-            if (validStyleFormatKeys.includes(styleFormatKey.trim())){
+        let styleFormat:string[] = [];
+        for (let styleFormatKey of styleFormatLine) {
+            if (validStyleFormatKeys.includes(styleFormatKey.trim())) {
                 styleFormat.push(styleFormatKey.trim());
             }
-            else{
+            else {
                 Log.error("invalid_style_format_definition", "Ass 样式部分格式定义不合法");
                 return;
             }
@@ -96,13 +91,13 @@ export default {
         // 根据格式解析样式行
         styleBlock.forEach(line => {
             let parsedStyle = {
-                Name: undefined
+                Name: "___AEffect_unknown_style__B"
             };
             line.split('Style:')[1].trim().split(',').forEach((property, index, lineArray) => {
-                if (index <= styleFormat.length - 1){
+                if (index <= styleFormat.length - 1) {
                     parsedStyle[styleFormat[index]] = property.trim()
                 }
-                else{
+                else {
                     Log.error("invalid_ass_style_definition", "Ass 样式定义与自身样式格式定义不符");
                 }
             });
@@ -110,26 +105,26 @@ export default {
         });
 
         // 解析对话行
-        let parsedAssDialogs = [];
+        let parsedAssDialogs:Dialogue[] = [];
         let validDialogFormatKey = ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"];
         // 解析对话行格式
-        if (!eventBlock[0].trim().startsWith("Format:")){
+        if (!eventBlock[0].trim().startsWith("Format:")) {
             Log.error("missing_dialog_format", "缺少对话行格式定义");
         }
 
         let dialogFormatLine = eventBlock[0].split("Format:")[1].trim().split(",");
-        let dialogFormat = [];
-        for (let dialogFormatKey of dialogFormatLine){
-            if (validDialogFormatKey.includes(dialogFormatKey.trim())){
+        let dialogFormat:string[] = [];
+        for (let dialogFormatKey of dialogFormatLine) {
+            if (validDialogFormatKey.includes(dialogFormatKey.trim())) {
                 dialogFormat.push(dialogFormatKey.trim());
             }
-            else{
+            else {
                 Log.error("invalid_dialog_format_definition", "对话行格式定义不合法");
                 return;
             }
         }
 
-        if (dialogFormat[dialogFormat.length - 1] !== "Text"){
+        if (dialogFormat[dialogFormat.length - 1] !== "Text") {
             // Text 只能在最后 否则无法区分带有逗号的内容
             Log.error("invalid_dialog_format_definition", "对话行格式定义不合法，Text 只能在最末");
         }
@@ -137,18 +132,18 @@ export default {
         eventBlock = eventBlock.slice(1);
 
         // 根据样式格式解析对话行
-        eventBlock.forEach(line  => {
-            let parsedDialog = {};
-            let dialogBody;
-            if (line.startsWith("Comment:")){
+        eventBlock.forEach(line => {
+            let parsedDialog:{[index: string]:string} = {};
+            let dialogBody:string;
+            if (line.startsWith("Comment:")) {
                 dialogBody = line.split("Comment:")[1].trim();
             }
-            else{
+            else {
                 dialogBody = line.split("Dialogue:")[1].trim();
             }
             dialogBody.split(",").forEach((property, index, lineArray) => {
-                try{
-                    if (index <= dialogFormat.length - 2){
+                try {
+                    if (index <= dialogFormat.length - 2) {
                         parsedDialog[dialogFormat[index]] = property;
                     }
                     else {
@@ -156,7 +151,7 @@ export default {
                         throw new Error(); // 停止遍历
                     }
                 }
-                catch (e){
+                catch (e) {
 
                 }
             });
