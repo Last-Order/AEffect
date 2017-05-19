@@ -1,5 +1,9 @@
-interface Number{
-    checkBound(min: number, max: number): number;
+export {}
+
+declare global{
+    interface Number{
+        checkBound(min: number, max: number): number;
+    }
 }
 
 Number.prototype.checkBound = function(min: number, max: number){
