@@ -1,17 +1,4 @@
-export interface Effect{
-    tagName: string;
-    toString(): string;
-}
-export class Blur implements Effect{
-    tagName = '\blur';
-    strength: number;
-    constructor(strength: number){
-        this.strength = strength;
-    }
-    toString(){
-        return this.tagName + this.strength;
-    }
-}
+import Effect from '../Effects/base/Effect'
 
 class Text{
     groups: TextGroup[];

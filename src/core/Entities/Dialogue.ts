@@ -8,8 +8,6 @@ import Text from './Text'
 
 import { StyleError } from './Style'
 
-import {Blur} from './Text'
-
 export interface DialogueConstructProperties{
     layer: number;
     start: Time;
