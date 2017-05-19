@@ -10,12 +10,12 @@ import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo'
 
 class AEffect{
-    styles: Map<string, Style>;
+    styles: {[index: string]: Style};
     dialogs: Dialogue[];
     metaInfo: MetaInfo;
 
     constructor() {
-        this.styles = new Map();
+        this.styles = {};
         this.dialogs = [];
         this.metaInfo = new MetaInfo();
     }

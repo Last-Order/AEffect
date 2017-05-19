@@ -8,7 +8,7 @@ const Selector_1 = require("./core/Selector");
 const MetaInfo_1 = require("./core/Entities/MetaInfo");
 class AEffect {
     constructor() {
-        this.styles = new Map();
+        this.styles = {};
         this.dialogs = [];
         this.metaInfo = new MetaInfo_1.default();
     }
@@ -61,15 +61,5 @@ class AEffect {
         return Selector_1.default.select(this, condition);
     }
 }
-// (async () => {
-//     let AE = new AEffect()
-//     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-//
-//     AE.select().forEach(dialog => {
-//         dialog.addBlur(2);
-//     })
-//
-//     console.log(AE.build());
-// })()
 exports.default = AEffect;
 //# sourceMappingURL=AEffect.js.map

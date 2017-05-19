@@ -8,7 +8,7 @@ import MetaInfo from './Entities/MetaInfo'
 export interface ParseResult {
     metaInfo: MetaInfo;
     dialogs: Dialogue[];
-    styles: {[index: string]:Style};
+    styles: { [index: string]: Style };
 }
 
 export default {
@@ -27,7 +27,7 @@ export default {
         let metaInfoBlock: string[] = [];
         let styleBlock: string[] = [];
         let eventBlock: string[] = [];
-        let nowBlock:string[];
+        let nowBlock: string[];
         assArray.forEach(line => {
             if (line.trim().startsWith("[")) {
                 try {
@@ -65,7 +65,7 @@ export default {
         }
 
         // 解析样式
-        let parsedAssStyles:{[value: string]:Style} = {};
+        let parsedAssStyles: { [value: string]: Style } = {};
         let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
 
         if (!styleBlock[0].trim().startsWith("Format:")) {
@@ -75,7 +75,7 @@ export default {
 
         // 解析样式格式定义
         let styleFormatLine = styleBlock[0].split("Format:")[1].trim().split(",");
-        let styleFormat:string[] = [];
+        let styleFormat: string[] = [];
         for (let styleFormatKey of styleFormatLine) {
             if (validStyleFormatKeys.includes(styleFormatKey.trim())) {
                 styleFormat.push(styleFormatKey.trim());
@@ -105,7 +105,7 @@ export default {
         });
 
         // 解析对话行
-        let parsedAssDialogs:Dialogue[] = [];
+        let parsedAssDialogs: Dialogue[] = [];
         let validDialogFormatKey = ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"];
         // 解析对话行格式
         if (!eventBlock[0].trim().startsWith("Format:")) {
@@ -113,7 +113,7 @@ export default {
         }
 
         let dialogFormatLine = eventBlock[0].split("Format:")[1].trim().split(",");
-        let dialogFormat:string[] = [];
+        let dialogFormat: string[] = [];
         for (let dialogFormatKey of dialogFormatLine) {
             if (validDialogFormatKey.includes(dialogFormatKey.trim())) {
                 dialogFormat.push(dialogFormatKey.trim());
@@ -133,8 +133,8 @@ export default {
 
         // 根据样式格式解析对话行
         eventBlock.forEach(line => {
-            let parsedDialog:{[index: string]:string} = {};
-            let dialogBody:string;
+            let parsedDialog: { [index: string]: string } = {};
+            let dialogBody: string;
             if (line.startsWith("Comment:")) {
                 dialogBody = line.split("Comment:")[1].trim();
             }
@@ -155,19 +155,15 @@ export default {
 
                 }
             });
-            parsedAssDialogs.push(new Dialogue(parsedDialog));
+            try{
+                parsedAssDialogs.push(new Dialogue(parsedDialog, parsedAssStyles));
+            }
+            catch(e){
+
+            }
         });
 
         // 链接样式
-
-        parsedAssDialogs.forEach((dialog, index) => {
-            if (parsedAssStyles[dialog.style] !== undefined) {
-                dialog.style = parsedAssStyles[dialog.style];
-            }
-            else {
-                Log.error("unknown_style", `Ass 存在对话行未指定样式 Line:${index + 1}`);
-            }
-        });
 
         return {
             dialogs: parsedAssDialogs,

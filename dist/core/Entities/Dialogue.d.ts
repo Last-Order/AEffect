@@ -12,7 +12,7 @@ declare class Dialogue {
     marginV: string;
     effect: string;
     text: string;
-    constructor(properties?: {});
+    constructor(properties?: {}, styleMap?: {});
     /**
      * @override
      */
