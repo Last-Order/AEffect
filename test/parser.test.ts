@@ -1,10 +1,5 @@
 import 'mocha'
-import chai = require("chai");
-import chaiAsPromised = require("chai-as-promised");
-
-chai.use(chaiAsPromised);
-
-let expect = chai.expect;
+import {expect} from 'chai'
 
 import AEffect from '../src/AEffect';
 

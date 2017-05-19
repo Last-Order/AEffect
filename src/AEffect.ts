@@ -73,16 +73,5 @@ class AEffect{
     }
 }
 
-// (async () => {
-//     let AE = new AEffect()
-//     await AE.loadFromFile("D:\\Git\\AEffect\\test.ass");
-//
-//     AE.select().forEach(dialog => {
-//         dialog.addBlur(2);
-//     })
-//
-//     console.log(AE.build());
-// })()
-
 
 export default AEffect;
