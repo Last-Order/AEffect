@@ -1,6 +1,11 @@
-interface String{
-    leftpad(length: number, fill: string): string;
+export {}
+
+declare global{
+    interface String{
+        leftpad(length: number, fill: string): string;
+    }
 }
+
 
 String.prototype.leftpad = function(length: number, fill: string){
     if(fill.length !== 1){
