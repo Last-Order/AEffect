@@ -18,6 +18,11 @@ class TextGroup {
     toString() {
         return '{' + this.effectGroup.map(i => i.toString()).join('') + '}' + this.content;
     }
+    clone() {
+        let clonedTextGroup = new TextGroup(this.content);
+        clonedTextGroup.effectGroup = [...this.effectGroup];
+        return clonedTextGroup;
+    }
 }
 exports.TextGroup = TextGroup;
 exports.default = Text;

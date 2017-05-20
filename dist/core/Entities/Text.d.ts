@@ -10,5 +10,6 @@ export declare class TextGroup {
     content: string;
     constructor(text: string);
     toString(): string;
+    clone(): TextGroup;
 }
 export default Text;

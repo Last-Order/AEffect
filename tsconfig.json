@@ -6,6 +6,7 @@
         "module": "commonjs",
         "sourceMap": true,
         "lib": ["es7"],
+        "experimentalDecorators": true,
         "watch": true
     },
     "include": [

@@ -1,16 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Effect_1 = require("./base/Effect");
 /**
  * 边缘模糊 (高斯模糊)
  */
-class Blur {
+class Blur extends Effect_1.default {
     /**
      * @param strength 模糊强度
-     * @param start 起始位置
+     * @param startIndex 起始位置
      */
-    constructor(strength = 1, start = 0) {
+    constructor(strength = 1, startIndex = 0) {
+        super();
         this.strength = strength;
-        this.start = start;
+        this.startIndex = startIndex;
     }
     toString() {
         return `\\blur${this.strength}`;

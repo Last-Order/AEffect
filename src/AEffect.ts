@@ -75,6 +75,4 @@ class AEffect{
     }
 }
 
-import Blur from './core/Effects/Blur';
-
 export default AEffect;
