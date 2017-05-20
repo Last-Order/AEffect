@@ -1,20 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Selector {
-    static select(AE, condition) {
+    select(AE, condition) {
         let dialogs = AE.dialogs;
         for (let key of Object.keys(condition)) {
             dialogs = dialogs.filter((dialog) => {
                 return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
             });
         }
-        return dialogs;
+        this.dialogs = dialogs;
+        this.condition = condition; // 存档查询条件
+        return this;
     }
     static selectByStyle(dialog, style) {
         return dialog.style.name === style;
     }
     static selectByName(dialog, name) {
         return dialog.name === name;
+    }
+    static selectByLayer(dialog, layer) {
+        return dialog.layer === layer;
+    }
+    static selectByFontsize(dialog, fontSize) {
+        return dialog.style.fontsize === fontSize;
     }
 }
 exports.default = Selector;

@@ -1,7 +1,7 @@
-"use strict";
 /**
  * Ass Dialogue 类
  */
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Style_1 = require("./Style");
 class Dialogue {

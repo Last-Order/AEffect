@@ -52,13 +52,15 @@ class AEffect {
     }
     /**
      * 字幕选择器
+     * @param contidion 条件
+     * @return Selector 对象
      */
     select(condition = {}) {
         if (this.dialogs.length === 0) {
             Log_1.default.error("empty_ass", "请先载入含有对话句的 Ass 文件");
             return;
         }
-        return Selector_1.default.select(this, condition);
+        return new Selector_1.default().select(this, condition);
     }
 }
 exports.default = AEffect;

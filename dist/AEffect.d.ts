@@ -1,3 +1,4 @@
+import Selector from './core/Selector';
 import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo';
@@ -22,7 +23,9 @@ declare class AEffect {
     build(): string;
     /**
      * 字幕选择器
+     * @param contidion 条件
+     * @return Selector 对象
      */
-    select(condition?: {}): Dialogue[];
+    select(condition?: {}): Selector;
 }
 export default AEffect;

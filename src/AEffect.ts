@@ -63,15 +63,18 @@ class AEffect{
 
     /**
      * 字幕选择器
+     * @param contidion 条件
+     * @return Selector 对象
      */
-    select(condition = {}) {
+    select(condition = {}): Selector {
         if (this.dialogs.length === 0) {
             Log.error("empty_ass", "请先载入含有对话句的 Ass 文件");
             return;
         }
-        return Selector.select(this, condition);
+        return new Selector().select(this, condition);
     }
 }
 
+import Blur from './core/Effects/Blur';
 
 export default AEffect;
