@@ -100,13 +100,12 @@ exports.default = {
             let parsedStyle = {
                 Name: "___AEffect_unknown_style__B"
             };
-            line.split('Style:')[1].trim().split(',').forEach((property, index, lineArray) => {
-                if (index <= styleFormat.length - 1) {
-                    parsedStyle[styleFormat[index]] = property.trim();
-                }
-                else {
-                    throw new InvalidStyleDefinitionError();
-                }
+            let lineArray = line.split('Style:')[1].trim().split(',');
+            if (lineArray.length !== styleFormat.length) {
+                throw new InvalidStyleDefinitionError();
+            }
+            lineArray.forEach((property, index) => {
+                parsedStyle[styleFormat[index]] = property.trim();
             });
             parsedAssStyles[parsedStyle.Name] = new Style_1.default(parsedStyle);
         });

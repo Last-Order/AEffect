@@ -33,6 +33,21 @@ describe("正在测试 Ass 解析", () => {
             expect(() => {
                 AE.loadFromFile("./test/test_ass/ass_without_event_block.ass")
             }).to.throw(AssParser.MissingEventBlockError);
+        });
+        it("缺少 Style 格式定义的 Ass 文件", () => {
+            expect(() => {
+                AE.loadFromFile("./test/test_ass/ass_without_style_format_definition.ass");
+            }).to.throw(AssParser.MissingStyleDefinitionError);
+        });
+        it("缺少 Dialog 格式定义的 Ass 文件", () => {
+            expect(() => {
+                AE.loadFromFile("./test/test_ass/ass_without_dialog_format_definition.ass");
+            }).to.throw(AssParser.MissingDialogFormatDefinitionError);
+        });
+        it("Style 格式定义与实际不符的 Ass 文件", () => {
+            expect(() => {
+                AE.loadFromFile("./test/test_ass/style_format_definition_mismatch.ass");
+            }).to.throw(AssParser.InvalidStyleDefinitionError);
         })
     })
 });
