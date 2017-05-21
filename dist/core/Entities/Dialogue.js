@@ -27,6 +27,12 @@ class Dialogue {
         });
     }
     /**
+     * 添加特效标签
+     * @param effect 特效标签数组
+     */
+    addEffect(effect) {
+    }
+    /**
      * @override
      */
     toString() {

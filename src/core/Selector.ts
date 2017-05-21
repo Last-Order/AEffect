@@ -1,6 +1,7 @@
 import AEffect from '../AEffect';
 
 import Dialogue from './Entities/Dialogue';
+import Effect from './Effects/base/Effect';
 
 class Selector{
     dialogs: Dialogue[];
@@ -34,6 +35,16 @@ class Selector{
     }
     static selectByFontsize(dialog: Dialogue, fontSize){
         return dialog.style.fontsize === fontSize;
+    }
+    /**
+     * 添加特效标签
+     * @param effect 特效标签对象数组
+     */
+    addEffect(effect: Effect[]){
+        // 对选择器添加标签，则视为给选中的所有行添加标签
+        for (let dialog of this.dialogs){
+            dialog.addEffect(effect);
+        }
     }
 }
 

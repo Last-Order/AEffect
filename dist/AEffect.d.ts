@@ -14,7 +14,7 @@ declare class AEffect {
      * @param path 路径
      * @param encoding 编码
      */
-    loadFromFile(path: any, encoding?: string): Promise<{}>;
+    loadFromFile(path: any, encoding?: string): void;
     /**
      * 从文本读取字幕
      * @param text 文本

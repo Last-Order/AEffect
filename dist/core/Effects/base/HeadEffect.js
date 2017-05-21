@@ -10,6 +10,10 @@ class HeadEffect extends Effect_1.default {
         this.startIndex = 0;
         this.isHeadEffect = true;
     }
+    handler(text) {
+        text.groups[0].effectGroup.push(this);
+        return text;
+    }
 }
 exports.default = HeadEffect;
 //# sourceMappingURL=HeadEffect.js.map

@@ -6,6 +6,8 @@ import Style from './Style'
 import Time from './Time'
 import Text from './Text'
 
+import Effect from '../Effects/base/Effect';
+
 import { StyleError } from './Style'
 
 export interface DialogueConstructProperties{
@@ -51,6 +53,13 @@ class Dialogue {
                 }
             }
         })
+    }
+    /**
+     * 添加特效标签
+     * @param effect 特效标签数组
+     */
+    addEffect(effect: Effect[]){
+
     }
     /**
      * @override

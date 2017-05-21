@@ -1,5 +1,6 @@
 import AEffect from '../AEffect';
 import Dialogue from './Entities/Dialogue';
+import Effect from './Effects/base/Effect';
 declare class Selector {
     dialogs: Dialogue[];
     condition: {
@@ -18,5 +19,10 @@ declare class Selector {
     static selectByName(dialog: Dialogue, name: any): boolean;
     static selectByLayer(dialog: Dialogue, layer: any): boolean;
     static selectByFontsize(dialog: Dialogue, fontSize: any): boolean;
+    /**
+     * 添加特效标签
+     * @param effect 特效标签对象数组
+     */
+    addEffect(effect: Effect[]): void;
 }
 export default Selector;

@@ -30,6 +30,16 @@ class Selector {
     static selectByFontsize(dialog, fontSize) {
         return dialog.style.fontsize === fontSize;
     }
+    /**
+     * 添加特效标签
+     * @param effect 特效标签对象数组
+     */
+    addEffect(effect) {
+        // 对选择器添加标签，则视为给选中的所有行添加标签
+        for (let dialog of this.dialogs) {
+            dialog.addEffect(effect);
+        }
+    }
 }
 exports.default = Selector;
 //# sourceMappingURL=Selector.js.map

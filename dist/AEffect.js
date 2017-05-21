@@ -18,21 +18,11 @@ class AEffect {
      * @param encoding 编码
      */
     loadFromFile(path, encoding = 'utf-8') {
-        return new Promise((resolve, reject) => {
-            fs.readFile(path, encoding, (error, data) => {
-                if (error) {
-                    Log_1.default.error("file_not_found", "找不到指定的文件");
-                    reject(error);
-                }
-                else {
-                    let result = AssParser_1.default.parse(data);
-                    this.metaInfo = result.metaInfo;
-                    this.dialogs = result.dialogs;
-                    this.styles = result.styles;
-                    resolve(this);
-                }
-            });
-        });
+        let data = fs.readFileSync(path, encoding);
+        let result = AssParser_1.default.parse(data);
+        this.metaInfo = result.metaInfo;
+        this.dialogs = result.dialogs;
+        this.styles = result.styles;
     }
     /**
      * 从文本读取字幕
