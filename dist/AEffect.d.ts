@@ -23,8 +23,8 @@ declare class AEffect {
     build(): string;
     /**
      * 字幕选择器
-     * @param contidion 条件
      * @return Selector 对象
+     * @param condition 搜索条件
      */
     select(condition?: {}): Selector;
 }

@@ -37,6 +37,13 @@ describe("正在测试 Ass 解析", () => {
             }).catch(e => {
                 done(e);
             })
+        });
+        it("缺少 Events 块的 Ass 文件", (done) => {
+            AE.loadFromFile("./test/test_ass/ass_without_event_block.ass").then(() => {
+                done();
+            }).catch(e => {
+                done(e);
+            })
         })
     })
 });

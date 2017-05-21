@@ -4,7 +4,14 @@ import Dialogue from './Entities/Dialogue';
 
 class Selector{
     dialogs: Dialogue[];
-    condition: {[index: string]: string}
+    condition: {[index: string]: string};
+
+    /**
+     * 选取特定行
+     * @param AE AEffect 对象
+     * @param condition 条件
+     * @returns {Selector}
+     */
     select(AE: AEffect, condition: {[index: string]: string}): Selector{
         let dialogs = AE.dialogs;
         for (let key of Object.keys(condition)){

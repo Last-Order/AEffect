@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Selector {
+    /**
+     * 选取特定行
+     * @param AE AEffect 对象
+     * @param condition 条件
+     * @returns {Selector}
+     */
     select(AE, condition) {
         let dialogs = AE.dialogs;
         for (let key of Object.keys(condition)) {

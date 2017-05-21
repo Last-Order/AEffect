@@ -5,6 +5,12 @@ declare class Selector {
     condition: {
         [index: string]: string;
     };
+    /**
+     * 选取特定行
+     * @param AE AEffect 对象
+     * @param condition 条件
+     * @returns {Selector}
+     */
     select(AE: AEffect, condition: {
         [index: string]: string;
     }): Selector;

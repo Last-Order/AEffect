@@ -9,6 +9,27 @@ const Time_1 = require("./Entities/Time");
 const Text_1 = require("./Entities/Text");
 require("../utils/Explode");
 require("../utils/ToFirstLowerCase");
+class MissingEventBlockError extends Error {
+}
+exports.MissingEventBlockError = MissingEventBlockError;
+class InvalidAssError extends Error {
+}
+exports.InvalidAssError = InvalidAssError;
+class InvalidStyleFormatDefinitionError extends Error {
+}
+exports.InvalidStyleFormatDefinitionError = InvalidStyleFormatDefinitionError;
+class InvalidStyleDefinitionError extends Error {
+}
+exports.InvalidStyleDefinitionError = InvalidStyleDefinitionError;
+class MissingStyleDefinitionError extends Error {
+}
+exports.MissingStyleDefinitionError = MissingStyleDefinitionError;
+class MissingDialogFormatDefinitionError extends Error {
+}
+exports.MissingDialogFormatDefinitionError = MissingDialogFormatDefinitionError;
+class InvalidDialogFormatDefinitionError extends Error {
+}
+exports.InvalidDialogFormatDefinitionError = InvalidDialogFormatDefinitionError;
 exports.default = {
     parse(content, options = {}) {
         // 清除所有\r
@@ -17,8 +38,7 @@ exports.default = {
         let assArray = content.split(/\n/);
         // 将 Ass 分割为几个 Block
         if (assArray.indexOf("[Events]") === -1) {
-            Log_1.default.error("event_block_not_found", "Ass 文件缺少 Events 块");
-            return;
+            throw new MissingEventBlockError();
         }
         let metaInfoBlock = [];
         let styleBlock = [];
@@ -34,7 +54,7 @@ exports.default = {
                     }[line.trim()];
                 }
                 catch (e) {
-                    Log_1.default.error("invalid_ass", "Ass 文件不合法");
+                    throw new InvalidAssError();
                 }
             }
             if (nowBlock !== undefined && !line.trim().startsWith("[") && line.trim() !== "") {
@@ -61,8 +81,7 @@ exports.default = {
         let parsedAssStyles = {};
         let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
         if (!styleBlock[0].trim().startsWith("Format:")) {
-            Log_1.default.error("missing_style_format", "Ass 文件样式部分缺少格式定义");
-            return;
+            throw new MissingStyleDefinitionError();
         }
         // 解析样式格式定义
         let styleFormatLine = styleBlock[0].split("Format:")[1].trim().split(",");
@@ -72,8 +91,7 @@ exports.default = {
                 styleFormat.push(styleFormatKey.trim());
             }
             else {
-                Log_1.default.error("invalid_style_format_definition", "Ass 样式部分格式定义不合法");
-                return;
+                throw new InvalidStyleFormatDefinitionError();
             }
         }
         styleBlock = styleBlock.slice(1);
@@ -87,7 +105,7 @@ exports.default = {
                     parsedStyle[styleFormat[index]] = property.trim();
                 }
                 else {
-                    Log_1.default.error("invalid_ass_style_definition", "Ass 样式定义与自身样式格式定义不符");
+                    throw new InvalidStyleDefinitionError();
                 }
             });
             parsedAssStyles[parsedStyle.Name] = new Style_1.default(parsedStyle);
@@ -97,7 +115,7 @@ exports.default = {
         let validDialogFormatKey = ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"];
         // 解析对话行格式
         if (!eventBlock[0].trim().startsWith("Format:")) {
-            Log_1.default.error("missing_dialog_format", "缺少对话行格式定义");
+            throw new MissingDialogFormatDefinitionError();
         }
         let dialogFormatLine = eventBlock[0].split("Format:")[1].trim().split(",");
         let dialogFormat = [];
@@ -106,13 +124,12 @@ exports.default = {
                 dialogFormat.push(dialogFormatKey.trim());
             }
             else {
-                Log_1.default.error("invalid_dialog_format_definition", "对话行格式定义不合法");
-                return;
+                throw new InvalidDialogFormatDefinitionError();
             }
         }
         if (dialogFormat[dialogFormat.length - 1] !== "Text") {
             // Text 只能在最后 否则无法区分带有逗号的内容
-            Log_1.default.error("invalid_dialog_format_definition", "对话行格式定义不合法，Text 只能在最末");
+            throw new InvalidDialogFormatDefinitionError();
         }
         eventBlock = eventBlock.slice(1);
         // 根据样式格式解析对话行

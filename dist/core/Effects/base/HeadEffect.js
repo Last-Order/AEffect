@@ -7,8 +7,8 @@ const Effect_1 = require("./Effect");
 class HeadEffect extends Effect_1.default {
     constructor() {
         super();
-        this.isHeadEffect = true;
         this.startIndex = 0;
+        this.isHeadEffect = true;
     }
 }
 exports.default = HeadEffect;

@@ -68,7 +68,7 @@ class Dialogue {
             else {
                 temp.push(this[name[0].toLowerCase() + name.slice(1)].toString());
             }
-        })
+        });
         ass += temp.join(',');
         return ass;
     }
