@@ -163,7 +163,9 @@ exports.default = {
                     case 'marginV':
                         parsedDialog[propertyKey] = parseInt(propertyValue);
                         break;
-                    case 'styleName':
+                    case 'style':
+                        parsedDialog.styleName = propertyValue;
+                        break;
                     case 'name':
                     case 'effect':
                         parsedDialog[propertyKey] = propertyValue;

@@ -3,6 +3,7 @@ import Effect from './base/Effect';
  * 边缘模糊 (高斯模糊)
  */
 class Blur extends Effect {
+    name = "Blur";
     strength: number; 
     /**
      * @param strength 模糊强度

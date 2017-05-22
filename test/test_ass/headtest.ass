@@ -29,5 +29,5 @@ Style: Default,思源黑体 CN Medium,33,&HE0FFFFFF,&H000000FF,&H00000000,&H0000
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,发森这。
-Dialogue: 0,0:00:05.00,0:00:07.00,Default,,0,0,0,,
+Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,,一行字幕
+Dialogue: 0,0:00:05.00,0:00:07.00,Default,,0,0,0,,两行字幕
