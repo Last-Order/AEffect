@@ -23,6 +23,9 @@ class Time{
     sub(time2: Time): Time{
         return new Time(this.second - time2.second);
     }
+    valueOf(): Number{
+        return this.second;
+    }
     static parse(time: string): Time {
         let timeArr = time.split(":");
         if (timeArr.length !== 3) {
