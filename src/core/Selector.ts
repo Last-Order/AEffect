@@ -36,6 +36,9 @@ class Selector{
     static selectByFontsize(dialog: Dialogue, fontSize){
         return dialog.style.fontsize === fontSize;
     }
+    static selectByText(dialog: Dialogue, regExp: RegExp){
+        return regExp.test(dialog.text.originalText);
+    }
     /**
      * 添加特效标签
      * @param effect 特效标签对象数组

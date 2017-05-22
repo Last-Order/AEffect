@@ -19,6 +19,7 @@ declare class Selector {
     static selectByName(dialog: Dialogue, name: any): boolean;
     static selectByLayer(dialog: Dialogue, layer: any): boolean;
     static selectByFontsize(dialog: Dialogue, fontSize: any): boolean;
+    static selectByText(dialog: Dialogue, regExp: RegExp): boolean;
     /**
      * 添加特效标签
      * @param effect 特效标签对象数组

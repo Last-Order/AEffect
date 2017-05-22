@@ -37,6 +37,7 @@ class Dialogue {
     text: Text;
     isComment: boolean;
     constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}) {
+        console.log(properties.styleName);
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
             if (properties[name]) {
                 // 该属性存在
@@ -59,7 +60,9 @@ class Dialogue {
      * @param effect 特效标签数组
      */
     addEffect(effect: Effect[]){
-
+        for (let ef of effect){
+            this.text = ef.handler(this.text);
+        }
     }
     /**
      * @override
@@ -75,7 +78,7 @@ class Dialogue {
                 temp.push(this.style.name);
             }
             else {
-                temp.push(this[name[0].toLowerCase() + name.slice(1)].toString());
+                temp.push(this[name[0].toLowerCase() + name.slice(1)] && this[name[0].toLowerCase() + name.slice(1)].toString() || "");
             }
         });
         ass += temp.join(',');
