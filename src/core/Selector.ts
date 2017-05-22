@@ -1,10 +1,18 @@
 import AEffect from '../AEffect';
 
 import Dialogue from './Entities/Dialogue';
+import Effect from './Effects/base/Effect';
 
 class Selector{
     dialogs: Dialogue[];
-    condition: {[index: string]: string}
+    condition: {[index: string]: string};
+
+    /**
+     * 选取特定行
+     * @param AE AEffect 对象
+     * @param condition 条件
+     * @returns {Selector}
+     */
     select(AE: AEffect, condition: {[index: string]: string}): Selector{
         let dialogs = AE.dialogs;
         for (let key of Object.keys(condition)){
@@ -27,6 +35,16 @@ class Selector{
     }
     static selectByFontsize(dialog: Dialogue, fontSize){
         return dialog.style.fontsize === fontSize;
+    }
+    /**
+     * 添加特效标签
+     * @param effect 特效标签对象数组
+     */
+    addEffect(effect: Effect[]){
+        // 对选择器添加标签，则视为给选中的所有行添加标签
+        for (let dialog of this.dialogs){
+            dialog.addEffect(effect);
+        }
     }
 }
 

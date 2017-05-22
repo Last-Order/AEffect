@@ -4,6 +4,7 @@
 import Style from './Style';
 import Time from './Time';
 import Text from './Text';
+import Effect from '../Effects/base/Effect';
 export interface DialogueConstructProperties {
     layer: number;
     start: Time;
@@ -32,6 +33,11 @@ declare class Dialogue {
     constructor(properties: DialogueConstructProperties, styleMap: {
         [index: string]: Style;
     });
+    /**
+     * 添加特效标签
+     * @param effect 特效标签数组
+     */
+    addEffect(effect: Effect[]): void;
     /**
      * @override
      */

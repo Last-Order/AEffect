@@ -7,8 +7,12 @@ const Effect_1 = require("./Effect");
 class HeadEffect extends Effect_1.default {
     constructor() {
         super();
-        this.isHeadEffect = true;
         this.startIndex = 0;
+        this.isHeadEffect = true;
+    }
+    handler(text) {
+        text.groups[0].effectGroup.push(this);
+        return text;
     }
 }
 exports.default = HeadEffect;
