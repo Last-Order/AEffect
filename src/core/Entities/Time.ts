@@ -17,6 +17,12 @@ class Time{
         }
         return [hour, minute, second].join(':');
     }
+    add(time2: Time): Time{
+        return new Time(this.second + time2.second);
+    }
+    sub(time2: Time): Time{
+        return new Time(this.second - time2.second);
+    }
     static parse(time: string): Time {
         let timeArr = time.split(":");
         if (timeArr.length !== 3) {
@@ -24,6 +30,7 @@ class Time{
         }
         return new Time(timeArr.reverse().reduce((acc, val, ind) => +val * Math.pow(60, ind) + acc, 0))
     }
+    
 }
 
 export class TimeParseError extends Error { }
