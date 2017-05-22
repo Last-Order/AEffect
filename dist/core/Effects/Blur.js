@@ -11,6 +11,7 @@ class Blur extends Effect_1.default {
      */
     constructor(strength = 1, startIndex = 0) {
         super();
+        this.name = "Blur";
         this.strength = strength;
         this.startIndex = startIndex;
     }

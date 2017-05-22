@@ -16,7 +16,11 @@ class TextGroup {
         this.content = text;
     }
     toString() {
-        return '{' + this.effectGroup.map(i => i.toString()).join('') + '}' + this.content;
+        let effectTags = "";
+        if (this.effectGroup.length > 0) {
+            effectTags = `{${this.effectGroup.map(i => i.toString()).join('')}}`;
+        }
+        return effectTags + this.content;
     }
     clone() {
         let clonedTextGroup = new TextGroup(this.content);
