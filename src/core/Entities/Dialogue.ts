@@ -39,7 +39,7 @@ class Dialogue {
     constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}) {
         console.log(properties.styleName);
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
-            if (properties[name]) {
+            if (properties[name] !== undefined) {
                 // 该属性存在
                 if (name === "styleName") {
                     if (styleMap[properties[name]]) {

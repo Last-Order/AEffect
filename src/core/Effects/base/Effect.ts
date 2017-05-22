@@ -4,9 +4,9 @@ export interface IEffect {
     isHeadEffect: boolean; // 是否为行首出现的特效标签
     startIndex: number;
     toString(): string;
-    handler(text: Text): Text
+    handler(text: Text): Text;
 }
-export class EffectIndexOutOfBoundError extends Error { };
+export class EffectIndexOutOfBoundError extends Error { }
 
 abstract class Effect implements IEffect {
     isHeadEffect = false;
