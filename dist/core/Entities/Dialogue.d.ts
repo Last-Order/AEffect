@@ -39,6 +39,23 @@ declare class Dialogue {
      */
     addEffect(effect: Effect[]): void;
     /**
+     * 获得行持续时间
+     * @returns {number} 持续时间 毫秒
+     */
+    readonly duration: number;
+    /**
+     * 获得相对行开始时间
+     * 永远返回0
+     * @returns {number}
+     */
+    readonly lineStart: number;
+    /**
+     * 获得相对行结束时间
+     * @returns {number}
+     */
+    readonly lineEnd: number;
+    readonly middleTime: number;
+    /**
      * @override
      */
     toString(): string;

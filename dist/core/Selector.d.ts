@@ -25,5 +25,10 @@ declare class Selector {
      * @param effect 特效标签对象数组
      */
     addEffect(effect: Effect[]): void;
+    /**
+     * 获得选择器所选定的对话
+     * @returns {Dialogue[]}
+     */
+    getDialogs(): Dialogue[];
 }
 export default Selector;

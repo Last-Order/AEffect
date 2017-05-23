@@ -1,0 +1,3 @@
+declare class Syllable {
+    constructor();
+}

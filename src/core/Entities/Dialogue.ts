@@ -63,6 +63,32 @@ class Dialogue {
             this.text = ef.handler(this.text);
         }
     }
+
+    /**
+     * 获得行持续时间
+     * @returns {number} 持续时间 毫秒
+     */
+    get duration(): number{
+        return this.end.sub(this.start).second * 1000;
+    }
+    /**
+     * 获得相对行开始时间
+     * 永远返回0
+     * @returns {number}
+     */
+    get lineStart(): number{
+        return 0;
+    }
+    /**
+     * 获得相对行结束时间
+     * @returns {number}
+     */
+    get lineEnd(): number{
+        return this.duration;
+    }
+    get middleTime(): number{
+        return Math.round(this.duration / 2);
+    }
     /**
      * @override
      */

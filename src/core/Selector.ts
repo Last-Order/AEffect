@@ -49,6 +49,14 @@ class Selector{
             dialog.addEffect(effect);
         }
     }
+
+    /**
+     * 获得选择器所选定的对话
+     * @returns {Dialogue[]}
+     */
+    getDialogs(): Dialogue[]{
+        return this.dialogs;
+    }
 }
 
 export default Selector;

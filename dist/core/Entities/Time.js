@@ -18,6 +18,15 @@ class Time {
         }
         return [hour, minute, second].join(':');
     }
+    add(time2) {
+        return new Time(this.second + time2.second);
+    }
+    sub(time2) {
+        return new Time(this.second - time2.second);
+    }
+    valueOf() {
+        return this.second;
+    }
     static parse(time) {
         let timeArr = time.split(":");
         if (timeArr.length !== 3) {

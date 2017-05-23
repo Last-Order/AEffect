@@ -36,6 +36,31 @@ class Dialogue {
         }
     }
     /**
+     * 获得行持续时间
+     * @returns {number} 持续时间 毫秒
+     */
+    get duration() {
+        return this.end.sub(this.start).second * 1000;
+    }
+    /**
+     * 获得相对行开始时间
+     * 永远返回0
+     * @returns {number}
+     */
+    get lineStart() {
+        return 0;
+    }
+    /**
+     * 获得相对行结束时间
+     * @returns {number}
+     */
+    get lineEnd() {
+        return this.duration;
+    }
+    get middleTime() {
+        return Math.round(this.duration / 2);
+    }
+    /**
      * @override
      */
     toString() {

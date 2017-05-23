@@ -1,0 +1,1 @@
+{"version":3,"file":"UnknownEffect.js","sourceRoot":"","sources":["../../../src/core/Effects/UnknownEffect.ts"],"names":[],"mappings":";;AAAA,0CAAmC;AAEnC,mBAAoB,SAAQ,gBAAM;IAC9B,YAAY,UAAkB;QAC1B,KAAK,EAAE,CAAC;QACR,IAAI,UAAU,GAAG,UAAU,CAAC,KAAK,CAAC,eAAe,CAAC,CAAC,CAAC,CAAC,CAAC;IAC1D,CAAC;CACJ"}

@@ -25,3 +25,31 @@ describe("正在测试时间类", () => {
         });
     });
 });
+
+import Dialogue from '../src/core/Entities/Dialogue';
+import Text from '../src/core/Entities/Text';
+import Style from "../src/core/Entities/Style";
+
+describe("正在测试对话行类", () => {
+    let dialog = new Dialogue({
+        layer: 0,
+        start: Time.parse("00:00:00.00"),
+        end: Time.parse("00:00:05.00"),
+        styleName: "Default",
+        name: "",
+        marginL: 0,
+        marginR: 0,
+        marginV: 0,
+        effect: "",
+        text: new Text("23232"),
+        isComment: false
+    }, {
+        "Default": new Style()
+    });
+    it("测试 Dialogue 时间相关计算属性", () => {
+        expect(dialog.duration).to.equal(5000);
+        expect(dialog.lineStart).to.equal(0);
+        expect(dialog.lineEnd).to.equal(5000);
+        expect(dialog.middleTime).to.equal(2500);
+    })
+});

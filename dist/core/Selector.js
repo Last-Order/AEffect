@@ -43,6 +43,13 @@ class Selector {
             dialog.addEffect(effect);
         }
     }
+    /**
+     * 获得选择器所选定的对话
+     * @returns {Dialogue[]}
+     */
+    getDialogs() {
+        return this.dialogs;
+    }
 }
 exports.default = Selector;
 //# sourceMappingURL=Selector.js.map
