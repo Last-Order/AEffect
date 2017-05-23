@@ -35,6 +35,9 @@ class Text {
             this.groups.push(new TextGroup(text));
         }
     }
+    get originalText() {
+        return this.groups.map(i => i.content).join('');
+    }
     toString() {
         return this.groups.map(i => i.toString()).join('');
     }

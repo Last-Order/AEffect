@@ -2,7 +2,9 @@ import Effect from '../Effects/base/Effect'
 
 class Text{
     groups: TextGroup[] = [];
-    originalText: string;
+    get originalText(): string{
+        return this.groups.map(i => i.content).join('');
+    }
     constructor(text: string){
         let matchResult = text.match(/({.*?})/ig);
         if (matchResult !== null){
