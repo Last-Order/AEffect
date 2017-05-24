@@ -1,5 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const UnknownEffect_1 = require("../Effects/UnknownEffect");
+class TextParseError extends Error {
+}
+exports.TextParseError = TextParseError;
+;
 class Text {
     constructor(text) {
         this.groups = [];
@@ -26,7 +31,12 @@ class Text {
                 let effects = effectTags[i].slice(1, effectTags[i].length - 1).split("\\").filter(str => str !== "");
                 for (let effect of effects) {
                     let newTextGroup = new TextGroup(plainTexts[i]);
-                    // TODO: 解析特效标签
+                    try {
+                        newTextGroup.effectGroup.push(new UnknownEffect_1.default(`\\${effect}`));
+                    }
+                    catch (e) {
+                        throw new TextParseError();
+                    }
                 }
             }
         }

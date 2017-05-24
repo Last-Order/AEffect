@@ -18,8 +18,11 @@ class Blur extends Effect {
     toString(){
         return `\\blur${this.strength}`;
     }
+
+    static parse(text: string): Blur{
+        let strength = +text.match(/(\d+)/ig)[0];
+        return new Blur(strength);
+    }
 }
-
-
 
 export default Blur;

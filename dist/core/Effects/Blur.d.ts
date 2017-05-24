@@ -11,5 +11,6 @@ declare class Blur extends Effect {
      */
     constructor(strength?: number, startIndex?: number);
     toString(): string;
+    static parse(text: string): Blur;
 }
 export default Blur;

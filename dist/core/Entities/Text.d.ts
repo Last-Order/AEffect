@@ -1,4 +1,6 @@
 import Effect from '../Effects/base/Effect';
+export declare class TextParseError extends Error {
+}
 declare class Text {
     groups: TextGroup[];
     readonly originalText: string;

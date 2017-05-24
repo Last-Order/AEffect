@@ -18,6 +18,10 @@ class Blur extends Effect_1.default {
     toString() {
         return `\\blur${this.strength}`;
     }
+    static parse(text) {
+        let strength = +text.match(/(\d+)/ig)[0];
+        return new Blur(strength);
+    }
 }
 exports.default = Blur;
 //# sourceMappingURL=Blur.js.map

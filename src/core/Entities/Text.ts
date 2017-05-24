@@ -1,4 +1,7 @@
 import Effect from '../Effects/base/Effect'
+import UnknownEffect from '../Effects/UnknownEffect';
+
+export class TextParseError extends Error {};
 
 class Text{
     groups: TextGroup[] = [];
@@ -30,7 +33,12 @@ class Text{
                 let effects = effectTags[i].slice(1, effectTags[i].length - 1).split("\\").filter(str => str !== "");
                 for (let effect of effects){
                     let newTextGroup = new TextGroup(plainTexts[i]);
-                    // TODO: 解析特效标签
+                    try{
+                        newTextGroup.effectGroup.push(new UnknownEffect(`\\${effect}`))
+                    }
+                    catch (e){
+                        throw new TextParseError();
+                    }
                 }
             }
         }
