@@ -9,6 +9,12 @@ AEffect 是一个为 JavaScript 使用者准备的，ASS 特效字幕生成工�
 npm install aeffect
 ```
 
+### Compatibility
+
+由于部分功能涉及到字体渲染，目前只支持 Windows 平台。
+
+对 Linux 的支持将于日后加入。
+
 ### Import to your script
 
 ```JavaScript
@@ -19,37 +25,17 @@ const AEffect = require("aeffect");
 
 ### 为 Default 样式的字幕应用强度为 2 的模糊
 
-**使用 Async/Await**
-
 ```JavaScript
-(async () => {
     let AE = new AEffect();
-    await AE.loadFromFile("path_to_your_ass_file");
-
+    AE.loadFromFile("path_to_your_ass_file");
     AE.select({
         "style": "Default"
-    }).forEach(dialog => {
-        dialog.addBlur(2);
-    })
+    }).addEffect([
+        new Blur(2)
+    ])
 
     console.log(AE.build());
-})();
 
-```
-
-**使用 Promise**
-
-```JavaScript
-let AE = new AEffect();
-AE.loadFromFile("path_to_your_ass_file").then(() => {
-    AE.select({
-        "style": "Default"
-    }).forEach(dialog => {
-        dialog.addBlur(2);
-    })
-
-    console.log(AE.build())
-})
 ```
 
 更多说明请参阅 API 文档。
@@ -71,5 +57,5 @@ tsc
 
 ### Running Unit Tests
 ```bash
-    npm run test
+npm run test
 ```
