@@ -1,8 +1,12 @@
 import Effect from './base/Effect';
-declare class UnknownEffect extends Effect {
+import Text from '../Entities/Text';
+declare class UnknownEffect implements Effect {
     effectText: string;
+    isHeadEffect: boolean;
+    startIndex: number;
     name: string;
     constructor(effectText: string);
+    handler(text: Text): any;
     /**
      * 解析一个特效标签
      * @param effectText

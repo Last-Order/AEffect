@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class Selector {
     /**
      * 选取特定行
@@ -62,5 +61,6 @@ class Selector {
         return this.dialogs;
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Selector;
 //# sourceMappingURL=Selector.js.map

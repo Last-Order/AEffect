@@ -1,19 +1,21 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Effect_1 = require("./base/Effect");
+const BaseEffect_1 = require("./base/BaseEffect");
 /**
  * 边缘模糊 (高斯模糊)
  */
-class Blur extends Effect_1.default {
+class Blur {
     /**
      * @param strength 模糊强度
      * @param startIndex 起始位置
      */
     constructor(strength = 1, startIndex = 0) {
-        super();
         this.name = "Blur";
+        this.isHeadEffect = false;
         this.strength = strength;
         this.startIndex = startIndex;
+    }
+    handler(text) {
+        return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {
         return `\\blur${this.strength}`;
@@ -23,5 +25,6 @@ class Blur extends Effect_1.default {
         return new Blur(strength);
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Blur;
 //# sourceMappingURL=Blur.js.map

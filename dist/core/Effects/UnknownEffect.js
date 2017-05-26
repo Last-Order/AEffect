@@ -1,12 +1,15 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Effect_1 = require("./base/Effect");
-const Effects = require(".");
-class UnknownEffect extends Effect_1.default {
+const BaseEffect_1 = require("./base/BaseEffect");
+const Blur_1 = require("./Blur");
+class UnknownEffect {
     constructor(effectText) {
-        super();
+        this.isHeadEffect = false;
+        this.startIndex = 0;
         this.name = "UnknownEffect";
         this.effectText = effectText;
+    }
+    handler(text) {
+        return BaseEffect_1.default.defaultHandler(this, text);
     }
     /**
      * 解析一个特效标签
@@ -16,7 +19,7 @@ class UnknownEffect extends Effect_1.default {
     static parse(effectText) {
         let effectName = effectText.match(/^\\([a-zA-Z]+)/)[1];
         switch (effectName) {
-            case "blur": return Effects.Blur.parse(effectText);
+            case "blur": return Blur_1.default.parse(effectText);
             default:
                 return new UnknownEffect(effectText);
         }
@@ -25,5 +28,6 @@ class UnknownEffect extends Effect_1.default {
         return this.effectText;
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = UnknownEffect;
 //# sourceMappingURL=UnknownEffect.js.map

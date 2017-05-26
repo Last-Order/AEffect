@@ -1,12 +1,18 @@
 import Effect from './base/Effect';
-import * as Effects from '.';
+import BaseEffect from './base/BaseEffect';
+import Blur from './Blur'
+import Text from '../Entities/Text';
 
-class UnknownEffect extends Effect{
+class UnknownEffect implements Effect{
     effectText: string;
+    isHeadEffect: boolean = false;
+    startIndex: number = 0;
     name = "UnknownEffect";
     constructor(effectText: string){
-        super();
         this.effectText = effectText;
+    }
+    handler(text: Text){
+        return BaseEffect.defaultHandler(this, text);
     }
 
     /**
@@ -17,7 +23,7 @@ class UnknownEffect extends Effect{
     static parse(effectText: string): Effect{
         let effectName = effectText.match(/^\\([a-zA-Z]+)/)[1];
         switch (effectName){
-            case "blur": return Effects.Blur.parse(effectText);
+            case "blur": return Blur.parse(effectText);
             default:
                 return new UnknownEffect(effectText);
         }

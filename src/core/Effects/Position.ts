@@ -1,11 +1,13 @@
 import Effect from './base/Effect';
-
+import Text from '../Entities/Text';
+import BaseEffect from './base/BaseEffect';
 /**
  * 位置
  */
-export default class Position extends Effect{
+class Pos implements Effect{
     isHeadEffect = true;
-    name = "Position";
+    startIndex: number = 0;
+    name = "Pos";
     x: number;
     y: number;
 
@@ -14,9 +16,11 @@ export default class Position extends Effect{
      * @param y 纵坐标
      */
     constructor(x: number, y:number){
-        super();
         this.x = x;
         this.y = y;
+    }
+    handler(text: Text){
+        return BaseEffect.defaultHandler(this, text);
     }
 
     toString(){
@@ -24,6 +28,8 @@ export default class Position extends Effect{
     }
 
     static parse(text: string){
-        return new Position(+text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[2]);
+        return new Pos(+text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[2]);
     }
 }
+
+export default Pos;

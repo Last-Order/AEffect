@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var WarpStyle;
 (function (WarpStyle) {
     WarpStyle[WarpStyle["SmartUp"] = 0] = "SmartUp";
@@ -23,5 +22,6 @@ class MetaInfo {
         this.scriptUpdatedBy = "";
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = MetaInfo;
 //# sourceMappingURL=MetaInfo.js.map

@@ -1,8 +1,7 @@
-"use strict";
 /**
  * Ass Dialogue 类
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+"use strict";
 const Style_1 = require("./Style");
 const Layout_1 = require("../../utils/Layout");
 class MissingAlignmentError extends Error {
@@ -130,5 +129,6 @@ class Dialogue {
         return ass;
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Dialogue;
 //# sourceMappingURL=Dialogue.js.map

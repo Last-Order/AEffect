@@ -1,18 +1,24 @@
 import Effect from './base/Effect';
+import Text from '../Entities/Text';
+import BaseEffect from './base/BaseEffect';
 /**
  * 边缘模糊 (高斯模糊)
  */
-class Blur extends Effect {
+class Blur implements Effect {
     name = "Blur";
+    isHeadEffect = false;
+    startIndex: number;
     strength: number; 
     /**
      * @param strength 模糊强度
      * @param startIndex 起始位置
      */
     constructor(strength: number = 1, startIndex: number = 0){
-        super();
         this.strength = strength;
         this.startIndex = startIndex;
+    }
+    handler(text: Text){
+        return BaseEffect.defaultHandler(this, text);
     }
     
     toString(){

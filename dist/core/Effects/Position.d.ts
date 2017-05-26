@@ -1,9 +1,11 @@
 import Effect from './base/Effect';
+import Text from '../Entities/Text';
 /**
  * 位置
  */
-export default class Position extends Effect {
+declare class Pos implements Effect {
     isHeadEffect: boolean;
+    startIndex: number;
     name: string;
     x: number;
     y: number;
@@ -12,6 +14,8 @@ export default class Position extends Effect {
      * @param y 纵坐标
      */
     constructor(x: number, y: number);
+    handler(text: Text): any;
     toString(): string;
-    static parse(text: string): Position;
+    static parse(text: string): Pos;
 }
+export default Pos;

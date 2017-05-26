@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var BorderStyle;
 (function (BorderStyle) {
     BorderStyle[BorderStyle["BorderAndShadow"] = 1] = "BorderAndShadow";
@@ -67,5 +66,6 @@ class Style {
 class StyleError extends Error {
 }
 exports.StyleError = StyleError;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Style;
 //# sourceMappingURL=Style.js.map

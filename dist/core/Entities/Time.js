@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 require("../../utils/Leftpad");
 class Time {
     constructor(s) {
@@ -38,5 +37,6 @@ class Time {
 class TimeParseError extends Error {
 }
 exports.TimeParseError = TimeParseError;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Time;
 //# sourceMappingURL=Time.js.map

@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 require("../../utils/Numberext");
 require("../../utils/Leftpad");
 class Color {
@@ -76,5 +75,6 @@ class Color {
 class ColorParseError extends Error {
 }
 exports.ColorParseError = ColorParseError;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Color;
 //# sourceMappingURL=Color.js.map
