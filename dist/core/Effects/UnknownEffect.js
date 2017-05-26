@@ -5,6 +5,7 @@ const Effects = require(".");
 class UnknownEffect extends Effect_1.default {
     constructor(effectText) {
         super();
+        this.name = "UnknownEffect";
         this.effectText = effectText;
     }
     /**

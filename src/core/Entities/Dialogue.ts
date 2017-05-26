@@ -5,10 +5,16 @@
 import Style from './Style'
 import Time from './Time'
 import Text from './Text'
+import MetaInfo from './MetaInfo'
 
 import Effect from '../Effects/base/Effect';
 
 import { StyleError } from './Style'
+import Log from "../../utils/Log";
+import Layout from "../../utils/Layout";
+
+export class MissingAlignmentError extends Error{}
+export class MissingResolutionError extends Error{};
 
 export interface DialogueConstructProperties{
     layer: number;
@@ -35,8 +41,11 @@ class Dialogue {
     marginV: number = 0;
     effect: string;
     text: Text;
+    metaInfo: MetaInfo;
     isComment: boolean;
-    constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}) {
+    isSyllabified: boolean = false;
+    constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}, metaInfo: MetaInfo) {
+        this.metaInfo = metaInfo;
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
             if (properties[name] !== undefined) {
                 // 该属性存在
@@ -61,6 +70,23 @@ class Dialogue {
     addEffect(effect: Effect[]){
         for (let ef of effect){
             this.text = ef.handler(this.text);
+        }
+    }
+
+    /**
+     * 将每个音节独立成行
+     * @param autoPosition
+     */
+    splitIntoSyllables(autoPosition: boolean = true){
+        this.isSyllabified = true;
+        if (autoPosition){
+            if (!this.style.alignment){
+                throw new MissingAlignmentError("使用音节化功能，必须定义样式的对齐方式, 样式: " + this.style.name + ' 缺少相关定义');
+            }
+            if (!this.metaInfo.resolution.width || !this.metaInfo.resolution.height){
+                throw new MissingResolutionError("使用音节化功能，Ass 文件必须定义分辨率");
+            }
+            Layout.syllabify(this);
         }
     }
 

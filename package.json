@@ -24,6 +24,6 @@
     "npm": ">= 4.0.0"
   },
   "dependencies": {
-    "textent": "^1.0.3"
+    "textent": "^1.0.5"
   }
 }

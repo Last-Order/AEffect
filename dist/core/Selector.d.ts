@@ -24,7 +24,12 @@ declare class Selector {
      * 添加特效标签
      * @param effect 特效标签对象数组
      */
-    addEffect(effect: Effect[]): void;
+    addEffect(effect: Effect[]): this;
+    /**
+     * 对选择器所选择的所有行进行音节化操作
+     * @returns {Selector}
+     */
+    splitIntoSyllables(): this;
     /**
      * 获得选择器所选定的对话
      * @returns {Dialogue[]}

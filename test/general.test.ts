@@ -4,17 +4,22 @@ import { expect } from 'chai'
 import AEffect from '../src/AEffect';
 import Blur from '../src/core/Effects/Blur';
 import Text from '../src/core/Entities/Text';
+import textent from 'textent';
 
 describe("综合测试", () => {
     it("过了这个感觉很强", () => {
         let AE = new AEffect();
-        AE.loadFromFile("./test/test_ass/headtest.ass");
-        AE.select().addEffect([
-            new Blur(2, 1), new Blur(3)
-        ]);
-        console.log(AE.build());
+        // AE.loadFromFile("./test/test_ass/headtest.ass");
+        // AE.select().getDialogs().forEach(dialog => {
+        //     //dialog.splitIntoSyllables();
+        // });
     });
     it("另外一个测试", () => {
-        let a = new Text("{\\pos(1,1)\\blur2}1111{\\k12}11{\\k12}");
+        console.log(textent.render("微软雅黑", 24, "好的"));
+
+        // let a = new Text("{\\pos(1,1)\\blur2}1111{\\k12}11{\\k12}");
+        // for (let textGroup of a.groups){
+        //     console.log(textGroup.effectGroup);
+        // }
     });
 });

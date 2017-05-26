@@ -3,6 +3,7 @@ import * as Effects from '.';
 
 class UnknownEffect extends Effect{
     effectText: string;
+    name = "UnknownEffect";
     constructor(effectText: string){
         super();
         this.effectText = effectText;

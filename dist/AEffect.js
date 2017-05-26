@@ -8,6 +8,7 @@ const Selector_1 = require("./core/Selector");
 const MetaInfo_1 = require("./core/Entities/MetaInfo");
 class AEffect {
     constructor() {
+        //Log.info("AEffect 初始化中喵");
         this.styles = {};
         this.dialogs = [];
         this.metaInfo = new MetaInfo_1.default();

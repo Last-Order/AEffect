@@ -32,10 +32,13 @@ class Text {
                 for (let effect of effects) {
                     let newTextGroup = new TextGroup(plainTexts[i]);
                     try {
-                        newTextGroup.effectGroup.push(new UnknownEffect_1.default(`\\${effect}`));
+                        newTextGroup.effectGroup.push(UnknownEffect_1.default.parse(`\\${effect}`));
                     }
                     catch (e) {
                         throw new TextParseError();
+                    }
+                    finally {
+                        this.groups.push(newTextGroup);
                     }
                 }
             }

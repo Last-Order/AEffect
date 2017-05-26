@@ -7,6 +7,9 @@ class Log {
     static warning(message) {
         console.warn(`[AEffect] [${new Date().toString()}] [WARN] ${message}`);
     }
+    static info(message) {
+        console.log(`[AEffect] [${new Date().toString()}] [INFO] ${message}`);
+    }
 }
 exports.default = Log;
 //# sourceMappingURL=Log.js.map

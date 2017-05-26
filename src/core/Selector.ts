@@ -48,6 +48,18 @@ class Selector{
         for (let dialog of this.dialogs){
             dialog.addEffect(effect);
         }
+        return this;
+    }
+
+    /**
+     * 对选择器所选择的所有行进行音节化操作
+     * @returns {Selector}
+     */
+    splitIntoSyllables(){
+        for (let dialog of this.dialogs){
+            dialog.splitIntoSyllables();
+        }
+        return this;
     }
 
     /**

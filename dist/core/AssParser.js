@@ -38,7 +38,7 @@ exports.default = {
         let assArray = content.split(/\n/);
         // 将 Ass 分割为几个 Block
         if (assArray.indexOf("[Events]") === -1) {
-            throw new MissingEventBlockError();
+            throw new MissingEventBlockError("Ass 文件缺少 Event 块");
         }
         let metaInfoBlock = [];
         let styleBlock = [];
@@ -54,7 +54,7 @@ exports.default = {
                     }[line.trim()];
                 }
                 catch (e) {
-                    throw new InvalidAssError();
+                    throw new InvalidAssError("Ass 文件不合法");
                 }
             }
             if (nowBlock !== undefined && !line.trim().startsWith("[") && line.trim() !== "") {
@@ -81,7 +81,7 @@ exports.default = {
         let parsedAssStyles = {};
         let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
         if (!styleBlock[0].trim().startsWith("Format:")) {
-            throw new MissingStyleDefinitionError();
+            throw new MissingStyleDefinitionError("Ass 文件缺少 Style 格式定义");
         }
         // 解析样式格式定义
         let styleFormatLine = styleBlock[0].split("Format:")[1].trim().split(",");
@@ -91,7 +91,7 @@ exports.default = {
                 styleFormat.push(styleFormatKey.trim());
             }
             else {
-                throw new InvalidStyleFormatDefinitionError();
+                throw new InvalidStyleFormatDefinitionError("Ass 文件 Style 格式定义不合法");
             }
         }
         styleBlock = styleBlock.slice(1);
@@ -102,7 +102,7 @@ exports.default = {
             };
             let lineArray = line.split('Style:')[1].trim().split(',');
             if (lineArray.length !== styleFormat.length) {
-                throw new InvalidStyleDefinitionError();
+                throw new InvalidStyleDefinitionError("Ass 文件 Style 格式定义与实际不符");
             }
             lineArray.forEach((property, index) => {
                 parsedStyle[styleFormat[index]] = property.trim();
@@ -114,7 +114,7 @@ exports.default = {
         let validDialogFormatKey = ["Layer", "Start", "End", "Style", "Name", "MarginL", "MarginR", "MarginV", "Effect", "Text"];
         // 解析对话行格式
         if (!eventBlock[0].trim().startsWith("Format:")) {
-            throw new MissingDialogFormatDefinitionError();
+            throw new MissingDialogFormatDefinitionError("Ass 文件缺少 Dialog 格式定义");
         }
         let dialogFormatLine = eventBlock[0].split("Format:")[1].trim().split(",");
         let dialogFormat = [];
@@ -123,12 +123,12 @@ exports.default = {
                 dialogFormat.push(dialogFormatKey.trim());
             }
             else {
-                throw new InvalidDialogFormatDefinitionError();
+                throw new InvalidDialogFormatDefinitionError("Ass 文件 Dialog 格式定义不合法");
             }
         }
         if (dialogFormat[dialogFormat.length - 1] !== "Text") {
             // Text 只能在最后 否则无法区分带有逗号的内容
-            throw new InvalidDialogFormatDefinitionError();
+            throw new InvalidDialogFormatDefinitionError("Ass 文件 Dialog 格式定义不合法：Text 只能在最末");
         }
         eventBlock = eventBlock.slice(1);
         // 根据样式格式解析对话行
@@ -180,7 +180,7 @@ exports.default = {
                 }
             });
             try {
-                parsedAssDialogs.push(new Dialogue_1.default(parsedDialog, parsedAssStyles));
+                parsedAssDialogs.push(new Dialogue_1.default(parsedDialog, parsedAssStyles, metaInfo));
             }
             catch (e) {
             }

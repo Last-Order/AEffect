@@ -1,6 +1,7 @@
 import Effect from './base/Effect';
 declare class UnknownEffect extends Effect {
     effectText: string;
+    name: string;
     constructor(effectText: string);
     /**
      * 解析一个特效标签
