@@ -1,5 +1,6 @@
 {
   "name": "aeffect",
+  "repository": "https://github.com/Last-Order/AEffect",
   "version": "1.0.0",
   "description": "A simple tool to generate ass subtitle file with effect labels.",
   "main": "./dist/AEffect.js",
@@ -7,7 +8,7 @@
     "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
     "build": "tsc"
   },
-  "author": "Eridanus Sora <sora@sound.moe>",
+  "author": "MeowSound Idols",
   "license": "Apache",
   "devDependencies": {
     "@types/chai": "^3.5.2",

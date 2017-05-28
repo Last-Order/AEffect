@@ -9,6 +9,7 @@ import Text from './Entities/Text'
 
 import '../utils/Explode'
 import '../utils/ToFirstLowerCase'
+import Color from "./Entities/Color";
 
 export class MissingEventBlockError extends Error{}
 export class InvalidAssError extends Error{}
@@ -108,7 +109,44 @@ export default {
                 throw new InvalidStyleDefinitionError("Ass 文件 Style 格式定义与实际不符");
             }
             lineArray.forEach((property, index) => {
-                parsedStyle[styleFormat[index]] = property.trim()
+                let key = styleFormat[index].toFirstLowerCase();
+                switch (key){
+                    case "name":
+                    case "fontname":
+                        parsedStyle[styleFormat[index]] = property.trim();
+                        break;
+                    case "fontsize":
+                    case "scaleX":
+                    case "scaleY":
+                    case "spacing":
+                    case "angle":
+                    case "outline":
+                    case "shadow":
+                    case "marginL":
+                    case "marginR":
+                    case "marginV":
+                    case "encoding":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                    case "primaryColour":
+                    case "secondaryColour":
+                    case "outlineColour":
+                    case "backColour":
+                        parsedStyle[styleFormat[index]] = Color.ASS(property.trim());
+                        break;
+                    case "bold":
+                    case "italic":
+                    case "underline":
+                    case "strikeOut":
+                        parsedStyle[styleFormat[index]] = property.trim() === "-1";
+                        break;
+                    case "alignment":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                    case "borderStyle":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                }
             });
             parsedAssStyles[parsedStyle.Name] = new Style(parsedStyle);
         });

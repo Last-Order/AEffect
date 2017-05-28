@@ -1,5 +1,7 @@
 import Dialogue from '../core/Entities/Dialogue'
+import {Alignment} from '../core/Entities/Style';
 import Position from '../core/Effects/Position'
+
 import textent from 'textent';
 
 class Layout{
@@ -17,7 +19,7 @@ class Layout{
             x: 0,
             y: 0
         };
-        if ([1, 4, 7].includes(dialog.style.alignment)){
+        if ([Alignment.LeftBottom, Alignment.LeftMiddle, Alignment.LeftTop].includes(dialog.style.alignment)){
             //左对齐
             base.x += dialog.style.marginL;
             if (dialog.style.alignment === 7){
@@ -34,7 +36,9 @@ class Layout{
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y)
                 );
-                now.x += textent.render(dialog.style.fontname, dialog.style.fontsize, textGroup.content).width * dialog.style.scaleX;
+                let text = textent.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
+                console.log(text);
+                now.x += text.width * ( dialog.style.scaleX / 100);
             }
         }
         else if ([2, 5, 8].includes(dialog.style.alignment)){

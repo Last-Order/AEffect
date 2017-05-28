@@ -35,7 +35,7 @@ class Style {
     angle: number; // 旋转角度
     borderStyle: BorderStyle; // 阴影样式
     outline: number; // 轮廓宽度 （像素）
-    shadow: string; // 阴影宽度 （像素）
+    shadow: number; // 阴影宽度 （像素）
     alignment: Alignment; // 对齐方式 （参考小键盘）
     marginL: number; // 左侧边距
     marginR: number; // 右侧边距
