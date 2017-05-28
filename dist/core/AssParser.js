@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const Log_1 = require("../utils/Log");
 // Entities
 const Dialogue_1 = require("./Entities/Dialogue");
@@ -29,7 +30,6 @@ exports.MissingDialogFormatDefinitionError = MissingDialogFormatDefinitionError;
 class InvalidDialogFormatDefinitionError extends Error {
 }
 exports.InvalidDialogFormatDefinitionError = InvalidDialogFormatDefinitionError;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     parse(content, options = {}) {
         // 清除所有\r

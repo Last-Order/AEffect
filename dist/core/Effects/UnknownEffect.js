@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 const Blur_1 = require("./Blur");
 class UnknownEffect {
@@ -28,6 +29,5 @@ class UnknownEffect {
         return this.effectText;
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = UnknownEffect;
 //# sourceMappingURL=UnknownEffect.js.map

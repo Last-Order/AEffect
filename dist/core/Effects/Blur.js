@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 /**
  * 边缘模糊 (高斯模糊)
@@ -25,6 +26,5 @@ class Blur {
         return new Blur(strength);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Blur;
 //# sourceMappingURL=Blur.js.map

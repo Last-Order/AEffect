@@ -4,8 +4,8 @@ import Effect from './Effect'
 export class EffectIndexOutOfBoundError extends Error { }
 
 class BaseEffect {
-    static defaultHandler(applingEffect: Effect, text: Text): Text {
-        let start = applingEffect.startIndex;
+    static defaultHandler(applyingEffect: Effect, text: Text): Text {
+        let start = applyingEffect.startIndex;
 
         let newGroups: TextGroup[] = [];
         let insertedFlag = false;
@@ -32,7 +32,7 @@ class BaseEffect {
                 insertedFlag = true;
                 if (start === 0) {
                     let newTextGroup = textGroup.clone();
-                    pushToEffectArray(newTextGroup.effectGroup, applingEffect);
+                    pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup)
                 }
                 else {
@@ -43,14 +43,14 @@ class BaseEffect {
 
                     newTextGroup = new TextGroup(textGroup.content.slice(start));
                     newTextGroup.effectGroup = [...textGroup.effectGroup];
-                    pushToEffectArray(newTextGroup.effectGroup, applingEffect);
+                    pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup);
                 }
                 // 为后面的 groups 同样加上标签
             }
             else {
                 let clonedGroup = textGroup.clone();
-                pushToEffectArray(clonedGroup.effectGroup, applingEffect);
+                pushToEffectArray(clonedGroup.effectGroup, applyingEffect);
                 newGroups.push(clonedGroup);
                 start -= textGroup.content.length;
             }

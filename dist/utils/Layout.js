@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const Position_1 = require("../core/Effects/Position");
 const textent_1 = require("textent");
 class Layout {
@@ -35,11 +36,12 @@ class Layout {
             }
         }
         else if ([2, 5, 8].includes(dialog.style.alignment)) {
+            // 居中
         }
         else {
+            // 右对齐
         }
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Layout;
 //# sourceMappingURL=Layout.js.map

@@ -1,11 +1,12 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const Text_1 = require("../../Entities/Text");
 class EffectIndexOutOfBoundError extends Error {
 }
 exports.EffectIndexOutOfBoundError = EffectIndexOutOfBoundError;
 class BaseEffect {
-    static defaultHandler(applingEffect, text) {
-        let start = applingEffect.startIndex;
+    static defaultHandler(applyingEffect, text) {
+        let start = applyingEffect.startIndex;
         let newGroups = [];
         let insertedFlag = false;
         let pushToEffectArray = (effects, newEffect) => {
@@ -29,7 +30,7 @@ class BaseEffect {
                 insertedFlag = true;
                 if (start === 0) {
                     let newTextGroup = textGroup.clone();
-                    pushToEffectArray(newTextGroup.effectGroup, applingEffect);
+                    pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup);
                 }
                 else {
@@ -39,13 +40,14 @@ class BaseEffect {
                     newGroups.push(newTextGroup);
                     newTextGroup = new Text_1.TextGroup(textGroup.content.slice(start));
                     newTextGroup.effectGroup = [...textGroup.effectGroup];
-                    pushToEffectArray(newTextGroup.effectGroup, applingEffect);
+                    pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup);
                 }
+                // 为后面的 groups 同样加上标签
             }
             else {
                 let clonedGroup = textGroup.clone();
-                pushToEffectArray(clonedGroup.effectGroup, applingEffect);
+                pushToEffectArray(clonedGroup.effectGroup, applyingEffect);
                 newGroups.push(clonedGroup);
                 start -= textGroup.content.length;
             }
@@ -54,6 +56,5 @@ class BaseEffect {
         return text;
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = BaseEffect;
 //# sourceMappingURL=BaseEffect.js.map

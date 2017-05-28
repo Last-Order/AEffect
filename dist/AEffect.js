@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const Log_1 = require("./utils/Log");
 const AssParser_1 = require("./core/AssParser");
@@ -53,6 +54,5 @@ class AEffect {
         return new Selector_1.default().select(this, condition);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AEffect;
 //# sourceMappingURL=AEffect.js.map

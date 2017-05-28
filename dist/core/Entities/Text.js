@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const UnknownEffect_1 = require("../Effects/UnknownEffect");
 class TextParseError extends Error {
 }
@@ -73,6 +74,5 @@ class TextGroup {
     }
 }
 exports.TextGroup = TextGroup;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Text;
 //# sourceMappingURL=Text.js.map

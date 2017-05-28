@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Log {
     static error(name, message) {
         console.error(`[AEffect] [${new Date().toString()}] [ERROR] Error Name: ${name}; Message: ${message}`);
@@ -10,6 +11,5 @@ class Log {
         console.log(`[AEffect] [${new Date().toString()}] [INFO] ${message}`);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Log;
 //# sourceMappingURL=Log.js.map

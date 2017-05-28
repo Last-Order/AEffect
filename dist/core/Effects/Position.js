@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 /**
  * 位置
@@ -25,6 +26,5 @@ class Pos {
         return new Pos(+text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[2]);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Pos;
 //# sourceMappingURL=Position.js.map
