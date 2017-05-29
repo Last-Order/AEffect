@@ -26,8 +26,8 @@ describe("正在测试 Ass 解析", () => {
     describe("解析 Ass 部分测试", () =>{
         it("正常的 Ass 文件", () => {
             AE.loadFromFile("./test/test_ass/headtest.ass");
-            expect(AE.dialogs.length).to.be.equal(2);
-            expect(Object.keys(AE.styles).length).to.be.equal(1);
+            expect(AE.dialogs.length).to.be.equal(3);
+            expect(Object.keys(AE.styles).length).to.be.equal(2);
         });
         it("缺少 Events 块的 Ass 文件", () => {
             expect(() => {

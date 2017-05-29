@@ -41,7 +41,7 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y)
                 );
-                now.x += text.width * (dialog.style.scaleX / 100) + dialog.style.spacing;
+                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
             }
         }
         else if ([Alignment.Bottom, Alignment.Middle, Alignment.Top].includes(dialog.style.alignment)) {
@@ -68,7 +68,7 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x + Math.round(text.width / 2), now.y)
                 );
-                now.x += text.width * ( dialog.style.scaleX / 100) + dialog.style.spacing;
+                now.x += text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
             }
         }
         else if ([Alignment.RightBottom, Alignment.RightMiddle, Alignment.RightTop].includes(dialog.style.alignment)) {
@@ -89,8 +89,9 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y)
                 );
-                now.x -= text.width * ( dialog.style.scaleX / 100) + dialog.style.spacing;
+                now.x -= text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
             }
+            dialog.text.groups.reverse();
         }
         else {
             throw new InvalidAlignmentError("对话行对齐方式不合法");
