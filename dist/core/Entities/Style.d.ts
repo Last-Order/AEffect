@@ -33,7 +33,7 @@ declare class Style {
     angle: number;
     borderStyle: BorderStyle;
     outline: number;
-    shadow: string;
+    shadow: number;
     alignment: Alignment;
     marginL: number;
     marginR: number;

@@ -5,9 +5,19 @@ export class TextParseError extends Error {};
 
 class Text{
     groups: TextGroup[] = [];
+
+    /**
+     * 获取不带特效标签的文本内容
+     * @returns {string}
+     */
     get originalText(): string{
         return this.groups.map(i => i.content).join('');
     }
+
+    /**
+     *
+     * @param text Ass对话行内容
+     */
     constructor(text: string){
         let matchResult = text.match(/({.*?})/ig);
         if (matchResult !== null){
@@ -50,14 +60,22 @@ class Text{
             this.groups.push(new TextGroup(text));
         }
     }
+
+    /**
+     * 生成带有特效标签的文本
+     * @returns {string}
+     */
     toString(){
         return this.groups.map(i => i.toString()).join('');
     }
 }
 
+/**
+ *
+ */
 export class TextGroup{
-    effectGroup: Effect[] = [];
-    content: string;
+    effectGroup: Effect[] = []; // 特效标签组
+    content: string; // 文本内容
     constructor(text: string){
         this.content = text;
     }
@@ -68,6 +86,11 @@ export class TextGroup{
         }
         return effectTags + this.content;
     }
+
+    /**
+     * 复制 TextGroup
+     * @returns {TextGroup}
+     */
     clone(){
         let clonedTextGroup = new TextGroup(this.content);
         clonedTextGroup.effectGroup = [...this.effectGroup];

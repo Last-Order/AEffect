@@ -49,7 +49,7 @@ declare class Dialogue {
      * 将每个音节独立成行
      * @param autoPosition
      */
-    splitIntoSyllables(autoPosition?: boolean): void;
+    splitIntoSyllables(autoPosition?: boolean): boolean;
     /**
      * 获得行持续时间
      * @returns {number} 持续时间 毫秒

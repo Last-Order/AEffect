@@ -19,6 +19,7 @@ class Dialogue {
         this.marginV = 0;
         this.isSyllabified = false;
         this.metaInfo = metaInfo;
+        this.isComment = properties.isComment;
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
             if (properties[name] !== undefined) {
                 // 该属性存在
@@ -50,6 +51,10 @@ class Dialogue {
      * @param autoPosition
      */
     splitIntoSyllables(autoPosition = true) {
+        if (this.isComment) {
+            // 不处理注释行
+            return false;
+        }
         this.isSyllabified = true;
         if (autoPosition) {
             if (!this.style.alignment) {

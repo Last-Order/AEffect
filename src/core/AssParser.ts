@@ -199,6 +199,7 @@ export default {
             }
             else {
                 dialogBody = line.split("Dialogue:")[1].trim();
+                parsedDialog.isComment = false;
             }
             dialogBody.explode(",", dialogFormat.length).forEach((propertyValue, index) => {
                 let propertyKey = dialogFormat[index].toFirstLowerCase();

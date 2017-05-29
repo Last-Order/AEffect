@@ -1,4 +1,6 @@
 import Dialogue from '../core/Entities/Dialogue';
+export declare class InvalidAlignmentError extends Error {
+}
 declare class Layout {
     /**
      * 为所有音节生成位置

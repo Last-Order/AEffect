@@ -6,6 +6,10 @@ class TextParseError extends Error {
 exports.TextParseError = TextParseError;
 ;
 class Text {
+    /**
+     *
+     * @param text Ass对话行内容
+     */
     constructor(text) {
         this.groups = [];
         let matchResult = text.match(/({.*?})/ig);
@@ -48,16 +52,27 @@ class Text {
             this.groups.push(new TextGroup(text));
         }
     }
+    /**
+     * 获取不带特效标签的文本内容
+     * @returns {string}
+     */
     get originalText() {
         return this.groups.map(i => i.content).join('');
     }
+    /**
+     * 生成带有特效标签的文本
+     * @returns {string}
+     */
     toString() {
         return this.groups.map(i => i.toString()).join('');
     }
 }
+/**
+ *
+ */
 class TextGroup {
     constructor(text) {
-        this.effectGroup = [];
+        this.effectGroup = []; // 特效标签组
         this.content = text;
     }
     toString() {
@@ -67,6 +82,10 @@ class TextGroup {
         }
         return effectTags + this.content;
     }
+    /**
+     * 复制 TextGroup
+     * @returns {TextGroup}
+     */
     clone() {
         let clonedTextGroup = new TextGroup(this.content);
         clonedTextGroup.effectGroup = [...this.effectGroup];

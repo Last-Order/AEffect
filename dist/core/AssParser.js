@@ -9,6 +9,7 @@ const Time_1 = require("./Entities/Time");
 const Text_1 = require("./Entities/Text");
 require("../utils/Explode");
 require("../utils/ToFirstLowerCase");
+const Color_1 = require("./Entities/Color");
 class MissingEventBlockError extends Error {
 }
 exports.MissingEventBlockError = MissingEventBlockError;
@@ -105,7 +106,44 @@ exports.default = {
                 throw new InvalidStyleDefinitionError("Ass 文件 Style 格式定义与实际不符");
             }
             lineArray.forEach((property, index) => {
-                parsedStyle[styleFormat[index]] = property.trim();
+                let key = styleFormat[index].toFirstLowerCase();
+                switch (key) {
+                    case "name":
+                    case "fontname":
+                        parsedStyle[styleFormat[index]] = property.trim();
+                        break;
+                    case "fontsize":
+                    case "scaleX":
+                    case "scaleY":
+                    case "spacing":
+                    case "angle":
+                    case "outline":
+                    case "shadow":
+                    case "marginL":
+                    case "marginR":
+                    case "marginV":
+                    case "encoding":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                    case "primaryColour":
+                    case "secondaryColour":
+                    case "outlineColour":
+                    case "backColour":
+                        parsedStyle[styleFormat[index]] = Color_1.default.ASS(property.trim());
+                        break;
+                    case "bold":
+                    case "italic":
+                    case "underline":
+                    case "strikeOut":
+                        parsedStyle[styleFormat[index]] = property.trim() === "-1";
+                        break;
+                    case "alignment":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                    case "borderStyle":
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim());
+                        break;
+                }
             });
             parsedAssStyles[parsedStyle.Name] = new Style_1.default(parsedStyle);
         });
@@ -153,6 +191,7 @@ exports.default = {
             }
             else {
                 dialogBody = line.split("Dialogue:")[1].trim();
+                parsedDialog.isComment = false;
             }
             dialogBody.explode(",", dialogFormat.length).forEach((propertyValue, index) => {
                 let propertyKey = dialogFormat[index].toFirstLowerCase();

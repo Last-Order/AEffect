@@ -9,12 +9,11 @@ import textent from 'textent';
 describe("综合测试", () => {
     it("过了这个感觉很强", () => {
         let AE = new AEffect();
-        AE.loadFromFile("./test/test_ass/headtest.ass");
+        AE.loadFromFile("D:\\1.ass");
         AE.select().getDialogs().forEach(dialog => {
             dialog.splitIntoSyllables();
-            console.log(dialog.text.groups);
             for (let textGroup of dialog.text.groups){
-                console.log(textGroup.effectGroup[1]);
+                console.log(textGroup.content, textGroup.effectGroup[1]);
             }
         });
     });
