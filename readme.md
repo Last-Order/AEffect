@@ -1,6 +1,6 @@
 # AEffect
 
-AEffect is a tool to generate effect subtitles (.ass) files for JavaScript programmer.
+AEffect is a tool to generate effect subtitles (.ass) files for JavaScript programmers.
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ npm install aeffect
 
 ### Compatibility
 
-Because that some of functions are based on Win32 API, AEffect can only support Windows platform now.
+Because that functions related to rendering are based on Win32 API, AEffect can only support Windows platform now.
 
 
 ### Importing to your script
@@ -22,7 +22,7 @@ const AEffect = require("aeffect");
 
 ## Examples
 
-### Adding Blur effect to all dialogs with "Default" style
+### Adding blur effect to all dialogs with "Default" style
 
 ```JavaScript
     let AE = new AEffect();
