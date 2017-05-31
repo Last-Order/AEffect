@@ -34,6 +34,13 @@ class AssBuilder {
                 else {
                     // 将音节转换为行
                     let now = line.start.second;
+                    for (let textGroup of line.text.groups) {
+                        let duration;
+                        for (let effect of textGroup.effectGroup) {
+                            if (effect.name === "k") {
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -10,6 +10,11 @@ class BaseEffect {
         let newGroups: TextGroup[] = [];
         let insertedFlag = false;
 
+        /**
+         * 向 effects 数组加入新 effect 并防止重复
+         * @param effects
+         * @param newEffect
+         */
         let pushToEffectArray = (effects: Effect[], newEffect: Effect) => {
             let duplicateFlag = false;
             effects.forEach((effect, index) => {
@@ -23,7 +28,7 @@ class BaseEffect {
             }
         };
 
-        text.groups.forEach((textGroup, index, groups) => {
+        text.groups.forEach((textGroup) => {
             if (start < 0 && !insertedFlag) {
                 // 到末尾了依旧没找到插入点
                 throw new EffectIndexOutOfBoundError("特效起始位置超出行");
@@ -50,7 +55,6 @@ class BaseEffect {
             }
             else {
                 let clonedGroup = textGroup.clone();
-                pushToEffectArray(clonedGroup.effectGroup, applyingEffect);
                 newGroups.push(clonedGroup);
                 start -= textGroup.content.length;
             }

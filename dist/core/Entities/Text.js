@@ -9,11 +9,12 @@ class Text {
     /**
      *
      * @param text Ass对话行内容
+     * @param parseEffect 是否解析特效标签
      */
-    constructor(text) {
+    constructor(text, parseEffect = true) {
         this.groups = [];
         let matchResult = text.match(/({.*?})/ig);
-        if (matchResult !== null) {
+        if (matchResult !== null && parseEffect) {
             // 原文本含有特效标签
             let offset = 0;
             let clonedText = text;
@@ -33,18 +34,17 @@ class Text {
             });
             for (let i in effectTags) {
                 let effects = effectTags[i].slice(1, effectTags[i].length - 1).split("\\").filter(str => str !== "");
+                let newTextGroup = new TextGroup(plainTexts[i]);
                 for (let effect of effects) {
-                    let newTextGroup = new TextGroup(plainTexts[i]);
                     try {
                         newTextGroup.effectGroup.push(UnknownEffect_1.default.parse(`\\${effect}`));
                     }
                     catch (e) {
-                        throw new TextParseError();
-                    }
-                    finally {
-                        this.groups.push(newTextGroup);
+                        console.log(e);
+                        throw new TextParseError("特效标签解析失败");
                     }
                 }
+                this.groups.push(newTextGroup);
             }
         }
         else {

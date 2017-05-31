@@ -23,7 +23,7 @@ class Pos {
         return `\\pos(${this.x}, ${this.y})`;
     }
     static parse(text) {
-        return new Pos(+text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]+(\d+?)\)/)[2]);
+        return new Pos(+text.match(/pos\((\d+?),[ ]*(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]*(\d+?)\)/)[2]);
     }
 }
 exports.default = Pos;

@@ -214,7 +214,7 @@ exports.default = {
                         parsedDialog[propertyKey] = Time_1.default.parse(propertyValue);
                         break;
                     case 'text':
-                        parsedDialog[propertyKey] = new Text_1.default(propertyValue);
+                        parsedDialog[propertyKey] = !parsedDialog.isComment ? new Text_1.default(propertyValue) : new Text_1.default(propertyValue, false);
                         break;
                 }
             });

@@ -29,7 +29,7 @@ class AssBuilder {
             ass += `${AEffect.styles[key].toString()}\r\n`;
         }
 
-        ass += "\r\n[Events]\r\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\r\n"
+        ass += "\r\n[Events]\r\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\r\n";
 
         // 拼接对话行
         for (let line of AEffect.dialogs){
@@ -40,7 +40,14 @@ class AssBuilder {
                 else{
                     // 将音节转换为行
                     let now = line.start.second;
+                    for (let textGroup of line.text.groups){
+                        let duration: number;
+                        for (let effect of textGroup.effectGroup){
+                            if (effect.name === "k"){
 
+                            }
+                        }
+                    }
                 }
             }
 

@@ -222,7 +222,7 @@ export default {
                         parsedDialog[propertyKey] = Time.parse(propertyValue);
                         break;
                     case 'text':
-                        parsedDialog[propertyKey] = new Text(propertyValue);
+                        parsedDialog[propertyKey] = !parsedDialog.isComment ? new Text(propertyValue) : new Text(propertyValue, false);
                         break;
                 }
             });
