@@ -37,6 +37,10 @@ declare class Dialogue {
     metaInfo: MetaInfo;
     isComment: boolean;
     isSyllabified: boolean;
+    properties: DialogueConstructProperties;
+    styleMap: {
+        [index: string]: Style;
+    };
     constructor(properties: DialogueConstructProperties, styleMap: {
         [index: string]: Style;
     }, metaInfo: MetaInfo);
@@ -46,10 +50,10 @@ declare class Dialogue {
      */
     addEffect(effect: Effect[]): void;
     /**
-     * 将每个音节独立成行
+     * 解析音节。为每个音节赋予位置。
      * @param autoPosition
      */
-    splitIntoSyllables(autoPosition?: boolean): boolean;
+    parseSyllables(autoPosition?: boolean): boolean;
     /**
      * 获得行持续时间
      * @returns {number} 持续时间 毫秒
@@ -71,5 +75,10 @@ declare class Dialogue {
      * @override
      */
     toString(): string;
+    /**
+     * 复制一个 Dialogue 实例
+     * @returns {Dialogue}
+     */
+    clone(): Dialogue;
 }
 export default Dialogue;

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Time_1 = require("./Entities/Time");
 class Selector {
     /**
      * 选取特定行
@@ -49,9 +50,41 @@ class Selector {
      * @returns {Selector}
      */
     splitIntoSyllables() {
-        for (let dialog of this.dialogs) {
-            dialog.splitIntoSyllables();
-        }
+        let newDialogs = [];
+        this.dialogs.forEach((dialog, index) => {
+            if (!dialog.isComment) {
+                dialog.parseSyllables();
+                let start = dialog.start;
+                let end;
+                for (let textGroup of dialog.text.groups) {
+                    for (let effectIndex in textGroup.effectGroup) {
+                        let effect = textGroup.effectGroup[effectIndex];
+                        if (effect.name === "k") {
+                            let _effect = effect;
+                            end = new Time_1.default(start.second + _effect.duration / 1000);
+                            // 生成新 Dialog 对象
+                            let newDialog = dialog.clone();
+                            newDialog.start = start.clone();
+                            newDialog.end = end.clone();
+                            // 复制文字
+                            newDialog.text.groups = [textGroup];
+                            // 去除时间标签
+                            newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                            newDialogs.push(newDialog);
+                            // 时间向后推移
+                            start = new Time_1.default(start.second + _effect.duration / 1000);
+                            break;
+                        }
+                    }
+                }
+                // 移除原来的 Dialog
+                this.dialogs = this.dialogs.slice(0, index).concat(this.dialogs.slice(index + 1));
+            }
+        });
+        console.log(newDialogs);
+        newDialogs.forEach((newDialog) => {
+            this.dialogs.push(newDialog);
+        });
         return this;
     }
     /**
@@ -60,6 +93,14 @@ class Selector {
      */
     getDialogs() {
         return this.dialogs;
+    }
+    /**
+     * 对 Dialog 批量应用函数
+     */
+    forEachDialog(handler) {
+        for (let dialog of this.dialogs) {
+            handler(dialog);
+        }
     }
 }
 exports.default = Selector;

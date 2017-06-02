@@ -2,7 +2,7 @@ import 'mocha';
 import { expect } from 'chai';
 
 import Dialogue from "../src/core/Entities/Dialogue";
-import Layout from "../src/utils/Layout";
+import Layout from "../src/core/Layout";
 import Style, {Alignment} from "../src/core/Entities/Style";
 import Time from "../src/core/Entities/Time";
 import Text from '../src/core/Entities/Text';
@@ -44,7 +44,7 @@ describe("布局渲染测试", () => {
     describe("左对齐布局测试", () => {
         it("左下对齐", () => {
             dialog.style.alignment = Alignment.LeftBottom;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(10);
             expect(effect.y).to.be.equal(1070);
@@ -57,7 +57,7 @@ describe("布局渲染测试", () => {
         });
         it("左中对齐", () => {
             dialog.style.alignment = Alignment.LeftMiddle;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(10);
             expect(effect.y).to.be.equal(540);
@@ -70,7 +70,7 @@ describe("布局渲染测试", () => {
         });
         it("左上对齐", () => {
             dialog.style.alignment = Alignment.LeftTop;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(10);
             expect(effect.y).to.be.equal(10);
@@ -85,7 +85,7 @@ describe("布局渲染测试", () => {
     describe("右对齐布局测试", () => {
         it("右下对齐", () => {
             dialog.style.alignment = Alignment.RightBottom;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(1794);
             expect(effect.y).to.be.equal(1070);
@@ -98,7 +98,7 @@ describe("布局渲染测试", () => {
         });
         it("右中对齐", () => {
             dialog.style.alignment = Alignment.RightMiddle;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(1794);
             expect(effect.y).to.be.equal(540);
@@ -111,7 +111,7 @@ describe("布局渲染测试", () => {
         });
         it("右上对齐", () => {
             dialog.style.alignment = Alignment.RightTop;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(1794);
             expect(effect.y).to.be.equal(10);
@@ -126,7 +126,7 @@ describe("布局渲染测试", () => {
     describe("居中对齐布局测试", () => {
         it("上方居中", () => {
             dialog.style.alignment = Alignment.Top;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(902);
             expect(effect.y).to.be.equal(10);
@@ -139,7 +139,7 @@ describe("布局渲染测试", () => {
         });
         it("下方居中", () => {
             dialog.style.alignment = Alignment.Bottom;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(902);
             expect(effect.y).to.be.equal(1070);
@@ -152,7 +152,7 @@ describe("布局渲染测试", () => {
         });
         it("下方居中", () => {
             dialog.style.alignment = Alignment.Middle;
-            dialog.splitIntoSyllables();
+            dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
             expect(effect.x).to.be.equal(902);
             expect(effect.y).to.be.equal(540);

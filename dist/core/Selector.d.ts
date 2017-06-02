@@ -35,5 +35,9 @@ declare class Selector {
      * @returns {Dialogue[]}
      */
     getDialogs(): Dialogue[];
+    /**
+     * 对 Dialog 批量应用函数
+     */
+    forEachDialog(handler: (dialog: Dialogue) => Dialogue): void;
 }
 export default Selector;

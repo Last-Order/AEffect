@@ -26,6 +26,9 @@ class Time{
     valueOf(): Number{
         return this.second;
     }
+    clone(){
+        return new Time(this.second);
+    }
     static parse(time: string): Time {
         let timeArr = time.split(":");
         if (timeArr.length !== 3) {

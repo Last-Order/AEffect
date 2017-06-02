@@ -4,7 +4,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const Style_1 = require("./Style");
-const Layout_1 = require("../../utils/Layout");
+const Layout_1 = require("../Layout");
 class MissingAlignmentError extends Error {
 }
 exports.MissingAlignmentError = MissingAlignmentError;
@@ -18,6 +18,8 @@ class Dialogue {
         this.marginR = 0;
         this.marginV = 0;
         this.isSyllabified = false;
+        this.properties = properties;
+        this.styleMap = styleMap;
         this.metaInfo = metaInfo;
         this.isComment = properties.isComment;
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
@@ -47,10 +49,10 @@ class Dialogue {
         }
     }
     /**
-     * 将每个音节独立成行
+     * 解析音节。为每个音节赋予位置。
      * @param autoPosition
      */
-    splitIntoSyllables(autoPosition = true) {
+    parseSyllables(autoPosition = true) {
         if (this.isComment) {
             // 不处理注释行
             return false;
@@ -133,6 +135,13 @@ class Dialogue {
         });
         ass += temp.join(',');
         return ass;
+    }
+    /**
+     * 复制一个 Dialogue 实例
+     * @returns {Dialogue}
+     */
+    clone() {
+        return new Dialogue(this.properties, this.styleMap, this.metaInfo);
     }
 }
 exports.default = Dialogue;

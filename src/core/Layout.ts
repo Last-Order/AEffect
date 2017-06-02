@@ -1,6 +1,6 @@
-import Dialogue from '../core/Entities/Dialogue'
-import {Alignment} from '../core/Entities/Style';
-import Position from '../core/Effects/Position'
+import Dialogue from './Entities/Dialogue'
+import {Alignment} from './Entities/Style';
+import Position from './Effects/Position'
 
 import textent from 'textent';
 

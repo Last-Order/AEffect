@@ -11,7 +11,7 @@ import Effect from '../Effects/base/Effect';
 
 import { StyleError } from './Style'
 import Log from "../../utils/Log";
-import Layout from "../../utils/Layout";
+import Layout from "../Layout";
 
 export class MissingAlignmentError extends Error{}
 export class MissingResolutionError extends Error{};
@@ -44,7 +44,11 @@ class Dialogue {
     metaInfo: MetaInfo;
     isComment: boolean;
     isSyllabified: boolean = false;
+    properties: DialogueConstructProperties;
+    styleMap: {[index: string]: Style};
     constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}, metaInfo: MetaInfo) {
+        this.properties = properties;
+        this.styleMap = styleMap;
         this.metaInfo = metaInfo;
         this.isComment = properties.isComment;
         ["layer", "start", "end", "styleName", "name", "marginL", "marginR", "marginV", "effect", "text", "isComment"].forEach((name, index) => {
@@ -75,10 +79,10 @@ class Dialogue {
     }
 
     /**
-     * 将每个音节独立成行
+     * 解析音节。为每个音节赋予位置。
      * @param autoPosition
      */
-    splitIntoSyllables(autoPosition: boolean = true){
+    parseSyllables(autoPosition: boolean = true){
         if (this.isComment){
             // 不处理注释行
             return false;
@@ -154,6 +158,14 @@ class Dialogue {
         });
         ass += temp.join(',');
         return ass;
+    }
+
+    /**
+     * 复制一个 Dialogue 实例
+     * @returns {Dialogue}
+     */
+    clone(): Dialogue{
+        return new Dialogue(this.properties, this.styleMap, this.metaInfo);
     }
 }
 

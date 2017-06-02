@@ -2,6 +2,8 @@ import AEffect from '../AEffect';
 
 import Dialogue from './Entities/Dialogue';
 import Effect from './Effects/base/Effect';
+import Time from "./Entities/Time";
+import K from "./Effects/K";
 
 class Selector{
     dialogs: Dialogue[];
@@ -56,9 +58,41 @@ class Selector{
      * @returns {Selector}
      */
     splitIntoSyllables(){
-        for (let dialog of this.dialogs){
-            dialog.splitIntoSyllables();
-        }
+        let newDialogs: Dialogue[] = [];
+        this.dialogs.forEach((dialog, index) => {
+            if (!dialog.isComment){
+                dialog.parseSyllables();
+                let start: Time = dialog.start;
+                let end: Time;
+                for (let textGroup of dialog.text.groups){
+                    for (let effectIndex in textGroup.effectGroup){
+                        let effect = textGroup.effectGroup[effectIndex];
+                        if (effect.name === "k"){
+                            let _effect = <K> effect;
+                            end = new Time(start.second + _effect.duration / 1000);
+                            // 生成新 Dialog 对象
+                            let newDialog = dialog.clone();
+                            newDialog.start = start.clone();
+                            newDialog.end = end.clone();
+                            // 复制文字
+                            newDialog.text.groups = [textGroup];
+                            // 去除时间标签
+                            newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                            newDialogs.push(newDialog);
+                            // 时间向后推移
+                            start = new Time(start.second + _effect.duration / 1000);
+                            break;
+                        }
+                    }
+                }
+                // 移除原来的 Dialog
+                this.dialogs = this.dialogs.slice(0, index).concat(this.dialogs.slice(index + 1));
+            }
+        });
+        console.log(newDialogs);
+        newDialogs.forEach((newDialog) => {
+            this.dialogs.push(newDialog);
+        });
         return this;
     }
 
@@ -68,6 +102,15 @@ class Selector{
      */
     getDialogs(): Dialogue[]{
         return this.dialogs;
+    }
+
+    /**
+     * 对 Dialog 批量应用函数
+     */
+    forEachDialog(handler: (dialog: Dialogue) => Dialogue): void{
+        for (let dialog of this.dialogs){
+            handler(dialog);
+        }
     }
 }
 

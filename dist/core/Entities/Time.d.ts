@@ -6,6 +6,7 @@ declare class Time {
     add(time2: Time): Time;
     sub(time2: Time): Time;
     valueOf(): Number;
+    clone(): Time;
     static parse(time: string): Time;
 }
 export declare class TimeParseError extends Error {
