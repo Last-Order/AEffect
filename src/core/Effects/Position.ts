@@ -7,7 +7,7 @@ import BaseEffect from './base/BaseEffect';
 class Pos implements Effect{
     isHeadEffect = true;
     startIndex: number = 0;
-    name = "Pos";
+    name = "pos";
     x: number;
     y: number;
 

@@ -39,6 +39,6 @@ declare class Selector {
     /**
      * 对 Dialog 批量应用函数
      */
-    forEachDialog(handler: (dialog: Dialogue) => Dialogue): void;
+    forEachDialog(handler: (dialog: Dialogue, index?: number) => Dialogue): void;
 }
 export default Selector;

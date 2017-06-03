@@ -5,7 +5,7 @@ import BaseEffect from './base/BaseEffect';
  * 边缘模糊 (高斯模糊)
  */
 class Blur implements Effect {
-    name = "Blur";
+    name = "blur";
     isHeadEffect = false;
     startIndex: number;
     strength: number; 

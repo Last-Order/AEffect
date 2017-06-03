@@ -12,7 +12,7 @@ class Pos {
     constructor(x, y) {
         this.isHeadEffect = true;
         this.startIndex = 0;
-        this.name = "Pos";
+        this.name = "pos";
         this.x = x;
         this.y = y;
     }

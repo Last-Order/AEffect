@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const Text_1 = require("./Entities/Text");
 const Time_1 = require("./Entities/Time");
 class Selector {
     constructor(AE) {
@@ -69,7 +70,7 @@ class Selector {
                             newDialog.start = start.clone();
                             newDialog.end = end.clone();
                             // 复制文字
-                            newDialog.text.groups = [textGroup];
+                            newDialog.text.groups = (new Text_1.default(textGroup.toString())).groups;
                             // 去除时间标签
                             newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                             newDialogs.push(newDialog);
@@ -79,6 +80,10 @@ class Selector {
                         }
                     }
                 }
+                // 去掉原 Dialog 的位置标签
+                this.dialogs[index].text.groups.forEach(textGroup => {
+                    textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
+                });
                 // 注释原来的 Dialog
                 this.dialogs[index].isComment = true;
             }
@@ -99,9 +104,9 @@ class Selector {
      * 对 Dialog 批量应用函数
      */
     forEachDialog(handler) {
-        for (let dialog of this.dialogs) {
-            handler(dialog);
-        }
+        this.dialogs.forEach((dialog, index, dialogArray) => {
+            handler(dialog, index);
+        });
     }
 }
 exports.default = Selector;

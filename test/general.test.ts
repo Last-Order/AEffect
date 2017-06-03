@@ -10,7 +10,9 @@ describe("正在进行综合测试", () => {
     it("过了这个感觉很强", () => {
         let AE = new AEffect();
         AE.loadFromFile("./test/test_ass/headtest.ass");
-        AE.select().splitIntoSyllables();
+        AE.select().splitIntoSyllables().forEachDialog((dialog) => {
+            return dialog;
+        });
         console.log(AE.build())
     });
     it("另外一个测试", () => {

@@ -10,7 +10,7 @@ class Blur {
      * @param startIndex 起始位置
      */
     constructor(strength = 1, startIndex = 0) {
-        this.name = "Blur";
+        this.name = "blur";
         this.isHeadEffect = false;
         this.strength = strength;
         this.startIndex = startIndex;
