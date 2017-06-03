@@ -1,5 +1,6 @@
 import Color from './Color'
 
+
 export enum BorderStyle {
     BorderAndShadow = 1, // 边框+阴影
     PureBackground = 3 // 纯色背景
@@ -52,10 +53,38 @@ class Style {
     */
     toString() {
         let ass = "Style: ";
-        let temp = [];
+        let temp: string[] = [];
         ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
             .forEach(name => {
-                temp.push(this[name[0].toLowerCase() + name.slice(1)]);
+                name = name[0].toLowerCase() + name.slice(1);
+                switch (name){
+                    case "name":
+                    case "fontname":
+                        temp.push(this[name]); break;
+                    case "fontsize":
+                    case "scaleX":
+                    case "scaleY":
+                    case "spacing":
+                    case "angle":
+                    case "outline":
+                    case "shadow":
+                    case "marginL":
+                    case "marginR":
+                    case "marginV":
+                    case "encoding":
+                    case "primaryColour":
+                    case "secondaryColour":
+                    case "outlineColour":
+                    case "backColour":
+                    case "alignment":
+                    case "borderStyle":
+                        temp.push("" + this[name]); break;
+                    case "bold":
+                    case "italic":
+                    case "underline":
+                    case "strikeOut":
+                        temp.push(this[name] ? "-1" : "0"); break;
+                }
             });
         ass += temp.join(',');
         return ass;

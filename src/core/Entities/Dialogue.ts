@@ -151,6 +151,8 @@ class Dialogue {
                     temp.push("" + this.marginR || "0"); break;
                 case "MarginV":
                     temp.push("" + this.marginV || "0"); break;
+                case "Effect":
+                    temp.push(this.effect); break;
                 case "Text":
                     temp.push(this.text.toString()); break;
 
