@@ -62,7 +62,7 @@ class AEffect{
             Log.error("empty_ass", "请先载入含有对话句的 Ass 文件");
             return;
         }
-        return new Selector().select(this, condition);
+        return new Selector(this).select(condition);
     }
 }
 export default AEffect;

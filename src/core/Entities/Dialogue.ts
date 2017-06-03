@@ -165,7 +165,10 @@ class Dialogue {
      * @returns {Dialogue}
      */
     clone(): Dialogue{
-        return new Dialogue(this.properties, this.styleMap, this.metaInfo);
+        return new Dialogue({
+            ...this.properties,
+            "text": new Text(this.properties.text.toString())
+        }, {...this.styleMap}, {...this.metaInfo});
     }
 }
 

@@ -3,16 +3,17 @@ import Dialogue from './Entities/Dialogue';
 import Effect from './Effects/base/Effect';
 declare class Selector {
     dialogs: Dialogue[];
+    AE: AEffect;
     condition: {
         [index: string]: string;
     };
+    constructor(AE: AEffect);
     /**
      * 选取特定行
-     * @param AE AEffect 对象
      * @param condition 条件
      * @returns {Selector}
      */
-    select(AE: AEffect, condition: {
+    select(condition: {
         [index: string]: string;
     }): Selector;
     static selectByStyle(dialog: Dialogue, style: any): boolean;

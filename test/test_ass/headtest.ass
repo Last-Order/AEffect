@@ -32,5 +32,5 @@ Style: Default,思源黑体 CN Medium,33,&HE0FFFFFF,&H000000FF,&H00000000,&H0000
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 Comment: 0,0:00:00.00,0:00:00.00,Default,,0,0,0,template,{\pos($x, $y)}
-Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,karaoke,{\k0}一{\k0}行{\k0}字{\k0}幕
+Dialogue: 0,0:00:00.00,0:00:05.00,Default,,0,0,0,karaoke,{\k20}一{\k30}行{\k20}字{\k20}幕
 Dialogue: 0,0:00:05.00,0:00:07.00,Default,,0,0,0,karaoke,两行字幕

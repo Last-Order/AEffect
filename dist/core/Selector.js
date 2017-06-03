@@ -2,14 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Time_1 = require("./Entities/Time");
 class Selector {
+    constructor(AE) {
+        this.AE = AE;
+    }
     /**
      * 选取特定行
-     * @param AE AEffect 对象
      * @param condition 条件
      * @returns {Selector}
      */
-    select(AE, condition) {
-        let dialogs = AE.dialogs;
+    select(condition) {
+        let dialogs = this.AE.dialogs;
         for (let key of Object.keys(condition)) {
             dialogs = dialogs.filter((dialog) => {
                 return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
@@ -77,13 +79,12 @@ class Selector {
                         }
                     }
                 }
-                // 移除原来的 Dialog
-                this.dialogs = this.dialogs.slice(0, index).concat(this.dialogs.slice(index + 1));
+                // 注释原来的 Dialog
+                this.dialogs[index].isComment = true;
             }
         });
-        console.log(newDialogs);
         newDialogs.forEach((newDialog) => {
-            this.dialogs.push(newDialog);
+            this.AE.dialogs.push(newDialog);
         });
         return this;
     }

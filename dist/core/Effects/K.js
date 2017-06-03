@@ -22,6 +22,9 @@ class K {
     static parse(text) {
         return new K(+text.match(/(\d+)/)[1]);
     }
+    toString() {
+        return `\\k${this.duration}`;
+    }
 }
 exports.default = K;
 //# sourceMappingURL=K.js.map

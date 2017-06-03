@@ -26,4 +26,7 @@ export default class K implements Effect{
     static parse(text: string){
         return new K(+text.match(/(\d+)/)[1]);
     }
+    toString(){
+        return `\\k${this.duration}`
+    }
 }

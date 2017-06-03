@@ -33,24 +33,7 @@ class AssBuilder {
 
         // 拼接对话行
         for (let line of AEffect.dialogs){
-            if (!line.isComment){
-                if (!line.isSyllabified){
-                    ass += `${line}\r\n`;
-                }
-                else{
-                    // 将音节转换为行
-                    let now = line.start.second;
-                    for (let textGroup of line.text.groups){
-                        let duration: number;
-                        for (let effect of textGroup.effectGroup){
-                            if (effect.name === "k"){
-
-                            }
-                        }
-                    }
-                }
-            }
-
+            ass += `${line}\r\n`;
         }
         return ass;
     }

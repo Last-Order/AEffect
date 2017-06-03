@@ -16,4 +16,5 @@ export default class K implements Effect {
     constructor(duration?: number, startIndex?: number);
     handler(text: Text): any;
     static parse(text: string): K;
+    toString(): string;
 }
