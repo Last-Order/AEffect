@@ -12,7 +12,7 @@ test_script:
   - node --version
   - npm --version
   # run build
-  - npm run build
+  - npm run build && npm run test
 
 # Don't actually build.
 build: off
