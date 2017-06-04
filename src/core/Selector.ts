@@ -72,7 +72,7 @@ class Selector{
                         let effect = textGroup.effectGroup[effectIndex];
                         if (effect.name === "k"){
                             let _effect = <K> effect;
-                            end = new Time(start.second + _effect.duration / 1000);
+                            end = new Time(start.second + _effect.duration / 100);
                             // 生成新 Dialog 对象
                             let newDialog = dialog.clone();
                             newDialog.start = start.clone();
@@ -82,8 +82,10 @@ class Selector{
                             // 去除时间标签
                             newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                             newDialogs.push(newDialog);
+                            // 链接原句与新句
+                            newDialog.parentDialog = dialog;
                             // 时间向后推移
-                            start = new Time(start.second + _effect.duration / 1000);
+                            start = new Time(start.second + _effect.duration / 100);
                             break;
                         }
                     }

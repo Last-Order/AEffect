@@ -40,6 +40,7 @@ class Dialogue {
     marginR: number = 0;
     marginV: number = 0;
     effect: string;
+    parentDialog: Dialogue;
     text: Text;
     metaInfo: MetaInfo;
     isComment: boolean;

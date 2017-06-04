@@ -9,7 +9,7 @@ import textent from 'textent';
 describe("正在进行综合测试", () => {
     it("过了这个感觉很强", () => {
         let AE = new AEffect();
-        AE.loadFromFile("./test/test_ass/headtest.ass");
+        AE.loadFromFile("D:\\Project\\字幕\\奈奈甲子园\\starting now.ass");
         AE.select().splitIntoSyllables().forEachDialog((dialog) => {
             return dialog;
         });

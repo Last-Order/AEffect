@@ -33,6 +33,7 @@ declare class Dialogue {
     marginR: number;
     marginV: number;
     effect: string;
+    parentDialog: Dialogue;
     text: Text;
     metaInfo: MetaInfo;
     isComment: boolean;
