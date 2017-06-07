@@ -6,7 +6,6 @@ const textent_1 = require("textent");
 class InvalidAlignmentError extends Error {
 }
 exports.InvalidAlignmentError = InvalidAlignmentError;
-;
 class Layout {
     /**
      * 为所有音节生成位置
@@ -38,7 +37,7 @@ class Layout {
             for (let textGroup of dialog.text.groups) {
                 let text = textent_1.default.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
                 textGroup.effectGroup.push(new Position_1.default(now.x, now.y));
-                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
         }
         else if ([Style_1.Alignment.Bottom, Style_1.Alignment.Middle, Style_1.Alignment.Top].includes(dialog.style.alignment)) {
@@ -62,8 +61,9 @@ class Layout {
             now.y = base.y;
             for (let textGroup of dialog.text.groups) {
                 let text = textent_1.default.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
+                console.log(text.width, textGroup.content);
                 textGroup.effectGroup.push(new Position_1.default(now.x + Math.round(text.width / 2), now.y));
-                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
         }
         else if ([Style_1.Alignment.RightBottom, Style_1.Alignment.RightMiddle, Style_1.Alignment.RightTop].includes(dialog.style.alignment)) {
@@ -82,7 +82,7 @@ class Layout {
             for (let textGroup of dialog.text.groups.reverse()) {
                 let text = textent_1.default.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
                 textGroup.effectGroup.push(new Position_1.default(now.x, now.y));
-                now.x -= text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x -= text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
             dialog.text.groups.reverse();
         }

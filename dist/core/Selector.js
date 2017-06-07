@@ -18,7 +18,7 @@ class Selector {
                 return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
             });
         }
-        this.dialogs = dialogs;
+        this.dialogs = dialogs.filter(dialog => !dialog.isComment); // 不选中注释行
         this.condition = condition; // 存档查询条件
         return this;
     }
@@ -55,40 +55,40 @@ class Selector {
     splitIntoSyllables() {
         let newDialogs = [];
         this.dialogs.forEach((dialog, index) => {
-            if (!dialog.isComment) {
-                dialog.parseSyllables();
-                let start = dialog.start;
-                let end;
-                for (let textGroup of dialog.text.groups) {
-                    for (let effectIndex in textGroup.effectGroup) {
-                        let effect = textGroup.effectGroup[effectIndex];
-                        if (effect.name === "k") {
-                            let _effect = effect;
-                            end = new Time_1.default(start.second + _effect.duration / 100);
-                            // 生成新 Dialog 对象
-                            let newDialog = dialog.clone();
-                            newDialog.start = start.clone();
-                            newDialog.end = end.clone();
-                            // 复制文字
-                            newDialog.text.groups = (new Text_1.default(textGroup.toString())).groups;
-                            // 去除时间标签
-                            newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
-                            newDialogs.push(newDialog);
-                            // 链接原句与新句
-                            newDialog.parentDialog = dialog;
-                            // 时间向后推移
-                            start = new Time_1.default(start.second + _effect.duration / 100);
-                            break;
-                        }
+            dialog.parseSyllables();
+            let start = dialog.start;
+            let end;
+            for (let textGroup of dialog.text.groups) {
+                for (let effectIndex in textGroup.effectGroup) {
+                    let effect = textGroup.effectGroup[effectIndex];
+                    if (effect.name === "k") {
+                        let _effect = effect;
+                        end = new Time_1.default(start.second + _effect.duration / 100);
+                        // 生成新 Dialog 对象
+                        let newDialog = dialog.clone();
+                        // newDialog.start = start.clone();
+                        // newDialog.end = end.clone();
+                        newDialog.start = dialog.start;
+                        newDialog.end = dialog.end;
+                        // 复制文字
+                        newDialog.text.groups = (new Text_1.default(textGroup.toString())).groups;
+                        // 去除时间标签
+                        newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                        newDialogs.push(newDialog);
+                        // 链接原句与新句
+                        newDialog.parentDialog = dialog;
+                        // 时间向后推移
+                        start = new Time_1.default(start.second + _effect.duration / 100);
+                        break;
                     }
                 }
-                // 去掉原 Dialog 的位置标签
-                this.dialogs[index].text.groups.forEach(textGroup => {
-                    textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
-                });
-                // 注释原来的 Dialog
-                this.dialogs[index].isComment = true;
             }
+            // 去掉原 Dialog 的位置标签
+            this.dialogs[index].text.groups.forEach(textGroup => {
+                textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
+            });
+            // 注释原来的 Dialog
+            this.dialogs[index].isComment = true;
         });
         newDialogs.forEach((newDialog) => {
             this.AE.dialogs.push(newDialog);

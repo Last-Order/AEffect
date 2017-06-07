@@ -168,10 +168,11 @@ class Dialogue {
      * @returns {Dialogue}
      */
     clone(): Dialogue{
-        return new Dialogue({
+        let clonedDialog = new Dialogue({
             ...this.properties,
-            "text": new Text(this.properties.text.toString())
         }, {...this.styleMap}, {...this.metaInfo});
+        clonedDialog.text = clonedDialog.text.clone();
+        return clonedDialog;
     }
 }
 

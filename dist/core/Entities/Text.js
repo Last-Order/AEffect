@@ -66,6 +66,13 @@ class Text {
     toString() {
         return this.groups.map(i => i.toString()).join('');
     }
+    /**
+     * 复制一个 Text
+     * @returns {Text}
+     */
+    clone() {
+        return new Text(this.toString());
+    }
 }
 /**
  *

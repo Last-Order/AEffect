@@ -19,6 +19,11 @@ declare class Text {
      * @returns {string}
      */
     toString(): string;
+    /**
+     * 复制一个 Text
+     * @returns {Text}
+     */
+    clone(): Text;
 }
 /**
  *

@@ -3,7 +3,6 @@
  * Ass Dialogue 类
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = require("./Text");
 const Style_1 = require("./Style");
 const Layout_1 = require("../Layout");
 class MissingAlignmentError extends Error {
@@ -145,7 +144,9 @@ class Dialogue {
      * @returns {Dialogue}
      */
     clone() {
-        return new Dialogue(Object.assign({}, this.properties, { "text": new Text_1.default(this.properties.text.toString()) }), Object.assign({}, this.styleMap), Object.assign({}, this.metaInfo));
+        let clonedDialog = new Dialogue(Object.assign({}, this.properties), Object.assign({}, this.styleMap), Object.assign({}, this.metaInfo));
+        clonedDialog.text = clonedDialog.text.clone();
+        return clonedDialog;
     }
 }
 exports.default = Dialogue;

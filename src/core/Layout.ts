@@ -4,9 +4,7 @@ import Position from './Effects/Position'
 
 import textent from 'textent';
 
-export class InvalidAlignmentError extends Error {
-}
-;
+export class InvalidAlignmentError extends Error {}
 
 class Layout {
     /**
@@ -41,7 +39,7 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y)
                 );
-                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
         }
         else if ([Alignment.Bottom, Alignment.Middle, Alignment.Top].includes(dialog.style.alignment)) {
@@ -65,10 +63,11 @@ class Layout {
             now.y = base.y;
             for (let textGroup of dialog.text.groups) {
                 let text = textent.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
+                console.log(text.width, textGroup.content);
                 textGroup.effectGroup.push(
                     new Position(now.x + Math.round(text.width / 2), now.y)
                 );
-                now.x += text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x += text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
         }
         else if ([Alignment.RightBottom, Alignment.RightMiddle, Alignment.RightTop].includes(dialog.style.alignment)) {
@@ -89,7 +88,7 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y)
                 );
-                now.x -= text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing || 0);
+                now.x -= text.width * ( (dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
             dialog.text.groups.reverse();
         }
