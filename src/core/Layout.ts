@@ -63,7 +63,6 @@ class Layout {
             now.y = base.y;
             for (let textGroup of dialog.text.groups) {
                 let text = textent.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
-                console.log(text.width, textGroup.content);
                 textGroup.effectGroup.push(
                     new Position(now.x + Math.round(text.width / 2), now.y)
                 );

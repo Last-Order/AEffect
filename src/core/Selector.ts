@@ -6,6 +6,17 @@ import Effect from './Effects/base/Effect';
 import Time from "./Entities/Time";
 import K from "./Effects/K";
 
+export enum TimePoint{
+    LineStart,
+    LineEnd,
+    LineMiddle,
+    SyllableStart,
+    SyllableEnd,
+    SyllableMiddle
+}
+
+export class EndBeforeStartError extends Error{}
+
 class Selector {
     dialogs: Dialogue[];
     AE: AEffect;
@@ -66,9 +77,13 @@ class Selector {
 
     /**
      * 对选择器所选择的所有行进行音节化操作
+     * @param startPoint 时间起点
+     * @param endPoint 时间结束点
+     * @param startOffset 时间起始点偏移 毫秒
+     * @param endOffset 时间结束点偏移 毫秒
      * @returns {Selector}
      */
-    splitIntoSyllables() {
+    splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.SyllableEnd, startOffset: number = 0, endOffset: number = 0) {
         let newDialogs: Dialogue[] = [];
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
@@ -83,11 +98,28 @@ class Selector {
                         // 生成新 Dialog 对象
                         let newDialog = dialog.clone();
 
-                        // newDialog.start = start.clone();
-                        // newDialog.end = end.clone();
+                        newDialog.start = new Time(startOffset).add({
+                            [TimePoint.LineStart]: dialog.start.clone(),
+                            [TimePoint.LineEnd]: dialog.end.clone(),
+                            [TimePoint.LineMiddle]: new Time(dialog.start.add(dialog.end.sub(dialog.start)).second),
+                            [TimePoint.SyllableStart]: start.clone(),
+                            [TimePoint.SyllableEnd]: end.clone(),
+                            [TimePoint.SyllableMiddle]: new Time(start.add(end.sub(start)).second)
+                        }[startPoint]);
 
-                        newDialog.start = dialog.start;
-                        newDialog.end = dialog.end;
+                        newDialog.end = new Time(endOffset).add({
+                            [TimePoint.LineStart]: dialog.start.clone(),
+                            [TimePoint.LineEnd]: dialog.end.clone(),
+                            [TimePoint.LineMiddle]: new Time(dialog.start.add(dialog.end.sub(dialog.start)).second),
+                            [TimePoint.SyllableStart]: start.clone(),
+                            [TimePoint.SyllableEnd]: end.clone(),
+                            [TimePoint.SyllableMiddle]: new Time(start.add(end.sub(start)).second)
+                        }[endPoint]);
+
+                        if (newDialog.end.sub(newDialog.start).second < 0){
+                            // 结束时间小于开始时间
+                            throw new EndBeforeStartError();
+                        }
 
                         // 复制文字
                         newDialog.text.groups = (new Text(textGroup.toString())).groups;

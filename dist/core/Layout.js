@@ -61,7 +61,6 @@ class Layout {
             now.y = base.y;
             for (let textGroup of dialog.text.groups) {
                 let text = textent_1.default.render(dialog.style.fontname, +dialog.style.fontsize, textGroup.content);
-                console.log(text.width, textGroup.content);
                 textGroup.effectGroup.push(new Position_1.default(now.x + Math.round(text.width / 2), now.y));
                 now.x += text.width * ((dialog.style.scaleX || 100) / 100) + (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
