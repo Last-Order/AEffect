@@ -42,6 +42,21 @@ const AEffect = require("aeffect");
 
 ```
 
+### Syllables fade in
+
+```javascript
+AE.loadFromFile("path_to_file");
+let allDialogs = AE.select();
+allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd).forEachDialog((dialog) => {
+    dialog.addEffect([
+        new Blur(20),
+        new Animation(dialog.lineStart, dialog.lineStart + dialog.duration, new Blur(0))
+    ]);
+});
+allDialogs.comment();
+console.log(AE.build())
+```
+
 More examples and complete API documentation will be available soon.
 
 ## Contributing

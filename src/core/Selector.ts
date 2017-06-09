@@ -171,7 +171,7 @@ class Selector {
     /**
      * 对 Dialog 批量应用函数
      */
-    forEachDialog(handler: (dialog: Dialogue, index?: number) => Dialogue): Selector {
+    forEachDialog(handler: (dialog: Dialogue, index?: number) => any): Selector {
         this.generatedDialogs.filter(dialog => !dialog.isComment).forEach((dialog, index, dialogArray) => {
             handler(dialog, index);
         });

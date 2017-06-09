@@ -17,9 +17,8 @@ describe("正在进行综合测试", () => {
             allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd).forEachDialog((dialog) => {
                 dialog.addEffect([
                     new Blur(20),
-                    new Animation(dialog.lineStart, dialog.lineStart + 100, new Blur(0))
+                    new Animation(dialog.lineStart, dialog.lineStart + dialog.duration, new Blur(0))
                 ]);
-                return dialog;
             });
             allDialogs.comment();
             console.log(AE.build())

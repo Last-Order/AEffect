@@ -104,7 +104,7 @@ class Dialogue {
      * @returns {number} 持续时间 毫秒
      */
     get duration(): number{
-        return Math.round(this.end.sub(this.start).second * 100);
+        return Math.round(this.end.sub(this.start).second * 1000);
     }
     /**
      * 获得相对行开始时间
