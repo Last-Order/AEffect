@@ -10,6 +10,8 @@ AEffect is a tool to generate effect subtitles (.ass) files for JavaScript progr
 ### Installation
 ```
 npm install aeffect
+cd ./aeffect
+npm install
 ```
 
 ### Compatibility

@@ -37,11 +37,12 @@ declare class Dialogue {
     text: Text;
     metaInfo: MetaInfo;
     isComment: boolean;
-    isSyllabified: boolean;
     properties: DialogueConstructProperties;
     styleMap: {
         [index: string]: Style;
     };
+    syllableIndex: number;
+    isSyllabified: boolean;
     constructor(properties: DialogueConstructProperties, styleMap: {
         [index: string]: Style;
     }, metaInfo: MetaInfo);
@@ -54,7 +55,7 @@ declare class Dialogue {
      * 解析音节。为每个音节赋予位置。
      * @param autoPosition
      */
-    parseSyllables(autoPosition?: boolean): boolean;
+    parseSyllables(autoPosition?: boolean): void;
     /**
      * 获得行持续时间
      * @returns {number} 持续时间 毫秒

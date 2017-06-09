@@ -16,6 +16,8 @@ class EndBeforeStartError extends Error {
 exports.EndBeforeStartError = EndBeforeStartError;
 class Selector {
     constructor(AE) {
+        this.dialogs = [];
+        this.generatedDialogs = [];
         this.AE = AE;
     }
     /**
@@ -66,14 +68,16 @@ class Selector {
      * @param endPoint 时间结束点
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
+     * @param autoComment 是否自动注释原句子
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.SyllableEnd, startOffset = 0, endOffset = 0) {
+    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, autoComment = false) {
         let newDialogs = [];
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
             let start = dialog.start;
             let end;
+            let syllableIndex = 0;
             for (let textGroup of dialog.text.groups) {
                 for (let effectIndex in textGroup.effectGroup) {
                     let effect = textGroup.effectGroup[effectIndex];
@@ -109,6 +113,9 @@ class Selector {
                         newDialogs.push(newDialog);
                         // 链接原句与新句
                         newDialog.parentDialog = dialog;
+                        newDialog.syllableIndex = syllableIndex;
+                        newDialog.isSyllabified = true;
+                        syllableIndex++;
                         // 时间向后推移
                         start = new Time_1.default(start.second + _effect.duration / 100);
                         break;
@@ -119,11 +126,16 @@ class Selector {
             this.dialogs[index].text.groups.forEach(textGroup => {
                 textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
             });
-            // 注释原来的 Dialog
-            this.dialogs[index].isComment = true;
+            if (autoComment) {
+                // 注释原句
+                this.dialogs[index].isComment = true;
+            }
         });
         newDialogs.forEach((newDialog) => {
             this.AE.dialogs.push(newDialog);
+        });
+        newDialogs.forEach((newDialog) => {
+            this.generatedDialogs.push(newDialog);
         });
         return this;
     }
@@ -138,9 +150,20 @@ class Selector {
      * 对 Dialog 批量应用函数
      */
     forEachDialog(handler) {
-        this.dialogs.forEach((dialog, index, dialogArray) => {
+        this.generatedDialogs.filter(dialog => !dialog.isComment).forEach((dialog, index, dialogArray) => {
             handler(dialog, index);
         });
+        return this;
+    }
+    /**
+     * 注释所有选中的 Dialog
+     * @returns {Selector}
+     */
+    comment() {
+        this.dialogs.forEach(dialog => {
+            dialog.isComment = true;
+        });
+        return this;
     }
 }
 exports.default = Selector;

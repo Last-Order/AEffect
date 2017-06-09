@@ -12,12 +12,17 @@ class Animation {
         this.isHeadEffect = false;
         this.startIndex = 0;
         this.name = "t";
+        this.start = start;
+        this.end = end;
+        this.effect = effect;
     }
     toString() {
         return `\\t(${this.start}, ${this.end}, ${this.effect})`;
     }
     handler(text) {
+        text.groups[0].effectGroup.push(this);
         return text;
     }
 }
+exports.default = Animation;
 //# sourceMappingURL=Animation.js.map

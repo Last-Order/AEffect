@@ -13,6 +13,7 @@ export declare class EndBeforeStartError extends Error {
 }
 declare class Selector {
     dialogs: Dialogue[];
+    generatedDialogs: Dialogue[];
     AE: AEffect;
     condition: {
         [index: string]: string;
@@ -42,9 +43,10 @@ declare class Selector {
      * @param endPoint 时间结束点
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
+     * @param autoComment 是否自动注释原句子
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint?: TimePoint, endPoint?: TimePoint, startOffset?: number, endOffset?: number): this;
+    splitIntoSyllables(startPoint?: TimePoint, endPoint?: TimePoint, startOffset?: number, endOffset?: number, autoComment?: boolean): this;
     /**
      * 获得选择器所选定的对话
      * @returns {Dialogue[]}
@@ -53,6 +55,11 @@ declare class Selector {
     /**
      * 对 Dialog 批量应用函数
      */
-    forEachDialog(handler: (dialog: Dialogue, index?: number) => Dialogue): void;
+    forEachDialog(handler: (dialog: Dialogue, index?: number) => Dialogue): Selector;
+    /**
+     * 注释所有选中的 Dialog
+     * @returns {Selector}
+     */
+    comment(): Selector;
 }
 export default Selector;

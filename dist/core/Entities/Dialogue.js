@@ -17,7 +17,8 @@ class Dialogue {
         this.marginL = 0;
         this.marginR = 0;
         this.marginV = 0;
-        this.isSyllabified = false;
+        this.syllableIndex = 0; // 音节化后在原句中的位置
+        this.isSyllabified = false; // 是否已经音节化
         this.properties = properties;
         this.styleMap = styleMap;
         this.metaInfo = metaInfo;
@@ -53,10 +54,6 @@ class Dialogue {
      * @param autoPosition
      */
     parseSyllables(autoPosition = true) {
-        if (this.isComment) {
-            // 不处理注释行
-            return false;
-        }
         this.isSyllabified = true;
         if (autoPosition) {
             if (!this.style.alignment) {
@@ -73,7 +70,7 @@ class Dialogue {
      * @returns {number} 持续时间 毫秒
      */
     get duration() {
-        return this.end.sub(this.start).second * 1000;
+        return Math.round(this.end.sub(this.start).second * 100);
     }
     /**
      * 获得相对行开始时间

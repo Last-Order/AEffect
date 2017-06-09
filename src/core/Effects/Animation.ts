@@ -17,12 +17,17 @@ class Animation implements Effect{
      * @param autoAdjustment 是否自动调整句子时间 默认禁用
      */
     constructor(start: number, end: number, effect: Effect, autoAdjustment: boolean = false){
-
+        this.start = start;
+        this.end = end;
+        this.effect = effect;
     }
     toString(){
         return `\\t(${this.start}, ${this.end}, ${this.effect})`;
     }
     handler(text: Text){
+        text.groups[0].effectGroup.push(this);
         return text;
     }
 }
+
+export default Animation;

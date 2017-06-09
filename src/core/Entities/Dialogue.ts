@@ -40,13 +40,16 @@ class Dialogue {
     marginR: number = 0;
     marginV: number = 0;
     effect: string;
-    parentDialog: Dialogue;
+    parentDialog: Dialogue; // 音节化后原句
     text: Text;
     metaInfo: MetaInfo;
     isComment: boolean;
-    isSyllabified: boolean = false;
     properties: DialogueConstructProperties;
     styleMap: {[index: string]: Style};
+
+    syllableIndex: number = 0; // 音节化后在原句中的位置
+    isSyllabified: boolean = false; // 是否已经音节化
+
     constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}, metaInfo: MetaInfo) {
         this.properties = properties;
         this.styleMap = styleMap;
@@ -84,10 +87,6 @@ class Dialogue {
      * @param autoPosition
      */
     parseSyllables(autoPosition: boolean = true){
-        if (this.isComment){
-            // 不处理注释行
-            return false;
-        }
         this.isSyllabified = true;
         if (autoPosition){
             if (!this.style.alignment){
@@ -105,7 +104,7 @@ class Dialogue {
      * @returns {number} 持续时间 毫秒
      */
     get duration(): number{
-        return this.end.sub(this.start).second * 1000;
+        return Math.round(this.end.sub(this.start).second * 100);
     }
     /**
      * 获得相对行开始时间

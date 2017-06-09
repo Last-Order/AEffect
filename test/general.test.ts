@@ -3,6 +3,8 @@ import { expect } from 'chai'
 
 import AEffect from '../src/AEffect';
 import Blur from '../src/core/Effects/Blur';
+import Animation from '../src/core/Effects/Animation';
+import {TimePoint} from '../src/core/Selector';
 import Text from '../src/core/Entities/Text';
 import textent from 'textent';
 
@@ -11,9 +13,15 @@ describe("正在进行综合测试", () => {
         let AE = new AEffect();
         try{
             AE.loadFromFile("D:\\Project\\字幕\\奈奈甲子园\\starting now.ass");
-            AE.select().splitIntoSyllables().forEachDialog((dialog) => {
+            let allDialogs = AE.select();
+            allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd).forEachDialog((dialog) => {
+                dialog.addEffect([
+                    new Blur(20),
+                    new Animation(dialog.lineStart, dialog.lineStart + 100, new Blur(0))
+                ]);
                 return dialog;
             });
+            allDialogs.comment();
             console.log(AE.build())
         }
         catch(e){
