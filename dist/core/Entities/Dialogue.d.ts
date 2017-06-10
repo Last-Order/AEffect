@@ -42,6 +42,7 @@ declare class Dialogue {
         [index: string]: Style;
     };
     syllableIndex: number;
+    syllableDuration: number;
     isSyllabified: boolean;
     constructor(properties: DialogueConstructProperties, styleMap: {
         [index: string]: Style;

@@ -24,7 +24,7 @@ export interface ParseResult {
         [index: string]: Style;
     };
 }
-declare var _default: {
+declare const _default: {
     parse(content: string, options?: {}): ParseResult;
 };
 export default _default;

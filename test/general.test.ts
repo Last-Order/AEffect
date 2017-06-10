@@ -17,14 +17,14 @@ describe("正在进行综合测试", () => {
             allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd).forEachDialog((dialog) => {
                 dialog.addEffect([
                     new Blur(20),
-                    new Animation(dialog.lineStart, dialog.lineStart + dialog.duration, new Blur(0))
+                    new Animation(dialog.lineStart, dialog.lineStart + dialog.syllableDuration, new Blur(0))
                 ]);
             });
             allDialogs.comment();
             console.log(AE.build())
         }
         catch(e){
-
+            console.log(e);
         }
     });
     it("另外一个测试", () => {

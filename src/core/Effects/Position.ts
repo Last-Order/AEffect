@@ -28,7 +28,7 @@ class Pos implements Effect{
     }
 
     static parse(text: string){
-        return new Pos(+text.match(/pos\((\d+?),[ ]*(\d+?)\)/)[1], +text.match(/pos\((\d+?),[ ]*(\d+?)\)/)[2]);
+        return new Pos(+text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[1], +text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[2]);
     }
 }
 

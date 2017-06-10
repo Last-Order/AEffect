@@ -14,7 +14,7 @@ class K {
         this.isHeadEffect = false;
         this.name = "k";
         this.startIndex = startIndex;
-        this.duration = duration;
+        this.duration = duration * 10; // ass 字幕 k 标签实际上以百分之一秒表示
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
@@ -23,7 +23,7 @@ class K {
         return new K(+text.match(/(\d+)/)[1]);
     }
     toString() {
-        return `\\k${this.duration}`;
+        return `\\k${Math.round(this.duration / 10)}`;
     }
 }
 exports.default = K;

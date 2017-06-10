@@ -97,8 +97,8 @@ class Selector {
                 for (let effectIndex in textGroup.effectGroup) {
                     let effect = textGroup.effectGroup[effectIndex];
                     if (effect.name === "k") {
-                        let _effect = <K> effect;
-                        end = new Time(start.second + _effect.duration / 100);
+                        let _effect = <K> effect; // 你问我为什么强制类型转换 我只能说无可奉告
+                        end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
                         let newDialog = dialog.clone();
 
@@ -120,9 +120,11 @@ class Selector {
                             [TimePoint.SyllableMiddle]: new Time(start.add(end.sub(start)).second)
                         }[endPoint]);
 
+                        newDialog.syllableDuration = _effect.duration;
+
                         if (newDialog.end.sub(newDialog.start).second < 0){
                             // 结束时间小于开始时间
-                            throw new EndBeforeStartError();
+                            throw new EndBeforeStartError("指定的结束时间小于开始时间");
                         }
 
                         // 复制文字
@@ -136,7 +138,7 @@ class Selector {
                         newDialog.isSyllabified = true;
                         syllableIndex++;
                         // 时间向后推移
-                        start = new Time(start.second + _effect.duration / 100);
+                        start = new Time(start.second + _effect.duration / 1000);
                         break;
                     }
                 }

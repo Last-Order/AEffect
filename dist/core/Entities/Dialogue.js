@@ -11,13 +11,13 @@ exports.MissingAlignmentError = MissingAlignmentError;
 class MissingResolutionError extends Error {
 }
 exports.MissingResolutionError = MissingResolutionError;
-;
 class Dialogue {
     constructor(properties, styleMap, metaInfo) {
         this.marginL = 0;
         this.marginR = 0;
         this.marginV = 0;
         this.syllableIndex = 0; // 音节化后在原句中的位置
+        this.syllableDuration = 0; // 音节本身长度 毫秒
         this.isSyllabified = false; // 是否已经音节化
         this.properties = properties;
         this.styleMap = styleMap;
@@ -70,7 +70,7 @@ class Dialogue {
      * @returns {number} 持续时间 毫秒
      */
     get duration() {
-        return Math.round(this.end.sub(this.start).second * 100);
+        return Math.round(this.end.sub(this.start).second * 1000);
     }
     /**
      * 获得相对行开始时间

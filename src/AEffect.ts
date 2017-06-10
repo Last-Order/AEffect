@@ -15,7 +15,6 @@ class AEffect{
     metaInfo: MetaInfo;
 
     constructor() {
-        //Log.info("AEffect 初始化中喵");
         this.styles = {};
         this.dialogs = [];
         this.metaInfo = new MetaInfo();

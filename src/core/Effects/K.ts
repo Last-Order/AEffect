@@ -18,7 +18,7 @@ export default class K implements Effect{
      */
     constructor(duration: number = 0, startIndex:number = 0){
         this.startIndex = startIndex;
-        this.duration = duration;
+        this.duration = duration * 10; // ass 字幕 k 标签实际上以百分之一秒表示
     }
     handler(text: Text){
         return BaseEffect.defaultHandler(this, text);
@@ -27,6 +27,6 @@ export default class K implements Effect{
         return new K(+text.match(/(\d+)/)[1]);
     }
     toString(){
-        return `\\k${this.duration}`
+        return `\\k${Math.round(this.duration / 10)}`
     }
 }

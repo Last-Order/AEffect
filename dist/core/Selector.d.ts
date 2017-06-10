@@ -55,7 +55,7 @@ declare class Selector {
     /**
      * 对 Dialog 批量应用函数
      */
-    forEachDialog(handler: (dialog: Dialogue, index?: number) => Dialogue): Selector;
+    forEachDialog(handler: (dialog: Dialogue, index?: number) => any): Selector;
     /**
      * 注释所有选中的 Dialog
      * @returns {Selector}

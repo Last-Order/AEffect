@@ -14,7 +14,7 @@ import Log from "../../utils/Log";
 import Layout from "../Layout";
 
 export class MissingAlignmentError extends Error{}
-export class MissingResolutionError extends Error{};
+export class MissingResolutionError extends Error{}
 
 export interface DialogueConstructProperties{
     layer: number;
@@ -48,6 +48,7 @@ class Dialogue {
     styleMap: {[index: string]: Style};
 
     syllableIndex: number = 0; // 音节化后在原句中的位置
+    syllableDuration: number = 0; // 音节本身长度 毫秒
     isSyllabified: boolean = false; // 是否已经音节化
 
     constructor(properties: DialogueConstructProperties, styleMap: {[index: string]: Style}, metaInfo: MetaInfo) {
@@ -104,6 +105,7 @@ class Dialogue {
      * @returns {number} 持续时间 毫秒
      */
     get duration(): number{
+
         return Math.round(this.end.sub(this.start).second * 1000);
     }
     /**
