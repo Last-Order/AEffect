@@ -73,6 +73,10 @@ declare class Dialogue {
      * @returns {number}
      */
     readonly lineEnd: number;
+    /**
+     * 行中间时间 毫秒
+     * @returns {number}
+     */
     readonly middleTime: number;
     /**
      * @override

@@ -19,7 +19,7 @@ class AssBuilder {
             ass += `PlayResX: ${AEffect.metaInfo.resolution.width}\r\n`;
             ass += `PlayResY: ${AEffect.metaInfo.resolution.height}\r\n`;
         }
-        ass += "\r\n[V4+ Styles]\r\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\r\n";
+        ass += "\r\n[V4+ Styles]\r\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Strike, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\r\n";
         // 拼接样式
         for (let key of Object.keys(AEffect.styles)) {
             ass += `${AEffect.styles[key].toString()}\r\n`;

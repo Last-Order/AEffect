@@ -123,6 +123,11 @@ class Dialogue {
     get lineEnd(): number{
         return this.duration;
     }
+
+    /**
+     * 行中间时间 毫秒
+     * @returns {number}
+     */
     get middleTime(): number{
         return Math.round(this.duration / 2);
     }

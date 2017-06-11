@@ -155,8 +155,6 @@ class Selector {
         });
         newDialogs.forEach((newDialog) => {
             this.AE.dialogs.push(newDialog);
-        });
-        newDialogs.forEach((newDialog) => {
             this.generatedDialogs.push(newDialog);
         });
         return this;
@@ -166,15 +164,37 @@ class Selector {
      * 获得选择器所选定的对话
      * @returns {Dialogue[]}
      */
-    getDialogs(): Dialogue[] {
+    getOriginalDialogs(): Dialogue[] {
         return this.dialogs;
     }
 
     /**
-     * 对 Dialog 批量应用函数
+     * 获得由本选择器生成的字幕
+     * @returns {Dialogue[]}
+     */
+    getDialogs(): Dialogue[] {
+        return this.generatedDialogs;
+    }
+
+    /**
+     * 对生成的 Dialog 批量应用函数
+     * @param handler
+     * @returns {Selector}
      */
     forEachDialog(handler: (dialog: Dialogue, index?: number) => any): Selector {
-        this.generatedDialogs.filter(dialog => !dialog.isComment).forEach((dialog, index, dialogArray) => {
+        this.generatedDialogs.forEach((dialog, index, dialogArray) => {
+            handler(dialog, index);
+        });
+        return this;
+    }
+
+    /**
+     * 对原始的 Dialog 批量应用函数
+     * @param handler
+     * @returns {Selector}
+     */
+    forEachOriginalDialogs(handler: (dialog: Dialogue, index?: number) => any): Selector {
+        this.dialogs.forEach((dialog, index, dialogArray) => {
             handler(dialog, index);
         });
         return this;
@@ -184,7 +204,7 @@ class Selector {
      * 注释所有选中的 Dialog
      * @returns {Selector}
      */
-    comment(): Selector{
+    commentOriginalDialogs(): Selector{
         this.dialogs.forEach(dialog => {
             dialog.isComment = true;
         });

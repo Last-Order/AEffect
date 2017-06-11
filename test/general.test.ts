@@ -20,7 +20,7 @@ describe("正在进行综合测试", () => {
                     new Animation(dialog.lineStart, dialog.lineStart + dialog.syllableDuration, new Blur(0))
                 ]);
             });
-            allDialogs.comment();
+            allDialogs.commentOriginalDialogs();
             console.log(AE.build())
         }
         catch(e){
