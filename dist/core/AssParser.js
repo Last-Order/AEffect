@@ -80,7 +80,7 @@ exports.default = {
         }
         // 解析样式
         let parsedAssStyles = {};
-        let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Strike", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
+        let validStyleFormatKeys = ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Underline", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"];
         if (!styleBlock[0].trim().startsWith("Format:")) {
             throw new MissingStyleDefinitionError("Ass 文件缺少 Style 格式定义");
         }
@@ -92,6 +92,7 @@ exports.default = {
                 styleFormat.push(styleFormatKey.trim());
             }
             else {
+                console.log(styleFormatKey);
                 throw new InvalidStyleFormatDefinitionError("Ass 文件 Style 格式定义不合法");
             }
         }

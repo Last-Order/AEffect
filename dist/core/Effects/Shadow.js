@@ -2,27 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 /**
- * 字体粗体
+ * 阴影距离
  */
-class Bold {
+class Shadow {
     /**
-     * 粗体
-     * @param weight 字重
+     * 阴影距离
+     * @param depth 距离(px)
      */
-    constructor(weight) {
-        this.name = "b";
+    constructor(depth) {
         this.isHeadEffect = false;
-        this.weight = weight;
+        this.name = "shad";
+        this.depth = depth;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {
-        return `\\b${this.weight}`;
+        return `\\shad${this.depth}`;
     }
     static parse(text) {
-        return new Bold(parseInt(text.match(/(\d+)/ig)[0]));
+        return new Shadow(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
-exports.default = Bold;
-//# sourceMappingURL=Bold.js.map
+//# sourceMappingURL=Shadow.js.map

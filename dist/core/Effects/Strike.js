@@ -2,27 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 /**
- * 字体粗体
+ * 删除线
  */
-class Bold {
+class Strike {
     /**
-     * 粗体
-     * @param weight 字重
+     * 删除线
+     * @param isUnderline 是否加删除线
      */
-    constructor(weight) {
-        this.name = "b";
+    constructor(isUnderline) {
         this.isHeadEffect = false;
-        this.weight = weight;
+        this.isStrike = isUnderline;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {
-        return `\\b${this.weight}`;
+        return `\\s${this.isStrike ? '1' : '0'}`;
     }
     static parse(text) {
-        return new Bold(parseInt(text.match(/(\d+)/ig)[0]));
+        return new Strike(text.match(/(\d+)/ig)[0] === '1');
     }
 }
-exports.default = Bold;
-//# sourceMappingURL=Bold.js.map
+exports.default = Strike;
+//# sourceMappingURL=Strike.js.map

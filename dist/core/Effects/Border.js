@@ -2,27 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 /**
- * 字体粗体
+ * 边框宽度
  */
-class Bold {
+class Border {
     /**
-     * 粗体
-     * @param weight 字重
+     * 边框宽度
+     * @param size 边框宽度(px)
      */
-    constructor(weight) {
-        this.name = "b";
+    constructor(size) {
         this.isHeadEffect = false;
-        this.weight = weight;
+        this.name = "bord";
+        this.size = size;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {
-        return `\\b${this.weight}`;
+        return `\\bord${this.size}`;
     }
     static parse(text) {
-        return new Bold(parseInt(text.match(/(\d+)/ig)[0]));
+        return new Border(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
-exports.default = Bold;
-//# sourceMappingURL=Bold.js.map
+exports.default = Border;
+//# sourceMappingURL=Border.js.map
