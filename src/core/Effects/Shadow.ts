@@ -13,9 +13,11 @@ class Shadow implements Effect{
     /**
      * 阴影距离
      * @param depth 距离(px)
+     * @param startIndex
      */
-    constructor(depth: number){
+    constructor(depth: number, startIndex: number = 0){
         this.depth = depth;
+        this.startIndex = startIndex;
     }
     handler(text: Text){
         return BaseEffect.defaultHandler(this, text);

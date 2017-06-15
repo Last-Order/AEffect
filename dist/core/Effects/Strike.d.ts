@@ -11,8 +11,9 @@ declare class Strike implements Effect {
     /**
      * 删除线
      * @param isUnderline 是否加删除线
+     * @param startIndex
      */
-    constructor(isUnderline: boolean);
+    constructor(isUnderline: boolean, startIndex?: number);
     handler(text: Text): any;
     toString(): string;
     static parse(text: string): Strike;

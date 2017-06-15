@@ -8,11 +8,13 @@ class Bold {
     /**
      * 粗体
      * @param weight 字重
+     * @param startIndex
      */
-    constructor(weight) {
+    constructor(weight, startIndex = 0) {
         this.name = "b";
         this.isHeadEffect = false;
         this.weight = weight;
+        this.startIndex = startIndex;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);

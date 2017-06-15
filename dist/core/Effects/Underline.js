@@ -8,10 +8,12 @@ class Underline {
     /**
      * 下划线
      * @param isUnderline 是否加下划线
+     * @param startIndex
      */
-    constructor(isUnderline) {
+    constructor(isUnderline, startIndex = 0) {
         this.isHeadEffect = false;
         this.isUnderline = isUnderline;
+        this.startIndex = startIndex;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);

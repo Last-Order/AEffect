@@ -14,9 +14,11 @@ class Strike implements Effect{
     /**
      * 删除线
      * @param isUnderline 是否加删除线
+     * @param startIndex
      */
-    constructor(isUnderline: boolean){
+    constructor(isUnderline: boolean, startIndex: number = 0){
         this.isStrike = isUnderline;
+        this.startIndex = startIndex;
     }
 
     handler(text: Text){

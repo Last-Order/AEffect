@@ -8,11 +8,13 @@ class Shadow {
     /**
      * 阴影距离
      * @param depth 距离(px)
+     * @param startIndex
      */
-    constructor(depth) {
+    constructor(depth, startIndex = 0) {
         this.isHeadEffect = false;
         this.name = "shad";
         this.depth = depth;
+        this.startIndex = startIndex;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);

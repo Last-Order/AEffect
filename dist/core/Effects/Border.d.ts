@@ -11,8 +11,9 @@ declare class Border implements Effect {
     /**
      * 边框宽度
      * @param size 边框宽度(px)
+     * @param startIndex
      */
-    constructor(size: number);
+    constructor(size: number, startIndex?: number);
     handler(text: Text): any;
     toString(): string;
     static parse(text: string): Border;

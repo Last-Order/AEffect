@@ -13,9 +13,11 @@ class Border implements Effect{
     /**
      * 边框宽度
      * @param size 边框宽度(px)
+     * @param startIndex
      */
-    constructor(size: number){
+    constructor(size: number, startIndex: number = 0){
         this.size = size;
+        this.startIndex = startIndex;
     }
 
     handler(text: Text){

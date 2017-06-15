@@ -11,8 +11,9 @@ declare class Bold implements Effect {
     /**
      * 粗体
      * @param weight 字重
+     * @param startIndex
      */
-    constructor(weight: number);
+    constructor(weight: number, startIndex?: number);
     handler(text: Text): any;
     toString(): string;
     static parse(text: string): Bold;

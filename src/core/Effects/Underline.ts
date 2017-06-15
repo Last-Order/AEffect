@@ -14,9 +14,11 @@ class Underline implements Effect{
     /**
      * 下划线
      * @param isUnderline 是否加下划线
+     * @param startIndex
      */
-    constructor(isUnderline: boolean){
+    constructor(isUnderline: boolean, startIndex: number = 0){
         this.isUnderline = isUnderline;
+        this.startIndex = startIndex;
     }
 
     handler(text: Text){
