@@ -31,3 +31,5 @@ class Shadow implements Effect{
         return new Shadow(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
+
+export default Shadow;

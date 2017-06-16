@@ -5,7 +5,7 @@ import Text from '../Entities/Text';
 /**
  * 卡拉ok标签
  */
-export default class K implements Effect{
+class K implements Effect{
     isHeadEffect = false;
     startIndex: number;
     duration: number; // 音节长度 毫秒
@@ -30,3 +30,5 @@ export default class K implements Effect{
         return `\\k${Math.round(this.duration / 10)}`
     }
 }
+
+export default K;

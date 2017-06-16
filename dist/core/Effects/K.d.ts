@@ -3,7 +3,7 @@ import Text from '../Entities/Text';
 /**
  * 卡拉ok标签
  */
-export default class K implements Effect {
+declare class K implements Effect {
     isHeadEffect: boolean;
     startIndex: number;
     duration: number;
@@ -18,3 +18,4 @@ export default class K implements Effect {
     static parse(text: string): K;
     toString(): string;
 }
+export default K;

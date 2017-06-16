@@ -10,7 +10,7 @@ class Border {
      * @param size 边框宽度(px)
      * @param startIndex
      */
-    constructor(size, startIndex = 0) {
+    constructor(size = 0, startIndex = 0) {
         this.isHeadEffect = false;
         this.name = "bord";
         this.size = size;

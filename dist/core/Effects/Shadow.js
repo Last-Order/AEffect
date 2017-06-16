@@ -26,4 +26,5 @@ class Shadow {
         return new Shadow(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
+exports.default = Shadow;
 //# sourceMappingURL=Shadow.js.map

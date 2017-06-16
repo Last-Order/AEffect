@@ -10,7 +10,7 @@ class Bold {
      * @param weight 字重
      * @param startIndex
      */
-    constructor(weight, startIndex = 0) {
+    constructor(weight = 1, startIndex = 0) {
         this.name = "b";
         this.isHeadEffect = false;
         this.weight = weight;

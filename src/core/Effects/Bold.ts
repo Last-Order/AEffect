@@ -16,7 +16,7 @@ class Bold implements Effect{
      * @param weight 字重
      * @param startIndex
      */
-    constructor(weight: number, startIndex: number = 0){
+    constructor(weight: number = 1, startIndex: number = 0){
         this.weight = weight;
         this.startIndex = startIndex;
     }
