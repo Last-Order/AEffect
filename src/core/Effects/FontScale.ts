@@ -30,3 +30,5 @@ class FontScale implements Effect{
         return new FontScale(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
+
+export default FontScale;

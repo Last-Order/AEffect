@@ -24,4 +24,5 @@ class FontScale {
         return new FontScale(parseInt(text.match(/(\d+)/ig)[0]));
     }
 }
+exports.default = FontScale;
 //# sourceMappingURL=FontScale.js.map
