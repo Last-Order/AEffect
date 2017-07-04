@@ -32,7 +32,7 @@ class AssBuilder {
         ass += "\r\n[Events]\r\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\r\n";
 
         // 拼接对话行
-        for (let line of AEffect.dialogs){
+        for (let line of AEffect.dialogs.concat(AEffect.generatedDialogs)){
             ass += `${line}\r\n`;
         }
         return ass;

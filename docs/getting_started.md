@@ -8,6 +8,8 @@ TypeScript is the best choice to work with AEffect.
 ```bash
 cd ./your-project-directory
 npm init
-npm install aeffect # for npm 4.0 or lower, a --save flag is required.
+npm install aeffect # for npm 4.0 and lower, a --save flag is required.
 ```
+
+## Import AEffect to your effect script
 

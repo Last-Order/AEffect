@@ -154,7 +154,7 @@ class Selector {
             }
         });
         newDialogs.forEach((newDialog) => {
-            this.AE.dialogs.push(newDialog);
+            this.AE.generatedDialogs.push(newDialog);
             this.generatedDialogs.push(newDialog);
         });
         return this;

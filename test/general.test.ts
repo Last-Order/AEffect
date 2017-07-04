@@ -1,10 +1,9 @@
 import 'mocha'
 import { expect } from 'chai'
 
-import AEffect from '../src/AEffect';
+import AEffect, {TimePoint} from '../src/AEffect';
 import Blur from '../src/core/Effects/Blur';
 import Animation from '../src/core/Effects/Animation';
-import {TimePoint} from '../src/core/Selector';
 import Text from '../src/core/Entities/Text';
 import textent from 'textent';
 

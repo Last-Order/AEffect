@@ -2,6 +2,7 @@ import Selector from './core/Selector';
 import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo';
+export { TimePoint as TimePoint } from './core/Selector';
 declare class AEffect {
     styles: {
         [index: string]: Style;

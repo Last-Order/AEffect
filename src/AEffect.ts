@@ -9,14 +9,18 @@ import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo'
 
+export {TimePoint as TimePoint} from './core/Selector';
+
 class AEffect{
     styles: {[index: string]: Style};
     dialogs: Dialogue[];
+    generatedDialogs: Dialogue[];
     metaInfo: MetaInfo;
 
     constructor() {
         this.styles = {};
         this.dialogs = [];
+        this.generatedDialogs = [];
         this.metaInfo = new MetaInfo();
     }
 
