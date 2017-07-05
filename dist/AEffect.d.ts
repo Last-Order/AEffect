@@ -8,6 +8,7 @@ declare class AEffect {
         [index: string]: Style;
     };
     dialogs: Dialogue[];
+    generatedDialogs: Dialogue[];
     metaInfo: MetaInfo;
     constructor();
     /**

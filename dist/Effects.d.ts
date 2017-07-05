@@ -6,6 +6,7 @@ export { default as Animation } from './core/Effects/Animation';
 export { default as Blur } from './core/Effects/Blur';
 export { default as BlurEdge } from './core/Effects/BlurEdge';
 export { default as Bold } from './core/Effects/Bold';
+export { default as DrawingMode } from './core/Effects/DrawingMode';
 export { default as FontScale } from './core/Effects/FontScale';
 export { default as K } from './core/Effects/K';
 export { default as Position } from './core/Effects/Position';

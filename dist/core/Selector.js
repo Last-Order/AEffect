@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Text_1 = require("./Entities/Text");
 const Time_1 = require("./Entities/Time");
+const DrawingMode_1 = require("./Effects/DrawingMode");
 var TimePoint;
 (function (TimePoint) {
     TimePoint[TimePoint["LineStart"] = 0] = "LineStart";
@@ -133,7 +134,7 @@ class Selector {
             }
         });
         newDialogs.forEach((newDialog) => {
-            this.AE.dialogs.push(newDialog);
+            this.AE.generatedDialogs.push(newDialog);
             this.generatedDialogs.push(newDialog);
         });
         return this;
@@ -182,6 +183,27 @@ class Selector {
         this.dialogs.forEach(dialog => {
             dialog.isComment = true;
         });
+        return this;
+    }
+    /**
+     * (简易) 给每句话加上个伴随句
+     * @param particle 伴随句内容
+     * @param repeat 重复次数
+     * @param drawingMode 是否开启绘图模式 默认为真
+     * @returns {Selector}
+     */
+    addParticleEffect(particle, repeat = 1, drawingMode = true) {
+        for (let dialog of this.dialogs) {
+            for (let i = 1; i <= repeat; i++) {
+                let particleDialog = dialog.clone();
+                particleDialog.text = new Text_1.default(particle);
+                if (drawingMode) {
+                    particleDialog.addEffect([
+                        new DrawingMode_1.default()
+                    ]);
+                }
+            }
+        }
         return this;
     }
 }

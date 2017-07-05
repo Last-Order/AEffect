@@ -5,6 +5,7 @@ import Text from './Entities/Text';
 import Effect from './Effects/base/Effect';
 import Time from "./Entities/Time";
 import K from "./Effects/K";
+import DrawingMode from "./Effects/DrawingMode";
 
 export enum TimePoint{
     LineStart,
@@ -219,7 +220,17 @@ class Selector {
      * @returns {Selector}
      */
     addParticleEffect(particle: string, repeat: number = 1, drawingMode: boolean = true): Selector{
-
+        for (let dialog of this.dialogs){
+            for (let i = 1; i<= repeat; i++){
+                let particleDialog = dialog.clone();
+                particleDialog.text = new Text(particle);
+                if (drawingMode){
+                    particleDialog.addEffect([
+                        new DrawingMode()
+                    ]);
+                }
+            }
+        }
         return this;
     }
 }

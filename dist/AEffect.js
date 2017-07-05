@@ -12,6 +12,7 @@ class AEffect {
     constructor() {
         this.styles = {};
         this.dialogs = [];
+        this.generatedDialogs = [];
         this.metaInfo = new MetaInfo_1.default();
     }
     /**

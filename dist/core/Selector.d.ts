@@ -74,5 +74,13 @@ declare class Selector {
      * @returns {Selector}
      */
     commentOriginalDialogs(): Selector;
+    /**
+     * (简易) 给每句话加上个伴随句
+     * @param particle 伴随句内容
+     * @param repeat 重复次数
+     * @param drawingMode 是否开启绘图模式 默认为真
+     * @returns {Selector}
+     */
+    addParticleEffect(particle: string, repeat?: number, drawingMode?: boolean): Selector;
 }
 export default Selector;
