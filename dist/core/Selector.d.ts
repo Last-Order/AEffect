@@ -11,6 +11,10 @@ export declare enum TimePoint {
 }
 export declare class EndBeforeStartError extends Error {
 }
+export interface SyllabifyOption {
+    text: string;
+    autoComment: boolean;
+}
 declare class Selector {
     dialogs: Dialogue[];
     generatedDialogs: Dialogue[];
@@ -43,10 +47,10 @@ declare class Selector {
      * @param endPoint 时间结束点
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
-     * @param autoComment 是否自动注释原句子
+     * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint?: TimePoint, endPoint?: TimePoint, startOffset?: number, endOffset?: number, autoComment?: boolean): this;
+    splitIntoSyllables(startPoint?: TimePoint, endPoint?: TimePoint, startOffset?: number, endOffset?: number, options?: SyllabifyOption): this;
     /**
      * 获得选择器所选定的对话
      * @returns {Dialogue[]}
@@ -74,13 +78,5 @@ declare class Selector {
      * @returns {Selector}
      */
     commentOriginalDialogs(): Selector;
-    /**
-     * (简易) 给每句话加上个伴随句
-     * @param particle 伴随句内容
-     * @param repeat 重复次数
-     * @param drawingMode 是否开启绘图模式 默认为真
-     * @returns {Selector}
-     */
-    addParticleEffect(particle: string, repeat?: number, drawingMode?: boolean): Selector;
 }
 export default Selector;

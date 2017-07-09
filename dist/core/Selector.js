@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Text_1 = require("./Entities/Text");
 const Time_1 = require("./Entities/Time");
-const DrawingMode_1 = require("./Effects/DrawingMode");
 var TimePoint;
 (function (TimePoint) {
     TimePoint[TimePoint["LineStart"] = 0] = "LineStart";
@@ -69,11 +68,25 @@ class Selector {
      * @param endPoint 时间结束点
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
-     * @param autoComment 是否自动注释原句子
+     * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, autoComment = false) {
+    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, options) {
         let newDialogs = [];
+        // 默认值赋予
+        let _options;
+        if (options) {
+            _options = {
+                autoComment: options.autoComment || false,
+                text: options.text || ""
+            };
+        }
+        else {
+            _options = {
+                autoComment: false,
+                text: ""
+            };
+        }
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
             let start = dialog.start;
@@ -109,7 +122,7 @@ class Selector {
                             throw new EndBeforeStartError("指定的结束时间小于开始时间");
                         }
                         // 复制文字
-                        newDialog.text.groups = (new Text_1.default(textGroup.toString())).groups;
+                        newDialog.text.groups = (new Text_1.default(_options.text || textGroup.toString())).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                         newDialogs.push(newDialog);
@@ -128,7 +141,7 @@ class Selector {
             this.dialogs[index].text.groups.forEach(textGroup => {
                 textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
             });
-            if (autoComment) {
+            if (_options.autoComment) {
                 // 注释原句
                 this.dialogs[index].isComment = true;
             }
@@ -183,27 +196,6 @@ class Selector {
         this.dialogs.forEach(dialog => {
             dialog.isComment = true;
         });
-        return this;
-    }
-    /**
-     * (简易) 给每句话加上个伴随句
-     * @param particle 伴随句内容
-     * @param repeat 重复次数
-     * @param drawingMode 是否开启绘图模式 默认为真
-     * @returns {Selector}
-     */
-    addParticleEffect(particle, repeat = 1, drawingMode = true) {
-        for (let dialog of this.dialogs) {
-            for (let i = 1; i <= repeat; i++) {
-                let particleDialog = dialog.clone();
-                particleDialog.text = new Text_1.default(particle);
-                if (drawingMode) {
-                    particleDialog.addEffect([
-                        new DrawingMode_1.default()
-                    ]);
-                }
-            }
-        }
         return this;
     }
 }

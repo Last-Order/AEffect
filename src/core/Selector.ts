@@ -18,6 +18,12 @@ export enum TimePoint{
 
 export class EndBeforeStartError extends Error{}
 
+export interface SyllabifyOption{
+    text: string, // 替代文本
+    autoComment: boolean, // 自动注释
+
+}
+
 class Selector {
     dialogs: Dialogue[] = [];
     generatedDialogs: Dialogue[] = [];
@@ -83,12 +89,28 @@ class Selector {
      * @param endPoint 时间结束点
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
-     * @param autoComment 是否自动注释原句子
+     * @param options
      * @returns {Selector}
      */
     splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.LineEnd, startOffset: number = 0, endOffset: number = 0,
-    autoComment: boolean = false) {
+                       options?: SyllabifyOption) {
         let newDialogs: Dialogue[] = [];
+
+        // 默认值赋予
+        let _options: SyllabifyOption;
+        if (options){
+            _options = {
+                autoComment: options.autoComment || false,
+                text: options.text || ""
+            }
+        }
+        else{
+            _options = {
+                autoComment: false,
+                text: ""
+            }
+        }
+
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
             let start: Time = dialog.start;
@@ -129,7 +151,7 @@ class Selector {
                         }
 
                         // 复制文字
-                        newDialog.text.groups = (new Text(textGroup.toString())).groups;
+                        newDialog.text.groups = (new Text(_options.text || textGroup.toString())).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                         newDialogs.push(newDialog);
@@ -149,7 +171,7 @@ class Selector {
                 textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
             });
 
-            if (autoComment){
+            if (_options.autoComment){
                 // 注释原句
                 this.dialogs[index].isComment = true;
             }
@@ -209,28 +231,6 @@ class Selector {
         this.dialogs.forEach(dialog => {
             dialog.isComment = true;
         });
-        return this;
-    }
-
-    /**
-     * (简易) 给每句话加上个伴随句
-     * @param particle 伴随句内容
-     * @param repeat 重复次数
-     * @param drawingMode 是否开启绘图模式 默认为真
-     * @returns {Selector}
-     */
-    addParticleEffect(particle: string, repeat: number = 1, drawingMode: boolean = true): Selector{
-        for (let dialog of this.dialogs){
-            for (let i = 1; i<= repeat; i++){
-                let particleDialog = dialog.clone();
-                particleDialog.text = new Text(particle);
-                if (drawingMode){
-                    particleDialog.addEffect([
-                        new DrawingMode()
-                    ]);
-                }
-            }
-        }
         return this;
     }
 }
