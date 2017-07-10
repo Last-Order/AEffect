@@ -21,7 +21,7 @@ export class EndBeforeStartError extends Error{}
 export interface SyllabifyOption{
     text: string, // 替代文本
     autoComment: boolean, // 自动注释
-
+    drawingMode: boolean // 绘图模式
 }
 
 class Selector {
@@ -101,13 +101,15 @@ class Selector {
         if (options){
             _options = {
                 autoComment: options.autoComment || false,
-                text: options.text || ""
+                text: options.text || "",
+                drawingMode: options.drawingMode || false
             }
         }
         else{
             _options = {
                 autoComment: false,
-                text: ""
+                text: "",
+                drawingMode: false
             }
         }
 
@@ -154,6 +156,11 @@ class Selector {
                         newDialog.text.groups = (new Text(_options.text || textGroup.toString())).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                        if (_options.drawingMode){
+                            newDialog.addEffect([
+                                new DrawingMode()
+                            ])
+                        }
                         newDialogs.push(newDialog);
                         // 链接原句与新句
                         newDialog.parentDialog = dialog;

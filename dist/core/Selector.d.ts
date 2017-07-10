@@ -14,6 +14,7 @@ export declare class EndBeforeStartError extends Error {
 export interface SyllabifyOption {
     text: string;
     autoComment: boolean;
+    drawingMode: boolean;
 }
 declare class Selector {
     dialogs: Dialogue[];

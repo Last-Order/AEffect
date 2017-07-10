@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Text_1 = require("./Entities/Text");
 const Time_1 = require("./Entities/Time");
+const DrawingMode_1 = require("./Effects/DrawingMode");
 var TimePoint;
 (function (TimePoint) {
     TimePoint[TimePoint["LineStart"] = 0] = "LineStart";
@@ -78,13 +79,15 @@ class Selector {
         if (options) {
             _options = {
                 autoComment: options.autoComment || false,
-                text: options.text || ""
+                text: options.text || "",
+                drawingMode: options.drawingMode || false
             };
         }
         else {
             _options = {
                 autoComment: false,
-                text: ""
+                text: "",
+                drawingMode: false
             };
         }
         this.dialogs.forEach((dialog, index) => {
@@ -125,6 +128,11 @@ class Selector {
                         newDialog.text.groups = (new Text_1.default(_options.text || textGroup.toString())).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                        if (_options.drawingMode) {
+                            newDialog.addEffect([
+                                new DrawingMode_1.default()
+                            ]);
+                        }
                         newDialogs.push(newDialog);
                         // 链接原句与新句
                         newDialog.parentDialog = dialog;
