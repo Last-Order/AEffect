@@ -14,10 +14,12 @@ class Pos implements Effect{
     /**
      * @param x 横坐标
      * @param y 纵坐标
+     * @param startIndex
      */
-    constructor(x: number, y:number){
+    constructor(x: number, y:number, startIndex: number = 0){
         this.x = x;
         this.y = y;
+        this.startIndex = startIndex;
     }
     handler(text: Text){
         return BaseEffect.defaultHandler(this, text);

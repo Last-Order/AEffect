@@ -72,24 +72,15 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, options) {
+    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, options = {}) {
         let newDialogs = [];
         // 默认值赋予
         let _options;
-        if (options) {
-            _options = {
-                autoComment: options.autoComment || false,
-                text: options.text || "",
-                drawingMode: options.drawingMode || false
-            };
-        }
-        else {
-            _options = {
-                autoComment: false,
-                text: "",
-                drawingMode: false
-            };
-        }
+        _options = {
+            autoComment: options.autoComment || false,
+            text: options.text || "",
+            drawingMode: options.drawingMode || false
+        };
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
             let start = dialog.start;
@@ -130,7 +121,7 @@ class Selector {
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                         if (_options.drawingMode) {
                             newDialog.addEffect([
-                                new DrawingMode_1.default()
+                                new DrawingMode_1.default(true)
                             ]);
                         }
                         newDialogs.push(newDialog);

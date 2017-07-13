@@ -12,9 +12,11 @@ class DrawingMode implements Effect{
     /**
      * 绘图模式
      * @param enable
+     * @param startIndex
      */
-    constructor(enable: boolean = true){
+    constructor(enable: boolean = true, startIndex: number = 0){
         this.enable = enable;
+        this.startIndex = startIndex;
     }
 
     handler(text: Text){

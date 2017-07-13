@@ -5,11 +5,13 @@ class DrawingMode {
     /**
      * 绘图模式
      * @param enable
+     * @param startIndex
      */
-    constructor(enable = true) {
+    constructor(enable = true, startIndex = 0) {
         this.isHeadEffect = false;
         this.name = "p";
         this.enable = enable;
+        this.startIndex = startIndex;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);

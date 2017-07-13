@@ -11,8 +11,9 @@ declare class FontScale implements Effect {
     /**
      * 字体缩放
      * @param scale 缩放比例
+     * @param startIndex
      */
-    constructor(scale?: number);
+    constructor(scale?: number, startIndex?: number);
     handler(text: Text): any;
     toString(): string;
     static parse(text: string): FontScale;

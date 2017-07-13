@@ -19,9 +19,9 @@ export enum TimePoint{
 export class EndBeforeStartError extends Error{}
 
 export interface SyllabifyOption{
-    text: string, // 替代文本
-    autoComment: boolean, // 自动注释
-    drawingMode: boolean // 绘图模式
+    text?: string, // 替代文本
+    autoComment?: boolean, // 自动注释
+    drawingMode?: boolean // 绘图模式
 }
 
 class Selector {
@@ -93,25 +93,16 @@ class Selector {
      * @returns {Selector}
      */
     splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.LineEnd, startOffset: number = 0, endOffset: number = 0,
-                       options?: SyllabifyOption) {
+                       options: SyllabifyOption = {}) {
         let newDialogs: Dialogue[] = [];
 
         // 默认值赋予
         let _options: SyllabifyOption;
-        if (options){
-            _options = {
-                autoComment: options.autoComment || false,
-                text: options.text || "",
-                drawingMode: options.drawingMode || false
-            }
-        }
-        else{
-            _options = {
-                autoComment: false,
-                text: "",
-                drawingMode: false
-            }
-        }
+        _options = {
+            autoComment: options.autoComment || false,
+            text: options.text || "",
+            drawingMode: options.drawingMode || false
+        };
 
         this.dialogs.forEach((dialog, index) => {
             dialog.parseSyllables();
@@ -158,7 +149,7 @@ class Selector {
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
                         if (_options.drawingMode){
                             newDialog.addEffect([
-                                new DrawingMode()
+                                new DrawingMode(true)
                             ])
                         }
                         newDialogs.push(newDialog);

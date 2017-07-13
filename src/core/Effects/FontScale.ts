@@ -14,9 +14,11 @@ class FontScale implements Effect{
     /**
      * 字体缩放
      * @param scale 缩放比例
+     * @param startIndex
      */
-    constructor(scale: number = 100){
+    constructor(scale: number = 100, startIndex = 0){
         this.scale = scale;
+        this.startIndex = startIndex;
     }
     handler(text: Text){
         return BaseEffect.defaultHandler(this, text);

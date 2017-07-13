@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
-const Blur_1 = require("./Blur");
-const K_1 = require("./K");
-const Position_1 = require("./Position");
+const Effects = require("../../Effects");
 class UnknownEffect {
     constructor(effectText) {
         this.isHeadEffect = false;
@@ -22,9 +20,10 @@ class UnknownEffect {
     static parse(effectText) {
         let effectName = effectText.match(/^\\([a-zA-Z]+)/)[1];
         switch (effectName) {
-            case "blur": return Blur_1.default.parse(effectText);
-            case "k": return K_1.default.parse(effectText);
-            case "pos": return Position_1.default.parse(effectText);
+            case "blur": return Effects.Blur.parse(effectText);
+            case "be": return Effects.BlurEdge.parse(effectText);
+            case "k": return Effects.K.parse(effectText);
+            case "pos": return Effects.Position.parse(effectText);
             default:
                 return new UnknownEffect(effectText);
         }

@@ -1,9 +1,7 @@
 import Effect from './base/Effect';
 import BaseEffect from './base/BaseEffect';
-import Blur from './Blur'
 import Text from '../Entities/Text';
-import K from "./K";
-import Pos from "./Position";
+import * as Effects from '../../Effects';
 
 class UnknownEffect implements Effect{
     effectText: string;
@@ -25,9 +23,10 @@ class UnknownEffect implements Effect{
     static parse(effectText: string): Effect{
         let effectName = effectText.match(/^\\([a-zA-Z]+)/)[1];
         switch (effectName){
-            case "blur": return Blur.parse(effectText);
-            case "k": return K.parse(effectText);
-            case "pos": return Pos.parse(effectText);
+            case "blur": return Effects.Blur.parse(effectText);
+            case "be": return Effects.BlurEdge.parse(effectText);
+            case "k": return Effects.K.parse(effectText);
+            case "pos": return Effects.Position.parse(effectText);
             default:
                 return new UnknownEffect(effectText);
         }

@@ -8,13 +8,15 @@ class Pos {
     /**
      * @param x 横坐标
      * @param y 纵坐标
+     * @param startIndex
      */
-    constructor(x, y) {
+    constructor(x, y, startIndex = 0) {
         this.isHeadEffect = true;
         this.startIndex = 0;
         this.name = "pos";
         this.x = x;
         this.y = y;
+        this.startIndex = startIndex;
     }
     handler(text) {
         return BaseEffect_1.default.defaultHandler(this, text);

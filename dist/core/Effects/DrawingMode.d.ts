@@ -8,8 +8,9 @@ declare class DrawingMode implements Effect {
     /**
      * 绘图模式
      * @param enable
+     * @param startIndex
      */
-    constructor(enable?: boolean);
+    constructor(enable?: boolean, startIndex?: number);
     handler(text: Text): any;
     toString(): string;
     static parse(text: string): DrawingMode;

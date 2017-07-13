@@ -6,6 +6,7 @@ import Blur from '../src/core/Effects/Blur';
 import Animation from '../src/core/Effects/Animation';
 import Text from '../src/core/Entities/Text';
 import textent from 'textent';
+import DrawingMode from "../src/core/Effects/DrawingMode";
 
 describe("正在进行综合测试", () => {
     it("过了这个感觉很强", () => {
@@ -13,7 +14,10 @@ describe("正在进行综合测试", () => {
         try{
             AE.loadFromFile("D:\\Project\\字幕\\奈奈甲子园\\starting now.ass");
             let allDialogs = AE.select();
-            allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd).forEachDialog((dialog) => {
+            allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd, 0, 0, {
+                text: "m 1 0",
+                drawingMode: true
+            }).forEachDialog((dialog) => {
                 dialog.addEffect([
                     new Blur(20),
                     new Animation(dialog.lineStart, dialog.lineStart + dialog.syllableDuration, new Blur(0))
