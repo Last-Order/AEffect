@@ -5,7 +5,7 @@
         "declaration": true,
         "module": "commonjs",
         "sourceMap": true,
-        "lib": ["es7"],
+        "lib": ["es7", "esnext"],
         "experimentalDecorators": true
     },
     "include": [
