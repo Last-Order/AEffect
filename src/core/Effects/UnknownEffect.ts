@@ -1,7 +1,7 @@
 import Effect from './base/Effect';
 import BaseEffect from './base/BaseEffect';
 import Text from '../Entities/Text';
-import * as Effects from '../../Effects';
+import * as Effects from '../../effects/index';
 
 class UnknownEffect implements Effect{
     effectText: string;

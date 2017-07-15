@@ -1,7 +1,7 @@
 {
   "name": "aeffect",
   "repository": "https://github.com/Last-Order/AEffect",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "A simple tool to generate ass subtitle file with effect labels.",
   "main": "./dist/AEffect.js",
   "scripts": {

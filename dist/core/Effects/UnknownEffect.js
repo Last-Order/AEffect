@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
-const Effects = require("../../Effects");
+const Effects = require("../../effects/index");
 class UnknownEffect {
     constructor(effectText) {
         this.isHeadEffect = false;
