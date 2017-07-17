@@ -11,9 +11,6 @@ import MetaInfo from './core/Entities/MetaInfo'
 
 export {TimePoint as TimePoint} from './core/Selector';
 
-import * as Effects from './effects';
-export {Effects as effects};
-
 class AEffect{
     styles: {[index: string]: Style};
     dialogs: Dialogue[];

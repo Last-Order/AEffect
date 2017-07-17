@@ -1,7 +1,4 @@
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const Log_1 = require("./utils/Log");
@@ -11,7 +8,6 @@ const Selector_1 = require("./core/Selector");
 const MetaInfo_1 = require("./core/Entities/MetaInfo");
 var Selector_2 = require("./core/Selector");
 exports.TimePoint = Selector_2.TimePoint;
-__export(require("./effects"));
 class AEffect {
     constructor() {
         this.styles = {};
