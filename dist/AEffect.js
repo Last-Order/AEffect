@@ -6,8 +6,6 @@ const AssParser_1 = require("./core/AssParser");
 const AssBuilder_1 = require("./core/AssBuilder");
 const Selector_1 = require("./core/Selector");
 const MetaInfo_1 = require("./core/Entities/MetaInfo");
-var Selector_2 = require("./core/Selector");
-exports.TimePoint = Selector_2.TimePoint;
 class AEffect {
     constructor() {
         this.styles = {};

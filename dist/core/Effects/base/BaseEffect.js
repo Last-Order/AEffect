@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = require("../../Entities/Text");
+const TextGroup_1 = require("../../Entities/TextGroup");
 class EffectIndexOutOfBoundError extends Error {
 }
 exports.EffectIndexOutOfBoundError = EffectIndexOutOfBoundError;
@@ -40,10 +40,10 @@ class BaseEffect {
                 }
                 else {
                     // 拆分原 Group
-                    let newTextGroup = new Text_1.TextGroup(textGroup.content.slice(0, start));
+                    let newTextGroup = new TextGroup_1.default(textGroup.content.slice(0, start));
                     newTextGroup.effectGroup = [...textGroup.effectGroup];
                     newGroups.push(newTextGroup);
-                    newTextGroup = new Text_1.TextGroup(textGroup.content.slice(start));
+                    newTextGroup = new TextGroup_1.default(textGroup.content.slice(start));
                     newTextGroup.effectGroup = [...textGroup.effectGroup];
                     pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup);

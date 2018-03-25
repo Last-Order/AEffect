@@ -1,5 +1,6 @@
 import Effect from '../Effects/base/Effect'
 import UnknownEffect from '../Effects/UnknownEffect';
+import TextGroup from './TextGroup';
 
 export class TextParseError extends Error {};
 
@@ -48,7 +49,6 @@ class Text{
                         newTextGroup.effectGroup.push(UnknownEffect.parse(`\\${effect}`))
                     }
                     catch (e){
-                        console.log(e);
                         throw new TextParseError("特效标签解析失败");
                     }
                 }
@@ -75,34 +75,6 @@ class Text{
      */
     clone(){
         return new Text(this.toString());
-    }
-}
-
-/**
- *
- */
-export class TextGroup{
-    effectGroup: Effect[] = []; // 特效标签组
-    content: string; // 文本内容
-    constructor(text: string){
-        this.content = text;
-    }
-    toString(){
-        let effectTags = "";
-        if (this.effectGroup.length > 0){
-            effectTags = `{${this.effectGroup.map(i => i.toString()).join('')}}`;
-        }
-        return effectTags + this.content;
-    }
-
-    /**
-     * 复制 TextGroup
-     * @returns {TextGroup}
-     */
-    clone(){
-        let clonedTextGroup = new TextGroup(this.content);
-        clonedTextGroup.effectGroup = [...this.effectGroup];
-        return clonedTextGroup;
     }
 }
 

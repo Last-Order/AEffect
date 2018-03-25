@@ -3,15 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Text_1 = require("./Entities/Text");
 const Time_1 = require("./Entities/Time");
 const DrawingMode_1 = require("./Effects/DrawingMode");
-var TimePoint;
-(function (TimePoint) {
-    TimePoint[TimePoint["LineStart"] = 0] = "LineStart";
-    TimePoint[TimePoint["LineEnd"] = 1] = "LineEnd";
-    TimePoint[TimePoint["LineMiddle"] = 2] = "LineMiddle";
-    TimePoint[TimePoint["SyllableStart"] = 3] = "SyllableStart";
-    TimePoint[TimePoint["SyllableEnd"] = 4] = "SyllableEnd";
-    TimePoint[TimePoint["SyllableMiddle"] = 5] = "SyllableMiddle";
-})(TimePoint = exports.TimePoint || (exports.TimePoint = {}));
+const Timepoint_1 = require("../definitions/Timepoint");
 class EndBeforeStartError extends Error {
 }
 exports.EndBeforeStartError = EndBeforeStartError;
@@ -37,7 +29,7 @@ class Selector {
         this.condition = condition; // 存档查询条件
         return this;
     }
-    static selectByStyle(dialog, style) {
+    static selectByStyleName(dialog, style) {
         return dialog.style.name === style;
     }
     static selectByName(dialog, name) {
@@ -72,7 +64,7 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint = TimePoint.LineStart, endPoint = TimePoint.LineEnd, startOffset = 0, endOffset = 0, options = {}) {
+    splitIntoSyllables(startPoint = Timepoint_1.default.LineStart, endPoint = Timepoint_1.default.LineEnd, startOffset = 0, endOffset = 0, options = {}) {
         let newDialogs = [];
         // 默认值赋予
         let _options;
@@ -95,20 +87,20 @@ class Selector {
                         // 生成新 Dialog 对象
                         let newDialog = dialog.clone();
                         newDialog.start = new Time_1.default(startOffset).add({
-                            [TimePoint.LineStart]: dialog.start.clone(),
-                            [TimePoint.LineEnd]: dialog.end.clone(),
-                            [TimePoint.LineMiddle]: new Time_1.default(dialog.start.add(dialog.end.sub(dialog.start)).second),
-                            [TimePoint.SyllableStart]: start.clone(),
-                            [TimePoint.SyllableEnd]: end.clone(),
-                            [TimePoint.SyllableMiddle]: new Time_1.default(start.add(end.sub(start)).second)
+                            [Timepoint_1.default.LineStart]: dialog.start.clone(),
+                            [Timepoint_1.default.LineEnd]: dialog.end.clone(),
+                            [Timepoint_1.default.LineMiddle]: new Time_1.default(dialog.start.add(dialog.end.sub(dialog.start)).second),
+                            [Timepoint_1.default.SyllableStart]: start.clone(),
+                            [Timepoint_1.default.SyllableEnd]: end.clone(),
+                            [Timepoint_1.default.SyllableMiddle]: new Time_1.default(start.add(end.sub(start)).second)
                         }[startPoint]);
                         newDialog.end = new Time_1.default(endOffset).add({
-                            [TimePoint.LineStart]: dialog.start.clone(),
-                            [TimePoint.LineEnd]: dialog.end.clone(),
-                            [TimePoint.LineMiddle]: new Time_1.default(dialog.start.add(dialog.end.sub(dialog.start)).second),
-                            [TimePoint.SyllableStart]: start.clone(),
-                            [TimePoint.SyllableEnd]: end.clone(),
-                            [TimePoint.SyllableMiddle]: new Time_1.default(start.add(end.sub(start)).second)
+                            [Timepoint_1.default.LineStart]: dialog.start.clone(),
+                            [Timepoint_1.default.LineEnd]: dialog.end.clone(),
+                            [Timepoint_1.default.LineMiddle]: new Time_1.default(dialog.start.add(dialog.end.sub(dialog.start)).second),
+                            [Timepoint_1.default.SyllableStart]: start.clone(),
+                            [Timepoint_1.default.SyllableEnd]: end.clone(),
+                            [Timepoint_1.default.SyllableMiddle]: new Time_1.default(start.add(end.sub(start)).second)
                         }[endPoint]);
                         newDialog.syllableDuration = _effect.duration;
                         if (newDialog.end.sub(newDialog.start).second < 0) {

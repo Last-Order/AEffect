@@ -2,7 +2,7 @@ import Effect from './base/Effect';
 import BaseEffect from './base/BaseEffect';
 import Text from '../Entities/Text';
 import * as Effects from '../../effects/index';
-console.log(Effects);
+
 class UnknownEffect implements Effect{
     effectText: string;
     isHeadEffect: boolean = false;

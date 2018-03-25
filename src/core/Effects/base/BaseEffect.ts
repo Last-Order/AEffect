@@ -1,5 +1,6 @@
-import Text, { TextGroup } from '../../Entities/Text';
+import Text from '../../Entities/Text';
 import Effect from './Effect'
+import TextGroup from '../../Entities/TextGroup';
 
 export class EffectIndexOutOfBoundError extends Error { }
 

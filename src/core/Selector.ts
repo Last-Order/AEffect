@@ -6,29 +6,29 @@ import Effect from './Effects/base/Effect';
 import Time from "./Entities/Time";
 import K from "./Effects/K";
 import DrawingMode from "./Effects/DrawingMode";
+import TimePoint from '../definitions/Timepoint';
 
-export enum TimePoint{
-    LineStart,
-    LineEnd,
-    LineMiddle,
-    SyllableStart,
-    SyllableEnd,
-    SyllableMiddle
-}
+export class EndBeforeStartError extends Error { }
 
-export class EndBeforeStartError extends Error{}
-
-export interface SyllabifyOption{
+export interface SyllabifyOption {
     text?: string, // 替代文本
     autoComment?: boolean, // 自动注释
     drawingMode?: boolean // 绘图模式
+}
+
+export interface SelectorCondition {
+    styleName?: string; // 样式名
+    name?: string; // 说话人
+    layer?: number; // 层
+    fontSize?: number; // 字体大小
+    text?: string; // 内容
 }
 
 class Selector {
     dialogs: Dialogue[] = [];
     generatedDialogs: Dialogue[] = [];
     AE: AEffect;
-    condition: { [index: string]: string };
+    condition: SelectorCondition;
 
     constructor(AE: AEffect) {
         this.AE = AE;
@@ -39,7 +39,7 @@ class Selector {
      * @param condition 条件
      * @returns {Selector}
      */
-    select(condition: { [index: string]: string }): Selector {
+    select(condition: SelectorCondition): Selector {
         let dialogs = this.AE.dialogs;
         for (let key of Object.keys(condition)) {
             dialogs = dialogs.filter((dialog) => {
@@ -51,19 +51,19 @@ class Selector {
         return this;
     }
 
-    static selectByStyle(dialog: Dialogue, style) {
+    static selectByStyleName(dialog: Dialogue, style: string) {
         return dialog.style.name === style;
     }
 
-    static selectByName(dialog: Dialogue, name) {
+    static selectByName(dialog: Dialogue, name: string) {
         return dialog.name === name;
     }
 
-    static selectByLayer(dialog: Dialogue, layer) {
+    static selectByLayer(dialog: Dialogue, layer: number) {
         return dialog.layer === layer;
     }
 
-    static selectByFontsize(dialog: Dialogue, fontSize) {
+    static selectByFontsize(dialog: Dialogue, fontSize: number) {
         return dialog.style.fontsize === fontSize;
     }
 
@@ -92,8 +92,8 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.LineEnd, startOffset: number = 0, endOffset: number = 0,
-                       options: SyllabifyOption = {}) {
+    splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.LineEnd, 
+        startOffset: number = 0, endOffset: number = 0, options: SyllabifyOption = {}) {
         let newDialogs: Dialogue[] = [];
 
         // 默认值赋予
@@ -113,7 +113,7 @@ class Selector {
                 for (let effectIndex in textGroup.effectGroup) {
                     let effect = textGroup.effectGroup[effectIndex];
                     if (effect.name === "k") {
-                        let _effect = <K> effect; // 你问我为什么强制类型转换 我只能说无可奉告
+                        let _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
                         let newDialog = dialog.clone();
@@ -138,7 +138,7 @@ class Selector {
 
                         newDialog.syllableDuration = _effect.duration;
 
-                        if (newDialog.end.sub(newDialog.start).second < 0){
+                        if (newDialog.end.sub(newDialog.start).second < 0) {
                             // 结束时间小于开始时间
                             throw new EndBeforeStartError("指定的结束时间小于开始时间");
                         }
@@ -147,7 +147,7 @@ class Selector {
                         newDialog.text.groups = (new Text(_options.text || textGroup.toString())).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
-                        if (_options.drawingMode){
+                        if (_options.drawingMode) {
                             newDialog.addEffect([
                                 new DrawingMode(true)
                             ])
@@ -169,7 +169,7 @@ class Selector {
                 textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
             });
 
-            if (_options.autoComment){
+            if (_options.autoComment) {
                 // 注释原句
                 this.dialogs[index].isComment = true;
             }
@@ -225,7 +225,7 @@ class Selector {
      * 注释所有选中的 Dialog
      * @returns {Selector}
      */
-    commentOriginalDialogs(): Selector{
+    commentOriginalDialogs(): Selector {
         this.dialogs.forEach(dialog => {
             dialog.isComment = true;
         });

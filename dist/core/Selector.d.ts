@@ -1,14 +1,7 @@
 import AEffect from '../AEffect';
 import Dialogue from './Entities/Dialogue';
 import Effect from './Effects/base/Effect';
-export declare enum TimePoint {
-    LineStart = 0,
-    LineEnd = 1,
-    LineMiddle = 2,
-    SyllableStart = 3,
-    SyllableEnd = 4,
-    SyllableMiddle = 5,
-}
+import TimePoint from '../definitions/Timepoint';
 export declare class EndBeforeStartError extends Error {
 }
 export interface SyllabifyOption {
@@ -16,26 +9,29 @@ export interface SyllabifyOption {
     autoComment?: boolean;
     drawingMode?: boolean;
 }
+export interface SelectorCondition {
+    styleName?: string;
+    name?: string;
+    layer?: number;
+    fontSize?: number;
+    text?: string;
+}
 declare class Selector {
     dialogs: Dialogue[];
     generatedDialogs: Dialogue[];
     AE: AEffect;
-    condition: {
-        [index: string]: string;
-    };
+    condition: SelectorCondition;
     constructor(AE: AEffect);
     /**
      * 选取特定行
      * @param condition 条件
      * @returns {Selector}
      */
-    select(condition: {
-        [index: string]: string;
-    }): Selector;
-    static selectByStyle(dialog: Dialogue, style: any): boolean;
-    static selectByName(dialog: Dialogue, name: any): boolean;
-    static selectByLayer(dialog: Dialogue, layer: any): boolean;
-    static selectByFontsize(dialog: Dialogue, fontSize: any): boolean;
+    select(condition: SelectorCondition): Selector;
+    static selectByStyleName(dialog: Dialogue, style: string): boolean;
+    static selectByName(dialog: Dialogue, name: string): boolean;
+    static selectByLayer(dialog: Dialogue, layer: number): boolean;
+    static selectByFontsize(dialog: Dialogue, fontSize: number): boolean;
     static selectByText(dialog: Dialogue, regExp: RegExp): boolean;
     /**
      * 添加特效标签

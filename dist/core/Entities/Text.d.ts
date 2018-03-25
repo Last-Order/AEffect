@@ -1,4 +1,4 @@
-import Effect from '../Effects/base/Effect';
+import TextGroup from './TextGroup';
 export declare class TextParseError extends Error {
 }
 declare class Text {
@@ -24,19 +24,5 @@ declare class Text {
      * @returns {Text}
      */
     clone(): Text;
-}
-/**
- *
- */
-export declare class TextGroup {
-    effectGroup: Effect[];
-    content: string;
-    constructor(text: string);
-    toString(): string;
-    /**
-     * 复制 TextGroup
-     * @returns {TextGroup}
-     */
-    clone(): TextGroup;
 }
 export default Text;

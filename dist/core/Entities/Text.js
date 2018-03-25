@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const UnknownEffect_1 = require("../Effects/UnknownEffect");
+const TextGroup_1 = require("./TextGroup");
 class TextParseError extends Error {
 }
 exports.TextParseError = TextParseError;
@@ -34,13 +35,12 @@ class Text {
             });
             for (let i in effectTags) {
                 let effects = effectTags[i].slice(1, effectTags[i].length - 1).split("\\").filter(str => str !== "");
-                let newTextGroup = new TextGroup(plainTexts[i]);
+                let newTextGroup = new TextGroup_1.default(plainTexts[i]);
                 for (let effect of effects) {
                     try {
                         newTextGroup.effectGroup.push(UnknownEffect_1.default.parse(`\\${effect}`));
                     }
                     catch (e) {
-                        console.log(e);
                         throw new TextParseError("特效标签解析失败");
                     }
                 }
@@ -49,7 +49,7 @@ class Text {
         }
         else {
             // 无特效标签
-            this.groups.push(new TextGroup(text));
+            this.groups.push(new TextGroup_1.default(text));
         }
     }
     /**
@@ -74,31 +74,5 @@ class Text {
         return new Text(this.toString());
     }
 }
-/**
- *
- */
-class TextGroup {
-    constructor(text) {
-        this.effectGroup = []; // 特效标签组
-        this.content = text;
-    }
-    toString() {
-        let effectTags = "";
-        if (this.effectGroup.length > 0) {
-            effectTags = `{${this.effectGroup.map(i => i.toString()).join('')}}`;
-        }
-        return effectTags + this.content;
-    }
-    /**
-     * 复制 TextGroup
-     * @returns {TextGroup}
-     */
-    clone() {
-        let clonedTextGroup = new TextGroup(this.content);
-        clonedTextGroup.effectGroup = [...this.effectGroup];
-        return clonedTextGroup;
-    }
-}
-exports.TextGroup = TextGroup;
 exports.default = Text;
 //# sourceMappingURL=Text.js.map

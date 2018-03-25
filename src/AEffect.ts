@@ -3,16 +3,14 @@ import * as fs from 'fs'
 import Log from './utils/Log';
 import AssParser from './core/AssParser';
 import AssBuilder from './core/AssBuilder';
-import Selector from './core/Selector';
+import Selector, { SelectorCondition } from './core/Selector';
 
 import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo'
 
-export {TimePoint as TimePoint} from './core/Selector';
-
 class AEffect{
-    styles: {[index: string]: Style};
+    styles: {[index: string]: Style};   
     dialogs: Dialogue[];
     generatedDialogs: Dialogue[];
     metaInfo: MetaInfo;
@@ -60,7 +58,7 @@ class AEffect{
      * @return Selector 对象
      * @param condition 搜索条件
      */
-    select(condition = {}): Selector {
+    select(condition: SelectorCondition = {}): Selector {
         if (this.dialogs.length === 0) {
             Log.error("empty_ass", "请先载入含有对话句的 Ass 文件");
             return;

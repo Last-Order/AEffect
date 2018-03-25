@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const BaseEffect_1 = require("./base/BaseEffect");
 const Effects = require("../../effects/index");
-console.log(Effects);
 class UnknownEffect {
     constructor(effectText) {
         this.isHeadEffect = false;
