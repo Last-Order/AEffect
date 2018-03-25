@@ -30,6 +30,31 @@ import Dialogue from '../src/core/Entities/Dialogue'
 import Text from '../src/core/Entities/Text'
 import Style from '../src/core/Entities/Style'
 import MetaInfo from '../src/core/Entities/MetaInfo'
+import K from "../src/core/Effects/K";
+
+describe("正在测试 MetaInfo 类", () => {
+   let metaInfo = new MetaInfo();
+});
+
+describe("正在测试 Style 类", () => {
+    let style = new Style({
+
+    });
+});
+
+describe("正在测试 Text 类", () => {
+    it("不带特效标签的文本", () => {
+        let text = new Text("Hello World!");
+        expect(text.toString()).to.be.eq("Hello World!");
+    });
+    it("带特效标签的文本", () => {
+        let text = new Text("{\\k123}Hello World!");
+        expect(text.originalText).to.be.eq("Hello World!");
+        expect(text.groups[0].content).to.be.eq("Hello World!");
+        expect(text.groups[0].effectGroup[0].name).to.be.eq("k");
+        expect((<K>text.groups[0].effectGroup[0]).duration).to.be.eq(1230);
+    });
+});
 
 describe("正在测试对话行类", () => {
     let dialog = new Dialogue({
@@ -47,6 +72,7 @@ describe("正在测试对话行类", () => {
     }, {
         "Default": new Style()
     }, new MetaInfo());
+
     it("测试 Dialogue 时间相关计算属性", () => {
         expect(dialog.duration).to.equal(5000);
         expect(dialog.lineStart).to.equal(0);

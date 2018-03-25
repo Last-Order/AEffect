@@ -24,15 +24,15 @@ describe("正在进行综合测试", () => {
                 ]);
             });
             allDialogs.commentOriginalDialogs();
-            console.log(AE.build())
+            //console.log(AE.build())
         }
         catch(e){
             console.log(e);
         }
     });
     it("另外一个测试", () => {
-        console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "だけ"));
-        console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "だ"));
-        console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "け"));
+        //console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "だけ"));
+        //console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "だ"));
+        //console.log(textent.render("Noto Sans Mono CJK JP Regular", 55, "け"));
     });
 });

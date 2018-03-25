@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  * 下划线
  */
 class Underline implements Effect{
-    name: "u";
+    name = "u";
     isHeadEffect = false;
     startIndex: number;
     isUnderline: boolean;

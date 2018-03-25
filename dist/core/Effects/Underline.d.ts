@@ -4,7 +4,7 @@ import Text from '../Entities/Text';
  * 下划线
  */
 declare class Underline implements Effect {
-    name: "u";
+    name: string;
     isHeadEffect: boolean;
     startIndex: number;
     isUnderline: boolean;

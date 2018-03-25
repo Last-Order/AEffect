@@ -11,6 +11,7 @@ class Underline {
      * @param startIndex
      */
     constructor(isUnderline, startIndex = 0) {
+        this.name = "u";
         this.isHeadEffect = false;
         this.isUnderline = isUnderline;
         this.startIndex = startIndex;

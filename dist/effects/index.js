@@ -26,6 +26,4 @@ var Strike_1 = require("../core/Effects/Strike");
 exports.Strike = Strike_1.default;
 var Underline_1 = require("../core/Effects/Underline");
 exports.Underline = Underline_1.default;
-var UnknownEffect_1 = require("../core/Effects/UnknownEffect");
-exports.UnknownEffect = UnknownEffect_1.default;
 //# sourceMappingURL=index.js.map

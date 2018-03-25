@@ -4,6 +4,9 @@ import BlurEdge from "../src/core/Effects/BlurEdge";
 import Blur from "../src/core/Effects/Blur";
 import Bold from "../src/core/Effects/Bold";
 import Border from "../src/core/Effects/Border";
+import DrawingMode from "../src/core/Effects/DrawingMode";
+import FontScale from "../src/core/Effects/FontScale";
+import Pos from "../src/core/Effects/Position";
 
 describe("正在测试特效标签类", () => {
     // !!请按字幕顺序添加测试!!
@@ -54,5 +57,44 @@ describe("正在测试特效标签类", () => {
             let bord = Border.parse("\\bord3");
             expect(bord.size).to.be.eq(3);
         })
+    });
+
+    describe("绘图模式标签 (\\p)", () => {
+        it("开启绘图模式", () => {
+            let p = new DrawingMode(true);
+            expect(p.enable).to.be.eq(true);
+        });
+        it("关闭绘图模式", () => {
+            let p = new DrawingMode(false);
+            expect(p.enable).to.be.eq(false);
+        });
+        it("标签解析", () => {
+            let p = DrawingMode.parse("\\p1");
+            expect(p.enable).to.be.eq(true);
+        })
+    });
+
+    describe("字体缩放 (\\fsc)", () =>{
+        it("应用缩放", () => {
+            let fsc = new FontScale(200);
+            expect(fsc.scale).to.be.eq(200);
+        });
+        it("标签解析", () => {
+            let fsc = FontScale.parse("\\fsc200");
+            expect(fsc.scale).to.be.eq(200);
+        })
+    });
+
+    describe("位置 (\\pos)", () => {
+       it("应用位置标签", () => {
+           let pos = new Pos(800, 800);
+           expect(pos.x).to.be.eq(800);
+           expect(pos.y).to.be.eq(800);
+       });
+       it("标签解析", () => {
+           let pos = Pos.parse("\\pos(800, 800)");
+           expect(pos.x).to.be.eq(800);
+           expect(pos.y).to.be.eq(800);
+       })
     });
 });

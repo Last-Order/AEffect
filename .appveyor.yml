@@ -4,7 +4,7 @@ install:
   - ps: Install-Product node
   # install modules
   - npm install
-  - npm install -g typescript
+  - npm install -g typescript codecov nyc
 
 # Post-install test scripts.
 test_script:
@@ -13,6 +13,8 @@ test_script:
   - npm --version
   # run build
   - npm run build && npm run test
+  - nyc report --reporter=json > coverage/coverage.json
+  - codecov
 
 # Don't actually build.
 build: off

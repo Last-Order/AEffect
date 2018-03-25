@@ -13,4 +13,3 @@ export {default as Position} from '../core/Effects/Position';
 export {default as Shadow} from '../core/Effects/Shadow';
 export {default as Strike} from '../core/Effects/Strike';
 export {default as Underline} from '../core/Effects/Underline';
-export {default as UnknownEffect} from '../core/Effects/UnknownEffect';

@@ -5,8 +5,16 @@
   "description": "A simple tool to generate ass subtitle file with effect labels.",
   "main": "./dist/AEffect.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
+    "test": "nyc ./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
     "build": "tsc"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "./src/**/*"
+    ]
   },
   "author": "MeowSound Idols",
   "license": "Apache",
