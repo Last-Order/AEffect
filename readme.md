@@ -44,24 +44,25 @@ const AEffect = require("aeffect");
 
 ```javascript
 import Timepoint from 'aeffect/definitions/Timepoint';
+import * as Effects from 'aeffect/effects';
 
-  AE.loadFromFile("path_to_file");
+AE.loadFromFile("path_to_file");
 
-            // 选择所有 Default 样式的字幕行
-            let allDialogs = AE.select({
-                styleName: "Default"
-            });
-            // 按音节分割为行，新起始时间为原音节开始时间，新结束时间为原行结束时间
-            allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd)
-                .forEachDialog((dialog) => {
-                    // 初始blur20 在音节时间内变为blur0
-                    dialog.addEffect([
-                        new Blur(20),
-                        new Animation(dialog.lineStart, dialog.lineStart + dialog.syllableDuration, new Blur(0))
-                    ]);
-                });
-            // 注释原字幕
-            allDialogs.commentOriginalDialogs();
+// 选择所有 Default 样式的字幕行
+let allDialogs = AE.select({
+    styleName: "Default"
+});
+// 按音节分割为行，新起始时间为原音节开始时间，新结束时间为原行结束时间
+allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd)
+    .forEachDialog((dialog) => {
+        // 初始blur20 在音节时间内变为blur0
+        dialog.addEffect([
+            new Effects.Blur(20),
+            new Effects.Animation(dialog.lineStart, dialog.lineStart + dialog.syllableDuration, new Effects.Blur(0))
+        ]);
+    });
+// 注释原字幕
+allDialogs.commentOriginalDialogs();
 
 console.log(AE.build())
 ```

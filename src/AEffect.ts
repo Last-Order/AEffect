@@ -9,8 +9,8 @@ import Dialogue from './core/Entities/Dialogue';
 import Style from './core/Entities/Style';
 import MetaInfo from './core/Entities/MetaInfo'
 
-class AEffect{
-    styles: {[index: string]: Style};   
+class AEffect {
+    styles: { [index: string]: Style };
     dialogs: Dialogue[];
     generatedDialogs: Dialogue[];
     metaInfo: MetaInfo;
@@ -28,11 +28,12 @@ class AEffect{
      * @param encoding 编码 
      */
     loadFromFile(path, encoding = 'utf-8') {
-        let data = fs.readFileSync(path, encoding);
-        let result = AssParser.parse(data);
+        const data = fs.readFileSync(path, encoding);
+        const result = AssParser.parse(data);
         this.metaInfo = result.metaInfo;
         this.dialogs = result.dialogs;
         this.styles = result.styles;
+        return this;
     }
 
     /**
@@ -40,12 +41,10 @@ class AEffect{
      * @param text 文本
      */
     loadFromText(text) {
-        let result = AssParser.parse(text);
-        if (result){
-            this.metaInfo = result.metaInfo;
-            this.dialogs = result.dialogs;
-            this.styles = result.styles;
-        }
+        const result = AssParser.parse(text);
+        this.metaInfo = result.metaInfo;
+        this.dialogs = result.dialogs;
+        this.styles = result.styles;
         return this;
     }
 

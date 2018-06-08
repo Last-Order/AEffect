@@ -30,6 +30,8 @@ describe("正在进行综合测试", () => {
                 });
             // 注释原字幕
             allDialogs.commentOriginalDialogs();
+            // 输出字幕
+            AE.build();
         }
         catch (e) {
             console.log(e);
