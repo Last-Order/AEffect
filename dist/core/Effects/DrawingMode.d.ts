@@ -11,7 +11,7 @@ declare class DrawingMode implements Effect {
      * @param startIndex
      */
     constructor(enable?: boolean, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): DrawingMode;
 }

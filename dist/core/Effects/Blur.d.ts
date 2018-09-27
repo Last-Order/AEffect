@@ -13,7 +13,7 @@ declare class Blur implements Effect {
      * @param startIndex 起始位置
      */
     constructor(strength?: number, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): Blur;
 }

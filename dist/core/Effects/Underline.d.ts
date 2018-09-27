@@ -14,7 +14,7 @@ declare class Underline implements Effect {
      * @param startIndex
      */
     constructor(isUnderline: boolean, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): Underline;
 }

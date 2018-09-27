@@ -17,7 +17,7 @@ class Blur implements Effect {
         this.strength = strength;
         this.startIndex = startIndex;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
     

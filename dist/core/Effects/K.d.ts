@@ -14,7 +14,7 @@ declare class K implements Effect {
      * @param startIndex 开始位置
      */
     constructor(duration?: number, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     static parse(text: string): K;
     toString(): string;
 }

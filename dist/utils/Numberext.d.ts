@@ -4,4 +4,3 @@ declare global  {
         checkBound(min: number, max: number): number;
     }
 }
-export {};

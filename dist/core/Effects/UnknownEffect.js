@@ -9,7 +9,7 @@ class UnknownEffect {
         this.name = "UnknownEffect";
         this.effectText = effectText;
     }
-    handler(text) {
+    addTo(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     /**

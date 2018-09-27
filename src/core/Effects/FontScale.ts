@@ -20,7 +20,7 @@ class FontScale implements Effect{
         this.scale = scale;
         this.startIndex = startIndex;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
 

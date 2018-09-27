@@ -19,7 +19,7 @@ class Animation {
     toString() {
         return `\\t(${this.start}, ${this.end}, ${this.effect})`;
     }
-    handler(text) {
+    addTo(text) {
         text.groups[0].effectGroup.push(this);
         return text;
     }

@@ -6,7 +6,7 @@ declare class UnknownEffect implements Effect {
     startIndex: number;
     name: string;
     constructor(effectText: string);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     /**
      * 解析一个特效标签
      * @param effectText

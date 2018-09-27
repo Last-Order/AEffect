@@ -75,11 +75,11 @@ class Dialogue {
     }
     /**
      * 添加特效标签
-     * @param effect 特效标签数组
+     * @param effects 特效标签数组
      */
-    addEffect(effect: Effect[]){
-        for (let ef of effect){
-            this.text = ef.handler(this.text);
+    addEffect(effects: Effect[]){
+        for (const effect of effects){
+            this.text = effect.addTo(this.text);
         }
     }
 

@@ -5,7 +5,7 @@ interface Effect {
     startIndex: number;
     name: string;
     toString(): string;
-    handler(text: Text): Text;
+    addTo(text: Text): Text;
 }
 
 export default Effect;

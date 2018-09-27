@@ -16,6 +16,6 @@ declare class Animation implements Effect {
      */
     constructor(start: number, end: number, effect: Effect, autoAdjustment?: boolean);
     toString(): string;
-    handler(text: Text): Text;
+    addTo(text: Text): Text;
 }
 export default Animation;

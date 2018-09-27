@@ -19,7 +19,7 @@ class Shadow implements Effect{
         this.depth = depth;
         this.startIndex = startIndex;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
 

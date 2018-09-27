@@ -16,7 +16,7 @@ class Shadow {
         this.depth = depth;
         this.startIndex = startIndex;
     }
-    handler(text) {
+    addTo(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {

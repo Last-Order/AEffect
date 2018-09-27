@@ -20,7 +20,7 @@ class K implements Effect{
         this.startIndex = startIndex;
         this.duration = duration * 10; // ass 字幕 k 标签实际上以百分之一秒表示
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
     static parse(text: string){

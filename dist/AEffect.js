@@ -19,23 +19,22 @@ class AEffect {
      * @param encoding 编码
      */
     loadFromFile(path, encoding = 'utf-8') {
-        let data = fs.readFileSync(path, encoding);
-        let result = AssParser_1.default.parse(data);
+        const data = fs.readFileSync(path, encoding);
+        const result = AssParser_1.default.parse(data);
         this.metaInfo = result.metaInfo;
         this.dialogs = result.dialogs;
         this.styles = result.styles;
+        return this;
     }
     /**
      * 从文本读取字幕
      * @param text 文本
      */
     loadFromText(text) {
-        let result = AssParser_1.default.parse(text);
-        if (result) {
-            this.metaInfo = result.metaInfo;
-            this.dialogs = result.dialogs;
-            this.styles = result.styles;
-        }
+        const result = AssParser_1.default.parse(text);
+        this.metaInfo = result.metaInfo;
+        this.dialogs = result.dialogs;
+        this.styles = result.styles;
         return this;
     }
     build() {

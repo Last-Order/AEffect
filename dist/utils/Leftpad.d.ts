@@ -4,4 +4,3 @@ declare global  {
         leftpad(length: number, fill: string): string;
     }
 }
-export {};

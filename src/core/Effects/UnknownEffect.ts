@@ -11,7 +11,7 @@ class UnknownEffect implements Effect{
     constructor(effectText: string){
         this.effectText = effectText;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
 

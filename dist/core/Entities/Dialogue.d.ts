@@ -49,9 +49,9 @@ declare class Dialogue {
     }, metaInfo: MetaInfo);
     /**
      * 添加特效标签
-     * @param effect 特效标签数组
+     * @param effects 特效标签数组
      */
-    addEffect(effect: Effect[]): void;
+    addEffect(effects: Effect[]): void;
     /**
      * 解析音节。为每个音节赋予位置。
      * @param autoPosition

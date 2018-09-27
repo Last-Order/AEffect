@@ -20,7 +20,7 @@ class Bold implements Effect{
         this.weight = weight;
         this.startIndex = startIndex;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
     toString(){

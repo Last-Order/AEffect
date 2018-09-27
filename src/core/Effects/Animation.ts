@@ -24,7 +24,7 @@ class Animation implements Effect{
     toString(){
         return `\\t(${this.start}, ${this.end}, ${this.effect})`;
     }
-    handler(text: Text){
+    addTo(text: Text){
         text.groups[0].effectGroup.push(this);
         return text;
     }

@@ -14,7 +14,7 @@ declare class FontScale implements Effect {
      * @param startIndex
      */
     constructor(scale?: number, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): FontScale;
 }

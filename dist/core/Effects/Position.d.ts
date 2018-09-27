@@ -15,7 +15,7 @@ declare class Pos implements Effect {
      * @param startIndex
      */
     constructor(x: number, y: number, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): Pos;
 }

@@ -14,7 +14,7 @@ declare class Shadow implements Effect {
      * @param startIndex
      */
     constructor(depth: number, startIndex?: number);
-    handler(text: Text): any;
+    addTo(text: Text): any;
     toString(): string;
     static parse(text: string): Shadow;
 }

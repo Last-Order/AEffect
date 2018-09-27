@@ -21,7 +21,7 @@ class Strike implements Effect{
         this.startIndex = startIndex;
     }
 
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
 

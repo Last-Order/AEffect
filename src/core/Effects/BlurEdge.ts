@@ -17,7 +17,7 @@ class BlurEdge implements Effect {
         this.strength = Math.round(strength); // strength 只能为整数. 代表应用模糊的次数.
         this.startIndex = startIndex;
     }
-    handler(text: Text){
+    addTo(text: Text){
         return BaseEffect.defaultHandler(this, text);
     }
 

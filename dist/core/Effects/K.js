@@ -16,7 +16,7 @@ class K {
         this.startIndex = startIndex;
         this.duration = duration * 10; // ass 字幕 k 标签实际上以百分之一秒表示
     }
-    handler(text) {
+    addTo(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     static parse(text) {

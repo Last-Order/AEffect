@@ -16,7 +16,7 @@ class Border {
         this.size = size;
         this.startIndex = startIndex;
     }
-    handler(text) {
+    addTo(text) {
         return BaseEffect_1.default.defaultHandler(this, text);
     }
     toString() {

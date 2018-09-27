@@ -4,4 +4,3 @@ declare global  {
         explode(separator: string, limit: number): string[];
     }
 }
-export {};
