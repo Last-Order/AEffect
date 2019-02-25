@@ -10,7 +10,7 @@ import TimePoint from '../definitions/Timepoint';
 
 export class EndBeforeStartError extends Error { }
 
-export interface SyllabifyOption {
+export interface SyllabifyOptions {
     text?: string, // 替代文本
     autoComment?: boolean, // 自动注释
     drawingMode?: boolean // 绘图模式
@@ -92,12 +92,12 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint: TimePoint = TimePoint.LineStart, endPoint: TimePoint = TimePoint.LineEnd, 
-        startOffset: number = 0, endOffset: number = 0, options: SyllabifyOption = {}) {
+    splitIntoSyllables(startPoint: TimePoint = 'LineStart', endPoint: TimePoint = 'LineEnd', 
+        startOffset: number = 0, endOffset: number = 0, options: SyllabifyOptions = {}) {
         let newDialogs: Dialogue[] = [];
 
         // 默认值赋予
-        let _options: SyllabifyOption;
+        let _options: SyllabifyOptions;
         _options = {
             autoComment: options.autoComment || false,
             text: options.text || "",
@@ -118,23 +118,59 @@ class Selector {
                         // 生成新 Dialog 对象
                         let newDialog = dialog.clone();
 
-                        newDialog.start = new Time(startOffset).add({
-                            [TimePoint.LineStart]: dialog.start.clone(),
-                            [TimePoint.LineEnd]: dialog.end.clone(),
-                            [TimePoint.LineMiddle]: new Time(dialog.start.add(dialog.end.sub(dialog.start)).second),
-                            [TimePoint.SyllableStart]: start.clone(),
-                            [TimePoint.SyllableEnd]: end.clone(),
-                            [TimePoint.SyllableMiddle]: new Time(start.add(end.sub(start)).second)
-                        }[startPoint]);
+                        switch (startPoint) {
+                            case 'LineStart': {
+                                newDialog.start = new Time(startOffset).add(dialog.start.clone());
+                                break;
+                            }
+                            case 'LineEnd': {
+                                newDialog.start = new Time(startOffset).add(dialog.end.clone());
+                                break;
+                            }
+                            case 'LineMiddle': {
+                                newDialog.start = new Time(dialog.start.add(dialog.end.sub(dialog.start)).second / 2);
+                                break;
+                            }
+                            case 'SyllableStart': {
+                                newDialog.start = start.clone();
+                                break;
+                            }
+                            case 'SyllableEnd': {
+                                newDialog.start = end.clone();
+                                break;
+                            }
+                            case 'SyllableMiddle': {
+                                newDialog.start = new Time(start.add(end.sub(start)).second / 2);
+                                break;
+                            }
+                        }
 
-                        newDialog.end = new Time(endOffset).add({
-                            [TimePoint.LineStart]: dialog.start.clone(),
-                            [TimePoint.LineEnd]: dialog.end.clone(),
-                            [TimePoint.LineMiddle]: new Time(dialog.start.add(dialog.end.sub(dialog.start)).second),
-                            [TimePoint.SyllableStart]: start.clone(),
-                            [TimePoint.SyllableEnd]: end.clone(),
-                            [TimePoint.SyllableMiddle]: new Time(start.add(end.sub(start)).second)
-                        }[endPoint]);
+                        switch (endPoint) {
+                            case 'LineStart': {
+                                newDialog.end = new Time(startOffset).add(dialog.start.clone());
+                                break;
+                            }
+                            case 'LineEnd': {
+                                newDialog.end = new Time(startOffset).add(dialog.end.clone());
+                                break;
+                            }
+                            case 'LineMiddle': {
+                                newDialog.end = new Time(dialog.start.add(dialog.end.sub(dialog.start)).second / 2);
+                                break;
+                            }
+                            case 'SyllableStart': {
+                                newDialog.end = start.clone();
+                                break;
+                            }
+                            case 'SyllableEnd': {
+                                newDialog.end = end.clone();
+                                break;
+                            }
+                            case 'SyllableMiddle': {
+                                newDialog.end = new Time(start.add(end.sub(start)).second / 2);
+                                break;
+                            }
+                        }
 
                         newDialog.syllableDuration = _effect.duration;
 

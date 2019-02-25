@@ -1,8 +1,8 @@
 import '../../utils/Leftpad'
 
-class Time{
+class Time {
     second: number;
-    constructor(s: number){
+    constructor(s: number) {
         this.second = s;
     }
     toString(): string {
@@ -17,16 +17,24 @@ class Time{
         }
         return [hour, minute, second].join(':');
     }
-    add(time2: Time): Time{
+    /**
+     * 时间加运算
+     * @param time2 
+     */
+    add(time2: Time): Time {
         return new Time(this.second + time2.second);
     }
-    sub(time2: Time): Time{
+    /**
+     * 时间减运算
+     * @param time2 
+     */
+    sub(time2: Time): Time {
         return new Time(this.second - time2.second);
     }
-    valueOf(): Number{
+    valueOf(): Number {
         return this.second;
     }
-    clone(){
+    clone() {
         return new Time(this.second);
     }
     static parse(time: string): Time {
@@ -36,7 +44,7 @@ class Time{
         }
         return new Time(timeArr.reverse().reduce((acc, val, ind) => +val * Math.pow(60, ind) + acc, 0))
     }
-    
+
 }
 
 export class TimeParseError extends Error { }
