@@ -31,12 +31,19 @@ class Time {
     sub(time2: Time): Time {
         return new Time(this.second - time2.second);
     }
+    /**
+     * 获得时间秒数
+     */
     valueOf(): Number {
         return this.second;
     }
+    /**
+     * 复制
+     */
     clone() {
         return new Time(this.second);
     }
+
     static parse(time: string): Time {
         let timeArr = time.split(":");
         if (timeArr.length !== 3) {

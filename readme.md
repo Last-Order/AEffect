@@ -43,7 +43,6 @@ const AEffect = require("aeffect");
 ### Syllables fade in
 
 ```javascript
-import Timepoint from 'aeffect/definitions/Timepoint';
 import * as Effects from 'aeffect/effects';
 
 AE.loadFromFile("path_to_file");
@@ -53,7 +52,7 @@ let allDialogs = AE.select({
     styleName: "Default"
 });
 // 按音节分割为行，新起始时间为原音节开始时间，新结束时间为原行结束时间
-allDialogs.splitIntoSyllables(TimePoint.SyllableStart, TimePoint.LineEnd)
+allDialogs.splitIntoSyllables('SyllableStart', 'LineEnd')
     .forEachDialog((dialog) => {
         // 初始blur20 在音节时间内变为blur0
         dialog.addEffect([

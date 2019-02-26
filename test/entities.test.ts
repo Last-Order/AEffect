@@ -1,14 +1,27 @@
 import 'mocha'
 import { expect } from 'chai'
 
-import Time from '../src/core/Entities/Time'
+import Time, { TimeParseError } from '../src/core/Entities/Time'
 
 describe("正在测试时间类", () => {
     describe("从字符串读取一个时间", ()=>{
         it("正常测试", ()=>{
             let t = Time.parse("0:12:34.56");
             expect(t.second).to.be.equal(754.56);
+            expect(t.valueOf()).to.be.equal(754.56);
         });
+        it("复制", () => {
+            let t = new Time(11105.11058012);
+            expect(t.clone().toString()).to.be.equal("3:05:05.11")
+        });
+        it("算数加", () => {
+            let t = Time.parse("0:12:34.56");
+            expect(t.add(new Time(2)).second).to.be.equal(756.56);
+        });
+        it("算数减", () => {
+            let t = Time.parse("0:12:34.56");
+            expect(t.sub(new Time(2)).second).to.be.equal(752.56);            
+        })
     });
     describe("从时间生成一个字符串", ()=>{
         it("正常测试", ()=>{
@@ -22,6 +35,11 @@ describe("正在测试时间类", () => {
         it("秒位需要补0", ()=>{
             let t = new Time(11105.11058012);
             expect(t.toString()).to.be.equal("3:05:05.11")
+        });
+        it("格式错误", () => {
+            expect(() => {
+                Time.parse("11:11:11:11");
+            }).to.throw(TimeParseError);
         });
     });
 });

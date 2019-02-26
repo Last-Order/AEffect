@@ -48,6 +48,12 @@ describe("正在测试 Ass 解析", () => {
             expect(() => {
                 AE.loadFromFile("./test/test_ass/style_format_definition_mismatch.ass");
             }).to.throw(AssParser.InvalidStyleDefinitionError);
+        });
+
+        it("Dialog 格式定义不符合规范：Text未位于末尾", () => {
+            expect(() => {
+                AE.loadFromFile("./test/test_ass/ass_invalid_format1.ass");
+            }).to.throw(AssParser.InvalidDialogFormatDefinitionError);
         })
     })
 });
