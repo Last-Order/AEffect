@@ -1,4 +1,4 @@
-import '../../utils/Leftpad'
+import '../../utils/Leftpad';
 
 class Time {
     second: number;
@@ -6,12 +6,12 @@ class Time {
         this.second = s;
     }
     toString(): string {
-        let hour = (~~(this.second / 3600)).toString();
-        let minute = (~~(this.second / 60 % 60)).toString().leftpad(2, '0');
-        let secondOriNum = this.second % 60;
+        const hour = (~~(this.second / 3600)).toString();
+        const minute = (~~(this.second / 60 % 60)).toString().leftpad(2, '0');
+        const secondOriNum = this.second % 60;
         let second: string;
         if (secondOriNum < 10) {
-            second = '0' + secondOriNum.toFixed(2);
+            second = `0${secondOriNum.toFixed(2).toString()}`;
         } else {
             second = secondOriNum.toFixed(2);
         }
@@ -19,14 +19,14 @@ class Time {
     }
     /**
      * 时间加运算
-     * @param time2 
+     * @param time2
      */
     add(time2: Time): Time {
         return new Time(this.second + time2.second);
     }
     /**
      * 时间减运算
-     * @param time2 
+     * @param time2
      */
     sub(time2: Time): Time {
         return new Time(this.second - time2.second);
@@ -45,11 +45,13 @@ class Time {
     }
 
     static parse(time: string): Time {
-        let timeArr = time.split(":");
+        const timeArr = time.split(':');
         if (timeArr.length !== 3) {
-            throw new TimeParseError("不是有效的时间标签。");
+            throw new TimeParseError('不是有效的时间标签。');
         }
-        return new Time(timeArr.reverse().reduce((acc, val, ind) => +val * Math.pow(60, ind) + acc, 0))
+        return new Time(
+            timeArr.reverse().reduce((acc, val, ind) => +val * Math.pow(60, ind) + acc, 0),
+        );
     }
 
 }

@@ -8,7 +8,7 @@ import BaseEffect from './base/BaseEffect';
 class Pos implements Effect {
     isHeadEffect = true;
     startIndex: number = 0;
-    name = "pos";
+    name = 'pos';
     x: number;
     y: number;
 
@@ -31,7 +31,11 @@ class Pos implements Effect {
     }
 
     static parse(text: string) {
-        return new Pos(parseInt(text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[1]), parseInt(text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[2]));
+        return new Pos(
+            parseInt(text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[1], 10),
+            parseInt(text.match(/pos\((\-*\d+?),[ ]*(\-*\d+?)\)/)[2], 10),
+            10,
+        );
     }
 }
 

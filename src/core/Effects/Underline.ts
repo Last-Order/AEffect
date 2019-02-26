@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  * 下划线
  */
 class Underline implements Effect{
-    name = "u";
+    name = 'u';
     isHeadEffect = false;
     startIndex: number;
     isUnderline: boolean;
@@ -16,16 +16,16 @@ class Underline implements Effect{
      * @param isUnderline 是否加下划线
      * @param startIndex
      */
-    constructor(isUnderline: boolean, startIndex: number = 0){
+    constructor(isUnderline: boolean, startIndex: number = 0) {
         this.isUnderline = isUnderline;
         this.startIndex = startIndex;
     }
 
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
 
-    toString(){
+    toString() {
         return `\\u${this.isUnderline ?  '1' : '0'}`;
     }
 

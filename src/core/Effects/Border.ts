@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  */
 class Border implements Effect{
     isHeadEffect = false;
-    name = "bord";
+    name = 'bord';
     startIndex: number;
     size: number; // 边框宽度
 
@@ -15,21 +15,21 @@ class Border implements Effect{
      * @param size 边框宽度(px)
      * @param startIndex
      */
-    constructor(size: number = 0, startIndex: number = 0){
+    constructor(size: number = 0, startIndex: number = 0) {
         this.size = size;
         this.startIndex = startIndex;
     }
 
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
 
-    toString(){
+    toString() {
         return `\\bord${this.size}`;
     }
 
-    static parse(text: string){
-        return new Border(parseInt(text.match(/(\d+)/ig)[0]));
+    static parse(text: string) {
+        return new Border(parseInt(text.match(/(\d+)/ig)[0], 10));
     }
 }
 

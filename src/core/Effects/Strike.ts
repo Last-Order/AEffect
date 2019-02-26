@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  * 删除线
  */
 class Strike implements Effect{
-    name: "s";
+    name: 's';
     isHeadEffect = false;
     startIndex: number;
     isStrike: boolean;
@@ -16,16 +16,16 @@ class Strike implements Effect{
      * @param isUnderline 是否加删除线
      * @param startIndex
      */
-    constructor(isUnderline: boolean, startIndex: number = 0){
+    constructor(isUnderline: boolean, startIndex: number = 0) {
         this.isStrike = isUnderline;
         this.startIndex = startIndex;
     }
 
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
 
-    toString(){
+    toString() {
         return `\\s${this.isStrike ?  '1' : '0'}`;
     }
 

@@ -2,10 +2,9 @@ import Effect from './base/Effect';
 import Text from '../Entities/Text';
 import BaseEffect from './base/BaseEffect';
 
-
 class DrawingMode implements Effect{
     isHeadEffect = false;
-    name = "p";
+    name = 'p';
     startIndex: number;
     enable: boolean;
 
@@ -14,21 +13,21 @@ class DrawingMode implements Effect{
      * @param enable
      * @param startIndex
      */
-    constructor(enable: boolean = true, startIndex: number = 0){
+    constructor(enable: boolean = true, startIndex: number = 0) {
         this.enable = enable;
         this.startIndex = startIndex;
     }
 
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
 
-    toString(){
+    toString() {
         return `\\p${this.enable ? 1 : 0}`;
     }
 
-    static parse(text: string){
-        return new DrawingMode(parseInt(text.match(/(\d+)/ig)[0]) === 1);
+    static parse(text: string) {
+        return new DrawingMode(parseInt(text.match(/(\d+)/ig)[0], 10) === 1);
     }
 }
 

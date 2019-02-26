@@ -1,4 +1,4 @@
-export {}
+export {};
 
 declare global{
     interface String{
@@ -6,10 +6,9 @@ declare global{
     }
 }
 
-
-String.prototype.leftpad = function(length: number, fill: string){
-    if(fill.length !== 1){
-        throw new RangeError("fill key should be 1 character.")
+String.prototype.leftpad = function (length: number, fill: string) {
+    if (fill.length !== 1) {
+        throw new RangeError('fill key should be 1 character.');
     }
-    return Array(Math.abs(("" + this).length - ((length || 2) + 1))).join(fill) + this;
-}
+    return Array(Math.abs(this.length - ((length || 2) + 1))).join(fill) + this;
+};

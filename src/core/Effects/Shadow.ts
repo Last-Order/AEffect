@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  */
 class Shadow implements Effect{
     isHeadEffect = false;
-    name = "shad";
+    name = 'shad';
     startIndex: number;
     depth: number;
 
@@ -15,20 +15,20 @@ class Shadow implements Effect{
      * @param depth 距离(px)
      * @param startIndex
      */
-    constructor(depth: number, startIndex: number = 0){
+    constructor(depth: number, startIndex: number = 0) {
         this.depth = depth;
         this.startIndex = startIndex;
     }
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
 
-    toString(){
+    toString() {
         return `\\shad${this.depth}`;
     }
 
-    static parse(text: string){
-        return new Shadow(parseInt(text.match(/(\d+)/ig)[0]));
+    static parse(text: string) {
+        return new Shadow(parseInt(text.match(/(\d+)/ig)[0], 10));
     }
 }
 

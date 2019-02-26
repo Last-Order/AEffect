@@ -6,7 +6,7 @@ import BaseEffect from './base/BaseEffect';
  * 字体粗体
  */
 class Bold implements Effect{
-    name = "b";
+    name = 'b';
     isHeadEffect = false;
     startIndex: number;
     weight: number;
@@ -16,20 +16,20 @@ class Bold implements Effect{
      * @param weight 字重
      * @param startIndex
      */
-    constructor(weight: number = 1, startIndex: number = 0){
+    constructor(weight: number = 1, startIndex: number = 0) {
         this.weight = weight;
         this.startIndex = startIndex;
     }
-    addTo(text: Text){
+    addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
-    toString(){
+    toString() {
         return `\\b${this.weight}`;
     }
 
-    static parse(text: string): Bold{
-        return new Bold(parseInt(text.match(/(\d+)/ig)[0]));
+    static parse(text: string): Bold {
+        return new Bold(parseInt(text.match(/(\d+)/ig)[0], 10));
     }
 }
 
-export default Bold
+export default Bold;

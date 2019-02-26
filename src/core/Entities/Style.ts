@@ -1,9 +1,8 @@
-import Color from './Color'
-
+import Color from './Color';
 
 export enum BorderStyle {
     BorderAndShadow = 1, // 边框+阴影
-    PureBackground = 3 // 纯色背景
+    PureBackground = 3, // 纯色背景
 }
 export enum Alignment {
     UndefinedAlignment,
@@ -15,7 +14,7 @@ export enum Alignment {
     RightMiddle,
     LeftTop,
     Top,
-    RightTop
+    RightTop,
 }
 
 class Style {
@@ -43,7 +42,8 @@ class Style {
     marginV: number; // 垂直边距
     encoding: number; // Codepage Number （请使用Unicode编码来避免此字段 GBK:134）
     constructor(properties = {}) {
-        ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Strike", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
+        // tslint:disable-next-line:max-line-length
+        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'Strike', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
             .forEach((name, index) => {
                 this[name[0].toLowerCase() + name.slice(1)] = properties[name];
             });
@@ -52,38 +52,38 @@ class Style {
     * @override
     */
     toString() {
-        let ass = "Style: ";
-        let temp: string[] = [];
-        ["Name", "Fontname", "Fontsize", "PrimaryColour", "SecondaryColour", "OutlineColour", "BackColour", "Bold", "Italic", "Strike", "StrikeOut", "ScaleX", "ScaleY", "Spacing", "Angle", "BorderStyle", "Outline", "Shadow", "Alignment", "MarginL", "MarginR", "MarginV", "Encoding"]
-            .forEach(name => {
-                name = name[0].toLowerCase() + name.slice(1);
-                switch (name){
-                    case "name":
-                    case "fontname":
-                        temp.push(this[name]); break;
-                    case "fontsize":
-                    case "scaleX":
-                    case "scaleY":
-                    case "spacing":
-                    case "angle":
-                    case "outline":
-                    case "shadow":
-                    case "marginL":
-                    case "marginR":
-                    case "marginV":
-                    case "encoding":
-                    case "primaryColour":
-                    case "secondaryColour":
-                    case "outlineColour":
-                    case "backColour":
-                    case "alignment":
-                    case "borderStyle":
-                        temp.push("" + this[name]); break;
-                    case "bold":
-                    case "italic":
-                    case "underline":
-                    case "strikeOut":
-                        temp.push(this[name] ? "-1" : "0"); break;
+        let ass = 'Style: ';
+        const temp: string[] = [];
+        // tslint:disable-next-line:max-line-length
+        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'Strike', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
+            .forEach((name) => {
+                switch (name[0].toLowerCase() + name.slice(1)){
+                case 'name':
+                case 'fontname':
+                    temp.push(this[name]); break;
+                case 'fontsize':
+                case 'scaleX':
+                case 'scaleY':
+                case 'spacing':
+                case 'angle':
+                case 'outline':
+                case 'shadow':
+                case 'marginL':
+                case 'marginR':
+                case 'marginV':
+                case 'encoding':
+                case 'primaryColour':
+                case 'secondaryColour':
+                case 'outlineColour':
+                case 'backColour':
+                case 'alignment':
+                case 'borderStyle':
+                    temp.push(this[name].toString()); break;
+                case 'bold':
+                case 'italic':
+                case 'underline':
+                case 'strikeOut':
+                    temp.push(this[name] ? '-1' : '0'); break;
                 }
             });
         ass += temp.join(',');

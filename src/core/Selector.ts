@@ -3,17 +3,17 @@ import AEffect from '../AEffect';
 import Dialogue from './Entities/Dialogue';
 import Text from './Entities/Text';
 import Effect from './Effects/base/Effect';
-import Time from "./Entities/Time";
-import K from "./Effects/K";
-import DrawingMode from "./Effects/DrawingMode";
-import TimePoint from '../definitions/Timepoint';
+import Time from './Entities/Time';
+import K from './Effects/K';
+import DrawingMode from './Effects/DrawingMode';
+import TimePoint from '../definitions/TimePoint';
 
 export class EndBeforeStartError extends Error { }
 
 export interface SyllabifyOptions {
-    text?: string, // 替代文本
-    autoComment?: boolean, // 自动注释
-    drawingMode?: boolean // 绘图模式
+    text?: string; // 替代文本
+    autoComment?: boolean; // 自动注释
+    drawingMode?: boolean; // 绘图模式
 }
 
 export interface SelectorCondition {
@@ -41,9 +41,10 @@ class Selector {
      */
     select(condition: SelectorCondition): Selector {
         let dialogs = this.AE.dialogs;
-        for (let key of Object.keys(condition)) {
+        for (const key of Object.keys(condition)) {
             dialogs = dialogs.filter((dialog) => {
-                return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key])
+                // tslint:disable-next-line:max-line-length
+                return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
             });
         }
         this.dialogs = dialogs.filter(dialog => !dialog.isComment); // 不选中注释行
@@ -77,7 +78,7 @@ class Selector {
      */
     addEffect(effect: Effect[]) {
         // 对选择器添加标签，则视为给选中的所有行添加标签
-        for (let dialog of this.dialogs) {
+        for (const dialog of this.dialogs) {
             dialog.addEffect(effect);
         }
         return this;
@@ -92,16 +93,17 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint: TimePoint = 'LineStart', endPoint: TimePoint = 'LineEnd', 
-        startOffset: number = 0, endOffset: number = 0, options: SyllabifyOptions = {}) {
-        let newDialogs: Dialogue[] = [];
+    splitIntoSyllables(startPoint: TimePoint = 'LineStart', endPoint: TimePoint = 'LineEnd',
+                       startOffset: number = 0, endOffset: number = 0,
+                       options: SyllabifyOptions = {}) {
+        const newDialogs: Dialogue[] = [];
 
         // 默认值赋予
         let _options: SyllabifyOptions;
         _options = {
             autoComment: options.autoComment || false,
-            text: options.text || "",
-            drawingMode: options.drawingMode || false
+            text: options.text || '',
+            drawingMode: options.drawingMode || false,
         };
 
         this.dialogs.forEach((dialog, index) => {
@@ -109,91 +111,97 @@ class Selector {
             let start: Time = dialog.start;
             let end: Time;
             let syllableIndex: number = 0;
-            for (let textGroup of dialog.text.groups) {
-                for (let effectIndex in textGroup.effectGroup) {
-                    let effect = textGroup.effectGroup[effectIndex];
-                    if (effect.name === "k") {
-                        let _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
+            for (const textGroup of dialog.text.groups) {
+                for (const effectIndex in textGroup.effectGroup) {
+                    const effect = textGroup.effectGroup[effectIndex];
+                    if (effect.name === 'k') {
+                        const _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
-                        let newDialog = dialog.clone();
-
+                        const newDialog = dialog.clone();
                         switch (startPoint) {
-                            case 'LineStart': {
-                                newDialog.start = new Time(startOffset).add(dialog.start.clone());
-                                break;
-                            }
-                            case 'LineEnd': {
-                                newDialog.start = new Time(startOffset).add(dialog.end.clone());
-                                break;
-                            }
-                            case 'LineMiddle': {
-                                newDialog.start = new Time(dialog.start.add(dialog.end.sub(dialog.start)).second / 2);
-                                break;
-                            }
-                            case 'SyllableStart': {
-                                newDialog.start = start.clone();
-                                break;
-                            }
-                            case 'SyllableEnd': {
-                                newDialog.start = end.clone();
-                                break;
-                            }
-                            case 'SyllableMiddle': {
-                                newDialog.start = new Time(start.add(end.sub(start)).second / 2);
-                                break;
-                            }
+                        case 'LineStart': {
+                            newDialog.start = new Time(startOffset).add(dialog.start.clone());
+                            break;
+                        }
+                        case 'LineEnd': {
+                            newDialog.start = new Time(startOffset).add(dialog.end.clone());
+                            break;
+                        }
+                        case 'LineMiddle': {
+                            newDialog.start = new Time(
+                                dialog.start.add(dialog.end.sub(dialog.start)).second / 2,
+                            );
+                            break;
+                        }
+                        case 'SyllableStart': {
+                            newDialog.start = start.clone();
+                            break;
+                        }
+                        case 'SyllableEnd': {
+                            newDialog.start = end.clone();
+                            break;
+                        }
+                        case 'SyllableMiddle': {
+                            newDialog.start = new Time(start.add(end.sub(start)).second / 2);
+                            break;
+                        }
                         }
 
                         switch (endPoint) {
-                            case 'LineStart': {
-                                newDialog.end = new Time(startOffset).add(dialog.start.clone());
-                                break;
-                            }
-                            case 'LineEnd': {
-                                newDialog.end = new Time(startOffset).add(dialog.end.clone());
-                                break;
-                            }
-                            case 'LineMiddle': {
-                                newDialog.end = new Time(dialog.start.add(dialog.end.sub(dialog.start)).second / 2);
-                                break;
-                            }
-                            case 'SyllableStart': {
-                                newDialog.end = start.clone();
-                                break;
-                            }
-                            case 'SyllableEnd': {
-                                newDialog.end = end.clone();
-                                break;
-                            }
-                            case 'SyllableMiddle': {
-                                newDialog.end = new Time(start.add(end.sub(start)).second / 2);
-                                break;
-                            }
+                        case 'LineStart': {
+                            newDialog.end = new Time(startOffset).add(dialog.start.clone());
+                            break;
+                        }
+                        case 'LineEnd': {
+                            newDialog.end = new Time(startOffset).add(dialog.end.clone());
+                            break;
+                        }
+                        case 'LineMiddle': {
+                            newDialog.end = new Time(
+                                dialog.start.add(dialog.end.sub(dialog.start)).second / 2,
+                            );
+                            break;
+                        }
+                        case 'SyllableStart': {
+                            newDialog.end = start.clone();
+                            break;
+                        }
+                        case 'SyllableEnd': {
+                            newDialog.end = end.clone();
+                            break;
+                        }
+                        case 'SyllableMiddle': {
+                            newDialog.end = new Time(start.add(end.sub(start)).second / 2);
+                            break;
+                        }
                         }
 
                         newDialog.syllableDuration = _effect.duration;
 
                         if (newDialog.end.sub(newDialog.start).second < 0) {
                             // 结束时间小于开始时间
-                            throw new EndBeforeStartError("指定的结束时间小于开始时间");
+                            throw new EndBeforeStartError('指定的结束时间小于开始时间');
                         }
 
                         // 复制文字
-                        newDialog.text.groups = (new Text(_options.text || textGroup.toString())).groups;
+                        newDialog.text.groups = (
+                            new Text(_options.text || textGroup.toString())
+                        ).groups;
                         // 去除时间标签
-                        newDialog.text.groups[0].effectGroup = newDialog.text.groups[0].effectGroup.filter(e => e.name !== "k");
+                        newDialog.text.groups[0].effectGroup =
+                        newDialog.text.groups[0].effectGroup.filter(e => e.name !== 'k');
                         if (_options.drawingMode) {
                             newDialog.addEffect([
-                                new DrawingMode(true)
-                            ])
+                                new DrawingMode(true),
+                            ]);
                         }
                         newDialogs.push(newDialog);
                         // 链接原句与新句
                         newDialog.parentDialog = dialog;
                         newDialog.syllableIndex = syllableIndex;
                         newDialog.isSyllabified = true;
-                        syllableIndex++;
+                        syllableIndex += 1;
                         // 时间向后推移
                         start = new Time(start.second + _effect.duration / 1000);
                         break;
@@ -201,8 +209,8 @@ class Selector {
                 }
             }
             // 去掉原 Dialog 的位置标签
-            this.dialogs[index].text.groups.forEach(textGroup => {
-                textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== "pos");
+            this.dialogs[index].text.groups.forEach((textGroup) => {
+                textGroup.effectGroup = textGroup.effectGroup.filter(e => e.name !== 'pos');
             });
 
             if (_options.autoComment) {
@@ -262,7 +270,7 @@ class Selector {
      * @returns {Selector}
      */
     commentOriginalDialogs(): Selector {
-        this.dialogs.forEach(dialog => {
+        this.dialogs.forEach((dialog) => {
             dialog.isComment = true;
         });
         return this;

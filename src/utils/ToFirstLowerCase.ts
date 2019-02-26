@@ -1,4 +1,4 @@
-export { }
+export { };
 
 declare global {
     interface String {
@@ -8,4 +8,4 @@ declare global {
 
 String.prototype.toFirstLowerCase = function () {
     return (<string>this[0]).toLowerCase() + (<string>this).slice(1);
-}
+};

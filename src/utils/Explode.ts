@@ -1,4 +1,4 @@
-export { }
+export { };
 
 declare global {
     interface String {
@@ -6,9 +6,8 @@ declare global {
     }
 }
 
-
 String.prototype.explode = function (separator: string, limit: number) {
-    let arr = this.split(separator);
+    const arr = this.split(separator);
     arr.push(arr.splice(limit - 1).join(separator));
     return arr;
-}
+};

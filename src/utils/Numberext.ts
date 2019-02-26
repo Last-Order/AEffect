@@ -1,4 +1,4 @@
-export {}
+export {};
 
 declare global{
     interface Number{
@@ -6,15 +6,15 @@ declare global{
     }
 }
 
-Number.prototype.checkBound = function(min: number, max: number){
-    if(min > max){
-        throw new RangeError("min number should small than max number.")
+Number.prototype.checkBound = function (min: number, max: number) {
+    if (min > max) {
+        throw new RangeError('min number should small than max number.');
     }
-    if(this.valueOf() >= max){
+    if (this.valueOf() >= max) {
         return max;
-    }else if(this.valueOf() <= min){
+    }else if (this.valueOf() <= min) {
         return min;
-    }else{
+    }else {
         return this.valueOf();
     }
-}
+};

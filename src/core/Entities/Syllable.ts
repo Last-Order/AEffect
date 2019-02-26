@@ -1,5 +1,5 @@
 class Syllable {
-    constructor(){
+    constructor() {
 
     }
 }

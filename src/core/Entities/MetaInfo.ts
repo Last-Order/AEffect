@@ -6,18 +6,18 @@ export enum WarpStyle{
 }
 
 class MetaInfo{
-    title: string = "";
+    title: string = '';
     resolution: IRectSize = {
         width: 1920,
-        height: 1080
+        height: 1080,
     };
     warpStyle: WarpStyle = WarpStyle.SmartUp;
-    originalScript: string = "";
-    originalTranslation: string = "";
-    originalEditing: string = "";
-    originalTiming: string = "";
-    synchPoint: string = "";
-    scriptUpdatedBy: string = "";
+    originalScript: string = '';
+    originalTranslation: string = '';
+    originalEditing: string = '';
+    originalTiming: string = '';
+    synchPoint: string = '';
+    scriptUpdatedBy: string = '';
 }
 
 export interface IRectSize{

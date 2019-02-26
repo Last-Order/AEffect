@@ -5,7 +5,7 @@ import BaseEffect from './base/BaseEffect';
  * 淡入淡出
  */
 class Fade implements Effect {
-    name = "fade";
+    name = 'fade';
     isHeadEffect = false;
     startIndex: number;
     fadeIn: number;
@@ -29,7 +29,10 @@ class Fade implements Effect {
     }
 
     static parse(text: string): Fade {
-        return new Fade(parseInt(text.match(/fad\((\-*\d+?),[ ]*(\-*\d+?)\)/)[1]), parseInt(text.match(/fad\((\-*\d+?),[ ]*(\-*\d+?)\)/)[2]));
+        return new Fade(
+            parseInt(text.match(/fad\((\-*\d+?),[ ]*(\-*\d+?)\)/)[1], 10),
+            parseInt(text.match(/fad\((\-*\d+?),[ ]*(\-*\d+?)\)/)[2], 10),
+        );
     }
 }
 
