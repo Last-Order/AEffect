@@ -119,18 +119,30 @@ class Selector {
                         const _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
-                        const newDialog = dialog.clone();
+                        const syllable = dialog.clone();
                         // 链接原句与新句
-                        newDialog.parentDialog = dialog;
-                        newDialog.syllableIndex = syllableIndex;
-                        newDialog.isSyllabified = true;
+                        syllable.parentDialog = dialog;
+                        syllable.syllableIndex = syllableIndex;
+                        syllable.isSyllabified = true;
+                        syllable.effect = 'fx';
+                        syllable.syllableDuration = _effect.duration;
+                        // 复制文字
+                        syllable.text.groups = (
+                            new Text(_options.text || textGroup.toString())
+                        ).groups;
+                        // 去除时间标签
+                        syllable.text.groups[0].effectGroup =
+                            syllable.text.groups[0].effectGroup.filter(e => e.name !== 'k');
+                        if (_options.drawingMode) {
+                            syllable.addEffect([
+                                new DrawingMode(true),
+                            ]);
+                        }
 
                         if (typeof startPoint === 'function') {
-                            newDialog.start = new Time(
-                                startPoint(dialog, start, end),
-                            );
+                            syllable.start = startPoint(dialog, syllable);
                         } else {
-                            newDialog.start = Dialogue.getTimeFromTimePoint(
+                            syllable.start = Dialogue.getTimeFromTimePoint(
                                 startPoint,
                                 dialog,
                                 start,
@@ -140,11 +152,9 @@ class Selector {
                         }
 
                         if (typeof endPoint === 'function') {
-                            newDialog.end = new Time(
-                                endPoint(dialog, start, end),
-                            );
+                            syllable.end = endPoint(dialog, syllable);
                         } else {
-                            newDialog.end = Dialogue.getTimeFromTimePoint(
+                            syllable.end = Dialogue.getTimeFromTimePoint(
                                 endPoint,
                                 dialog,
                                 start,
@@ -153,27 +163,12 @@ class Selector {
                             );
                         }
 
-                        newDialog.syllableDuration = _effect.duration;
-
-                        if (newDialog.end.sub(newDialog.start).second < 0) {
+                        if (syllable.end.sub(syllable.start).second < 0) {
                             // 结束时间小于开始时间
                             throw new EndBeforeStartError('指定的结束时间小于开始时间');
                         }
 
-                        // 复制文字
-                        newDialog.text.groups = (
-                            new Text(_options.text || textGroup.toString())
-                        ).groups;
-                        // 去除时间标签
-                        newDialog.text.groups[0].effectGroup =
-                            newDialog.text.groups[0].effectGroup.filter(e => e.name !== 'k');
-                        if (_options.drawingMode) {
-                            newDialog.addEffect([
-                                new DrawingMode(true),
-                            ]);
-                        }
-
-                        newDialogs.push(newDialog);
+                        newDialogs.push(syllable);
 
                         syllableIndex += 1;
                         // 时间向后推移

@@ -9,4 +9,4 @@ export type TimePointFunction =
      * @param syllableStart 音节开始
      * @param syllableEnd 音节结束
      */
-    (dialog: Dialogue, syllableStart: Time, syllableEnd: Time) => number;
+    (dialog: Dialogue, syllable: Dialogue) => Time;

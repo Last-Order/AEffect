@@ -25,11 +25,39 @@ class Time {
         return new Time(this.second + time2.second);
     }
     /**
+     * 与数字加运算
+     * @param time
+     */
+    addSeconds(time: number): Time {
+        return new Time(this.second + time);
+    }
+    /**
+     * 与数字加运算（毫秒）
+     * @param time
+     */
+    addMilliseconds(time: number): Time {
+        return new Time(this.second + time / 1000);
+    }
+    /**
      * 时间减运算
      * @param time2
      */
     sub(time2: Time): Time {
         return new Time(this.second - time2.second);
+    }
+    /**
+     * 与数字减运算
+     * @param time
+     */
+    subSeconds(time: number): Time {
+        return new Time(this.second - time);
+    }
+    /**
+     * 与数字加运算（毫秒）
+     * @param time
+     */
+    subMilliseconds(time: number): Time {
+        return new Time(this.second - time / 1000);
     }
     /**
      * 获得时间秒数

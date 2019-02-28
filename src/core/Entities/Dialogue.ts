@@ -94,7 +94,7 @@ class Dialogue {
         if (autoPosition) {
             if (!this.style.alignment) {
                 throw new MissingAlignmentError(
-                    `使用音节化功能，必须定义样式的对齐方式, 样式: ${this.style.name}缺少相关定义`,
+                    `使用音节化功能，必须定义样式的对齐方式, 样式: ${this.style.name} 缺少相关定义`,
                 );
             }
             if (!this.metaInfo.resolution.width || !this.metaInfo.resolution.height) {

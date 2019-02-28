@@ -43,7 +43,7 @@ class Style {
     encoding: number; // Codepage Number （请使用Unicode编码来避免此字段 GBK:134）
     constructor(properties = {}) {
         // tslint:disable-next-line:max-line-length
-        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'Strike', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
+        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'StrikeOut', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
             .forEach((name, index) => {
                 this[name[0].toLowerCase() + name.slice(1)] = properties[name];
             });
@@ -55,35 +55,35 @@ class Style {
         let ass = 'Style: ';
         const temp: string[] = [];
         // tslint:disable-next-line:max-line-length
-        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'Strike', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
+        ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'StrikeOut', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']
             .forEach((name) => {
-                switch (name[0].toLowerCase() + name.slice(1)){
-                case 'name':
-                case 'fontname':
-                    temp.push(this[name]); break;
-                case 'fontsize':
-                case 'scaleX':
-                case 'scaleY':
-                case 'spacing':
-                case 'angle':
-                case 'outline':
-                case 'shadow':
-                case 'marginL':
-                case 'marginR':
-                case 'marginV':
-                case 'encoding':
-                case 'primaryColour':
-                case 'secondaryColour':
-                case 'outlineColour':
-                case 'backColour':
-                case 'alignment':
-                case 'borderStyle':
-                    temp.push(this[name[0].toLowerCase() + name.slice(1)].toString()); break;
-                case 'bold':
-                case 'italic':
-                case 'underline':
-                case 'strikeOut':
-                    temp.push(this[name[0].toLowerCase() + name.slice(1)] ? '-1' : '0'); break;
+                switch (name[0].toLowerCase() + name.slice(1)) {
+                    case 'name':
+                    case 'fontname':
+                        temp.push(this[name[0].toLowerCase() + name.slice(1)]); break;
+                    case 'fontsize':
+                    case 'scaleX':
+                    case 'scaleY':
+                    case 'spacing':
+                    case 'angle':
+                    case 'outline':
+                    case 'shadow':
+                    case 'marginL':
+                    case 'marginR':
+                    case 'marginV':
+                    case 'encoding':
+                    case 'primaryColour':
+                    case 'secondaryColour':
+                    case 'outlineColour':
+                    case 'backColour':
+                    case 'alignment':
+                    case 'borderStyle':
+                        temp.push(this[name[0].toLowerCase() + name.slice(1)].toString()); break;
+                    case 'bold':
+                    case 'italic':
+                    case 'underline':
+                    case 'strikeOut':
+                        temp.push(this[name[0].toLowerCase() + name.slice(1)] ? '-1' : '0'); break;
                 }
             });
         ass += temp.join(',');
@@ -96,10 +96,10 @@ class Style {
     set primaryColor(value) {
         this.primaryColour = value;
     }
-    get SecondaryColor() {
+    get secondaryColor() {
         return this.secondaryColour;
     }
-    set SecondaryColor(value) {
+    set secondaryColor(value) {
         this.secondaryColour = value;
     }
     get outlineColor() {

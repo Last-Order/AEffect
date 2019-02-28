@@ -6,6 +6,7 @@ import Bold from '../src/core/Effects/Bold';
 import Border from '../src/core/Effects/Border';
 import DrawingMode from '../src/core/Effects/DrawingMode';
 import FontScale from '../src/core/Effects/FontScale';
+import { default as Pos } from '../src/core/Effects/Position';
 
 describe('正在测试特效标签类', () => {
     // !!请按字幕顺序添加测试!!
