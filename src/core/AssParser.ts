@@ -86,9 +86,7 @@ export default {
         for (const styleFormatKey of styleFormatLine) {
             if (validStyleFormatKeys.includes(styleFormatKey.trim())) {
                 styleFormat.push(styleFormatKey.trim());
-            }
-            else {
-                console.log(styleFormatKey);
+            } else {
                 throw new InvalidStyleFormatDefinitionError('Ass 文件 Style 格式定义不合法');
             }
         }
@@ -96,7 +94,7 @@ export default {
         styleBlock = styleBlock.slice(1);
 
         // 根据格式解析样式行
-        styleBlock.forEach(line => {
+        styleBlock.forEach((line) => {
             const parsedStyle = {
                 Name: '___AEffect_unknown_style__B',
             };
@@ -161,8 +159,7 @@ export default {
         for (const dialogFormatKey of dialogFormatLine) {
             if (validDialogFormatKey.includes(dialogFormatKey.trim())) {
                 dialogFormat.push(dialogFormatKey.trim());
-            }
-            else {
+            } else {
                 throw new InvalidDialogFormatDefinitionError('Ass 文件 Dialog 格式定义不合法');
             }
         }
@@ -227,7 +224,7 @@ export default {
             try {
                 parsedAssDialogs.push(new Dialogue(parsedDialog, parsedAssStyles, metaInfo));
             } catch (e) {
-
+                throw new InvalidAssError('解析 ASS 文件失败');
             }
         });
         return {

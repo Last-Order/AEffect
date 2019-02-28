@@ -78,12 +78,12 @@ class Style {
                 case 'backColour':
                 case 'alignment':
                 case 'borderStyle':
-                    temp.push(this[name].toString()); break;
+                    temp.push(this[name[0].toLowerCase() + name.slice(1)].toString()); break;
                 case 'bold':
                 case 'italic':
                 case 'underline':
                 case 'strikeOut':
-                    temp.push(this[name] ? '-1' : '0'); break;
+                    temp.push(this[name[0].toLowerCase() + name.slice(1)] ? '-1' : '0'); break;
                 }
             });
         ass += temp.join(',');
