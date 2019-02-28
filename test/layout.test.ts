@@ -6,6 +6,7 @@ import Style, { Alignment } from '../src/core/Entities/Style';
 import Time from '../src/core/Entities/Time';
 import Text from '../src/core/Entities/Text';
 import MetaInfo from '../src/core/Entities/MetaInfo';
+import { default as Pos } from '../src/core/Effects/Position';
 
 describe('布局渲染测试', () => {
     const style = new Style({
