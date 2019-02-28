@@ -1,48 +1,46 @@
 import 'mocha';
 import { expect } from 'chai';
 
-import Dialogue from "../src/core/Entities/Dialogue";
-import Layout from "../src/core/Layout";
-import Style, {Alignment} from "../src/core/Entities/Style";
-import Time from "../src/core/Entities/Time";
+import Dialogue from '../src/core/Entities/Dialogue';
+import Style, { Alignment } from '../src/core/Entities/Style';
+import Time from '../src/core/Entities/Time';
 import Text from '../src/core/Entities/Text';
-import MetaInfo from "../src/core/Entities/MetaInfo";
-import Pos from "../src/core/Effects/Position";
+import MetaInfo from '../src/core/Entities/MetaInfo';
 
-describe("布局渲染测试", () => {
-    let style = new Style({
-        "Name": "test_style",
-        "Fontname": "微软雅黑",
-        "Fontsize": 77,
-        "ScaleX": 100,
-        "ScaleY": 100,
-        "MarginL": 10,
-        "MarginR": 10,
-        "MarginV": 10,
-        "Alignment": 1
+describe('布局渲染测试', () => {
+    const style = new Style({
+        Name: 'test_style',
+        Fontname: '微软雅黑',
+        Fontsize: 77,
+        ScaleX: 100,
+        ScaleY: 100,
+        MarginL: 10,
+        MarginR: 10,
+        MarginV: 10,
+        Alignment: 1,
     });
-    let styleMap = {
-        "test_style": style
+    const styleMap = {
+        test_style: style,
     };
-    let properties = {
+    const properties = {
         layer: 1,
-        start: Time.parse("0:00:00.00"),
-        end: Time.parse("0:00:05.00"),
-        styleName: "test_style",
-        name: "",
+        start: Time.parse('0:00:00.00'),
+        end: Time.parse('0:00:05.00'),
+        styleName: 'test_style',
+        name: '',
         marginL: 0,
         marginR: 0,
         marginV: 0,
-        effect: "",
-        text: new Text("{\\k0}一{\\k0}行{\\k0}字"),
-        isComment: false
+        effect: '',
+        text: new Text('{\\k0}一{\\k0}行{\\k0}字'),
+        isComment: false,
     };
-    let metaInfo = new MetaInfo();
+    const metaInfo = new MetaInfo();
     metaInfo.resolution.width = 1920;
     metaInfo.resolution.height = 1080;
-    let dialog = new Dialogue(properties, styleMap, metaInfo);
-    describe("左对齐布局测试", () => {
-        it("左下对齐", () => {
+    const dialog = new Dialogue(properties, styleMap, metaInfo);
+    describe('左对齐布局测试', () => {
+        it('左下对齐', () => {
             dialog.style.alignment = Alignment.LeftBottom;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -55,7 +53,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(126);
             expect(effect.y).to.be.equal(1070);
         });
-        it("左中对齐", () => {
+        it('左中对齐', () => {
             dialog.style.alignment = Alignment.LeftMiddle;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -68,7 +66,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(126);
             expect(effect.y).to.be.equal(540);
         });
-        it("左上对齐", () => {
+        it('左上对齐', () => {
             dialog.style.alignment = Alignment.LeftTop;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -82,8 +80,8 @@ describe("布局渲染测试", () => {
             expect(effect.y).to.be.equal(10);
         });
     });
-    describe("右对齐布局测试", () => {
-        it("右下对齐", () => {
+    describe('右对齐布局测试', () => {
+        it('右下对齐', () => {
             dialog.style.alignment = Alignment.RightBottom;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -96,7 +94,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(1910);
             expect(effect.y).to.be.equal(1070);
         });
-        it("右中对齐", () => {
+        it('右中对齐', () => {
             dialog.style.alignment = Alignment.RightMiddle;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -109,7 +107,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(1910);
             expect(effect.y).to.be.equal(540);
         });
-        it("右上对齐", () => {
+        it('右上对齐', () => {
             dialog.style.alignment = Alignment.RightTop;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -123,8 +121,8 @@ describe("布局渲染测试", () => {
             expect(effect.y).to.be.equal(10);
         });
     });
-    describe("居中对齐布局测试", () => {
-        it("上方居中", () => {
+    describe('居中对齐布局测试', () => {
+        it('上方居中', () => {
             dialog.style.alignment = Alignment.Top;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -137,7 +135,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(1018);
             expect(effect.y).to.be.equal(10);
         });
-        it("下方居中", () => {
+        it('下方居中', () => {
             dialog.style.alignment = Alignment.Bottom;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
@@ -150,7 +148,7 @@ describe("布局渲染测试", () => {
             expect(effect.x).to.be.equal(1018);
             expect(effect.y).to.be.equal(1070);
         });
-        it("下方居中", () => {
+        it('下方居中', () => {
             dialog.style.alignment = Alignment.Middle;
             dialog.parseSyllables();
             let effect = <Pos> dialog.text.groups[0].effectGroup[dialog.text.groups[0].effectGroup.length - 1];
