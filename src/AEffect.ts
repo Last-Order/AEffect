@@ -27,7 +27,7 @@ class AEffect {
      * @param path 路径
      * @param encoding 编码
      */
-    loadFromFile(path, encoding = 'utf-8') {
+    loadFromFile(path: string, encoding = 'utf-8') {
         const data = fs.readFileSync(path, encoding);
         const result = AssParser.parse(data);
         this.metaInfo = result.metaInfo;
@@ -40,7 +40,7 @@ class AEffect {
      * 从文本读取字幕
      * @param text 文本
      */
-    loadFromText(text) {
+    loadFromText(text: string) {
         const result = AssParser.parse(text);
         this.metaInfo = result.metaInfo;
         this.dialogs = result.dialogs;
@@ -48,7 +48,7 @@ class AEffect {
         return this;
     }
 
-    build() {
+    build(): string {
         return AssBuilder.build(this);
     }
 

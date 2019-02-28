@@ -12,9 +12,9 @@ Number.prototype.checkBound = function (min: number, max: number) {
     }
     if (this.valueOf() >= max) {
         return max;
-    }else if (this.valueOf() <= min) {
-        return min;
-    }else {
-        return this.valueOf();
     }
+    if (this.valueOf() <= min) {
+        return min;
+    }
+    return this.valueOf();
 };

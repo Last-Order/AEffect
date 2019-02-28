@@ -10,6 +10,7 @@ import MetaInfo from './MetaInfo';
 import Effect from '../Effects/base/Effect';
 
 import Layout from '../Layout';
+import { TimePoint } from '../../definitions/TimePoint';
 
 export class MissingAlignmentError extends Error{}
 export class MissingResolutionError extends Error{}
@@ -134,6 +135,47 @@ class Dialogue {
     get middleTime(): number {
         return Math.round(this.duration / 2);
     }
+
+    /**
+     * 时间点转换为时间
+     * @param timePoint 时间点
+     * @param dialog 对话实例
+     * @param syllableStart 音节起始
+     * @param syllableEnd 音节结束
+     * @param offset 偏移 单位毫秒
+     */
+    static getTimeFromTimePoint(
+            timePoint: TimePoint,
+            dialog: Dialogue,
+            syllableStart: Time,
+            syllableEnd: Time,
+            offset: number = 0,
+        ) {
+        switch (timePoint) {
+            case 'LineStart': {
+                return dialog.start.clone().add(new Time(offset / 1000));
+            }
+            case 'LineEnd': {
+                return dialog.end.clone().add(new Time(offset / 1000));
+            }
+            case 'LineMiddle': {
+                return new Time(
+                    dialog.start.add(dialog.end.sub(dialog.start)).second / 2,
+                ).add(new Time(offset / 1000));
+            }
+            case 'SyllableStart': {
+                return syllableStart.clone().add(new Time(offset / 1000));
+            }
+            case 'SyllableEnd': {
+                return syllableEnd.clone().add(new Time(offset / 1000));
+            }
+            case 'SyllableMiddle': {
+                return new Time(syllableStart.add(syllableEnd.sub(syllableStart)).second / 2)
+                           .add(new Time(offset / 1000));
+            }
+        }
+    }
+
     /**
      * @override
      */

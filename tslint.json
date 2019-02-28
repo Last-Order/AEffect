@@ -3,7 +3,7 @@
         "tslint-config-airbnb"
     ],
     "rules": {
-        "ter-indent": 4,
+        "ter-indent": false,
         "variable-name": false
     }
 }

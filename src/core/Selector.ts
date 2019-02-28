@@ -6,7 +6,7 @@ import Effect from './Effects/base/Effect';
 import Time from './Entities/Time';
 import K from './Effects/K';
 import DrawingMode from './Effects/DrawingMode';
-import TimePoint from '../definitions/TimePoint';
+import { TimePoint, TimePointFunction } from '../definitions/TimePoint';
 
 export class EndBeforeStartError extends Error { }
 
@@ -93,7 +93,8 @@ class Selector {
      * @param options
      * @returns {Selector}
      */
-    splitIntoSyllables(startPoint: TimePoint = 'LineStart', endPoint: TimePoint = 'LineEnd',
+    splitIntoSyllables(startPoint: TimePoint | TimePointFunction = 'LineStart',
+                       endPoint: TimePoint | TimePointFunction = 'LineEnd',
                        startOffset: number = 0, endOffset: number = 0,
                        options: SyllabifyOptions = {}) {
         const newDialogs: Dialogue[] = [];
@@ -119,62 +120,37 @@ class Selector {
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
                         const newDialog = dialog.clone();
-                        switch (startPoint) {
-                        case 'LineStart': {
-                            newDialog.start = new Time(startOffset).add(dialog.start.clone());
-                            break;
-                        }
-                        case 'LineEnd': {
-                            newDialog.start = new Time(startOffset).add(dialog.end.clone());
-                            break;
-                        }
-                        case 'LineMiddle': {
+                        // 链接原句与新句
+                        newDialog.parentDialog = dialog;
+                        newDialog.syllableIndex = syllableIndex;
+                        newDialog.isSyllabified = true;
+
+                        if (typeof startPoint === 'function') {
                             newDialog.start = new Time(
-                                dialog.start.add(dialog.end.sub(dialog.start)).second / 2,
+                                startPoint(dialog, start, end),
                             );
-                            break;
-                        }
-                        case 'SyllableStart': {
-                            newDialog.start = start.clone();
-                            break;
-                        }
-                        case 'SyllableEnd': {
-                            newDialog.start = end.clone();
-                            break;
-                        }
-                        case 'SyllableMiddle': {
-                            newDialog.start = new Time(start.add(end.sub(start)).second / 2);
-                            break;
-                        }
+                        } else {
+                            newDialog.start = Dialogue.getTimeFromTimePoint(
+                                startPoint,
+                                dialog,
+                                start,
+                                end,
+                                startOffset,
+                            );
                         }
 
-                        switch (endPoint) {
-                        case 'LineStart': {
-                            newDialog.end = new Time(startOffset).add(dialog.start.clone());
-                            break;
-                        }
-                        case 'LineEnd': {
-                            newDialog.end = new Time(startOffset).add(dialog.end.clone());
-                            break;
-                        }
-                        case 'LineMiddle': {
+                        if (typeof endPoint === 'function') {
                             newDialog.end = new Time(
-                                dialog.start.add(dialog.end.sub(dialog.start)).second / 2,
+                                endPoint(dialog, start, end),
                             );
-                            break;
-                        }
-                        case 'SyllableStart': {
-                            newDialog.end = start.clone();
-                            break;
-                        }
-                        case 'SyllableEnd': {
-                            newDialog.end = end.clone();
-                            break;
-                        }
-                        case 'SyllableMiddle': {
-                            newDialog.end = new Time(start.add(end.sub(start)).second / 2);
-                            break;
-                        }
+                        } else {
+                            newDialog.end = Dialogue.getTimeFromTimePoint(
+                                endPoint,
+                                dialog,
+                                start,
+                                end,
+                                endOffset,
+                            );
                         }
 
                         newDialog.syllableDuration = _effect.duration;
@@ -190,17 +166,15 @@ class Selector {
                         ).groups;
                         // 去除时间标签
                         newDialog.text.groups[0].effectGroup =
-                        newDialog.text.groups[0].effectGroup.filter(e => e.name !== 'k');
+                            newDialog.text.groups[0].effectGroup.filter(e => e.name !== 'k');
                         if (_options.drawingMode) {
                             newDialog.addEffect([
                                 new DrawingMode(true),
                             ]);
                         }
+
                         newDialogs.push(newDialog);
-                        // 链接原句与新句
-                        newDialog.parentDialog = dialog;
-                        newDialog.syllableIndex = syllableIndex;
-                        newDialog.isSyllabified = true;
+
                         syllableIndex += 1;
                         // 时间向后推移
                         start = new Time(start.second + _effect.duration / 1000);

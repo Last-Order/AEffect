@@ -6,7 +6,8 @@
   "main": "./dist/AEffect.js",
   "scripts": {
     "test": "nyc ./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "buildDocs": "typedoc --out ./docs ./src"
   },
   "nyc": {
     "extension": [
@@ -27,6 +28,7 @@
     "ts-node": "^3.0.4",
     "tslint": "^5.13.0",
     "tslint-config-airbnb": "^5.11.1",
+    "typedoc": "^0.14.2",
     "typescript": "^2.9.1"
   },
   "engines": {
