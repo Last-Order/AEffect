@@ -9,6 +9,7 @@ class Pos implements Effect {
     isHeadEffect = true;
     startIndex: number = 0;
     name = 'pos';
+    cantCoexistWith: ['move'];
     x: number;
     y: number;
 

@@ -4,6 +4,7 @@ interface Effect {
     isHeadEffect: boolean; // 是否为行首出现的特效标签
     startIndex: number;
     name: string;
+    cantCoexistWith?: string[];
     toString(): string;
     addTo(text: Text): Text;
 }

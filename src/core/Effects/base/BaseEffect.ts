@@ -19,7 +19,10 @@ class BaseEffect {
         const pushToEffectArray = (effects: Effect[], newEffect: Effect) => {
             let duplicateFlag = false;
             effects.forEach((effect, index) => {
-                if (effect.name === newEffect.name) {
+                if (
+                    effect.name === newEffect.name ||
+                    (newEffect.cantCoexistWith || []).includes(effect.name)
+                ) {
                     duplicateFlag = true;
                     effects[index] = newEffect;
                 }
@@ -40,8 +43,7 @@ class BaseEffect {
                     const newTextGroup = textGroup.clone();
                     pushToEffectArray(newTextGroup.effectGroup, applyingEffect);
                     newGroups.push(newTextGroup);
-                }
-                else {
+                } else {
                     // 拆分原 Group
                     let newTextGroup = new TextGroup(textGroup.content.slice(0, start));
                     newTextGroup.effectGroup = [...textGroup.effectGroup];
@@ -53,8 +55,7 @@ class BaseEffect {
                     newGroups.push(newTextGroup);
                 }
                 // 为后面的 groups 同样加上标签
-            }
-            else {
+            } else {
                 const clonedGroup = textGroup.clone();
                 newGroups.push(clonedGroup);
                 start -= textGroup.content.length;
