@@ -42,6 +42,8 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y),
                 );
+                textGroup.x = now.x;
+                textGroup.y = now.y;
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
@@ -76,6 +78,8 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x + Math.round(text.width / 2), now.y),
                 );
+                textGroup.x = now.x + Math.round(text.width / 2);
+                textGroup.y = now.y;
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
@@ -100,6 +104,8 @@ class Layout {
                 textGroup.effectGroup.push(
                     new Position(now.x, now.y),
                 );
+                textGroup.x = now.x;
+                textGroup.y = now.y;
                 now.x -=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +

@@ -6,6 +6,8 @@ import Effect from '../Effects/base/Effect';
 export default class TextGroup{
     effectGroup: Effect[] = []; // 特效标签组
     content: string; // 文本内容
+    x?: number; // 横坐标
+    y?: number; // 纵坐标
     constructor(text: string) {
         this.content = text;
     }

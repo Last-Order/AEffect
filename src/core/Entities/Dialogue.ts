@@ -33,6 +33,10 @@ class Dialogue {
     layer: number;
     start: Time;
     end: Time;
+    left?: number;
+    right?: number;
+    lineLeft?: number;
+    lineRight?: number;
     style: Style;
     name: string; // 说话人
     marginL: number = 0;
