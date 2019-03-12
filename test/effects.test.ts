@@ -81,8 +81,8 @@ describe('正在测试特效标签类', () => {
             expect(fad1.fadeIn).to.be.eq(200);
             expect(fad1.fadeOut).to.be.eq(200);
             const fad2 = new Fade(200);
-            expect(fad1.fadeIn).to.be.eq(200);
-            expect(fad1.fadeOut).to.be.eq(0);
+            expect(fad2.fadeIn).to.be.eq(200);
+            expect(fad2.fadeOut).to.be.eq(0);
         });
         it('标签解析', () => {
             const fad = Fade.parse('\\fad(200, 200)');
