@@ -7,9 +7,10 @@ import Border from '../src/core/Effects/Border';
 import DrawingMode from '../src/core/Effects/DrawingMode';
 import FontScale from '../src/core/Effects/FontScale';
 import { default as Pos } from '../src/core/Effects/Position';
+import { Fade } from '../src/effects';
 
 describe('正在测试特效标签类', () => {
-    // !!请按字幕顺序添加测试!!
+    // !!请按字母序添加测试!!
     describe('边缘模糊 (\\blur)', () => {
         it('正常模糊强度', () => {
             const blur = new Blur(1);
@@ -74,6 +75,21 @@ describe('正在测试特效标签类', () => {
         });
     });
 
+    describe('淡入淡出 (\\fad)', () => {
+        it('应用淡入淡出', () => {
+            const fad1 = new Fade(200, 200);
+            expect(fad1.fadeIn).to.be.eq(200);
+            expect(fad1.fadeOut).to.be.eq(200);
+            const fad2 = new Fade(200);
+            expect(fad1.fadeIn).to.be.eq(200);
+            expect(fad1.fadeOut).to.be.eq(0);
+        });
+        it('标签解析', () => {
+            const fad = Fade.parse('\\fad(200, 200)');
+            expect(fad.fadeIn).to.be.eq(200);
+            expect(fad.fadeOut).to.be.eq(200);
+        });
+    });
     describe('字体缩放 (\\fsc)', () => {
         it('应用缩放', () => {
             const fsc = new FontScale(200);
