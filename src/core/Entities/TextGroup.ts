@@ -8,9 +8,15 @@ export default class TextGroup{
     content: string; // 文本内容
     x?: number; // 横坐标
     y?: number; // 纵坐标
+    width?: number; // 宽度
+    height?: number; // 高度
     constructor(text: string) {
         this.content = text;
     }
+    /**
+     * 转换为文本
+     * @returns {string}
+     */
     toString() {
         let effectTags = '';
         if (this.effectGroup.length > 0) {

@@ -25,6 +25,7 @@ class Layout {
         if ([Alignment.LeftBottom, Alignment.LeftMiddle, Alignment.LeftTop].includes(dialog.style.alignment)) {
             // 左对齐
             base.x = dialog.style.marginL;
+            dialog.left = base.x; // 行左边缘
             if (dialog.style.alignment === Alignment.LeftTop) {
                 base.y += dialog.style.marginV;
             }
@@ -44,11 +45,15 @@ class Layout {
                 );
                 textGroup.x = now.x;
                 textGroup.y = now.y;
+                textGroup.width = text.width;
+                textGroup.height = text.height;
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
+            dialog.left = base.x; // 行左边缘
+            dialog.right = now.x; // 行右边缘
         // tslint:disable-next-line:max-line-length
         } else if ([Alignment.Bottom, Alignment.Middle, Alignment.Top].includes(dialog.style.alignment)) {
             // 居中
@@ -58,7 +63,7 @@ class Layout {
                 base.y = dialog.style.marginV;
             }
             if (dialog.style.alignment === Alignment.Middle) {
-                base.y = Math.round(resolution.height / 2);
+                base.y = Math.round(resolution.height / 2); // 垂直偏移对该情况无效 勿加
             }
             if (dialog.style.alignment === Alignment.Bottom) {
                 base.y = resolution.height - dialog.style.marginV;
@@ -80,11 +85,15 @@ class Layout {
                 );
                 textGroup.x = now.x + Math.round(text.width / 2);
                 textGroup.y = now.y;
+                textGroup.width = text.width;
+                textGroup.height = text.height;
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
+            dialog.left = leftEnd;
+            dialog.right = leftEnd + contentWidth;
         // tslint:disable-next-line:max-line-length
         } else if ([Alignment.RightBottom, Alignment.RightMiddle, Alignment.RightTop].includes(dialog.style.alignment)) {
             // 右对齐
@@ -106,12 +115,16 @@ class Layout {
                 );
                 textGroup.x = now.x;
                 textGroup.y = now.y;
+                textGroup.width = text.width;
+                textGroup.height = text.height;
                 now.x -=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
             dialog.text.groups.reverse();
+            dialog.left = now.x; // 行左边缘
+            dialog.right = base.x; // 行右边缘
         } else {
             throw new InvalidAlignmentError('对话行对齐方式不合法');
         }
