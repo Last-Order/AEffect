@@ -1,5 +1,6 @@
 # AEffect
 [![Build status](https://ci.appveyor.com/api/projects/status/pm59thc0bjg7vc9m?svg=true)](https://ci.appveyor.com/project/Last-Order/aeffect-9f7jt)
+[![codecov](https://codecov.io/gh/Last-Order/AEffect/branch/master/graph/badge.svg)](https://codecov.io/gh/Last-Order/AEffect)
 
 AEffect is a tool to generate effect subtitles (.ass) files for JavaScript programmers.
 
