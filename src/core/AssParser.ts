@@ -40,15 +40,11 @@ export default {
         let nowBlock: string[];
         assArray.forEach((line) => {
             if (line.trim().startsWith('[')) {
-                try {
-                    nowBlock = {
-                        '[Script Info]': metaInfoBlock,
-                        '[V4+ Styles]': styleBlock,
-                        '[Events]': eventBlock,
-                    }[line.trim()];
-                } catch (e) {
-                    throw new InvalidAssError('Ass 文件不合法');
-                }
+                nowBlock = {
+                    '[Script Info]': metaInfoBlock,
+                    '[V4+ Styles]': styleBlock,
+                    '[Events]': eventBlock,
+                }[line.trim()];
             }
             if (nowBlock !== undefined && !line.trim().startsWith('[') && line.trim() !== '') {
                 nowBlock.push(line);
@@ -76,7 +72,7 @@ export default {
         // tslint:disable-next-line:max-line-length
         const validStyleFormatKeys = ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'Underline', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding'];
 
-        if (!styleBlock[0].trim().startsWith('Format:')) {
+        if (!styleBlock[0] || !styleBlock[0].trim().startsWith('Format:')) {
             throw new MissingStyleDefinitionError('Ass 文件缺少 Style 格式定义');
         }
 

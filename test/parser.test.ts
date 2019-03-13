@@ -55,5 +55,23 @@ describe('正在测试 Ass 解析', () => {
                 AE.loadFromFile('./test/test_ass/ass_invalid_format1.ass');
             }).to.throw(AssParser.InvalidDialogFormatDefinitionError);
         });
+
+        it('分辨率定义重复的 Ass 文件', () => {
+            expect(() => {
+                AE.loadFromFile('./test/test_ass/ass_with_duplicate_resolution.ass');
+            });
+        });
+
+        it('样式格式定义不符合规范的 Ass 文件', () => {
+            expect(() => {
+                AE.loadFromFile('./test/test_ass/ass_with_invalid_style_definition.ass');
+            }).to.throw(AssParser.InvalidStyleFormatDefinitionError);
+        });
+
+        it('Ass 文件分块头不合法', () => {
+            expect(() => {
+                AE.loadFromFile('./test/test_ass/ass_invalid_format2.ass');
+            }).to.throw(AssParser.MissingStyleDefinitionError);
+        });
     });
 });
