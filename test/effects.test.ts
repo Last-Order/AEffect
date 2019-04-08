@@ -9,7 +9,7 @@ import FontScale from '../src/core/Effects/FontScale';
 import K from '../src/core/Effects/K';
 import Move, { StartWithoutEndError } from '../src/core/Effects/Move';
 import { default as Pos } from '../src/core/Effects/Position';
-import { Fade } from '../src/effects';
+import { Fade, FontRotateX, FontRotateY, FontRotateZ } from '../src/effects';
 
 describe('正在测试特效标签类', () => {
     // !!请按字母序添加测试!!
@@ -90,6 +90,41 @@ describe('正在测试特效标签类', () => {
             const fad = Fade.parse('\\fad(200, 200)');
             expect(fad.fadeIn).to.be.eq(200);
             expect(fad.fadeOut).to.be.eq(200);
+        });
+    });
+
+    describe('绕X轴旋转 (\\frx)', () => {
+        it('应用绕X轴旋转', () => {
+            const frx = new FontRotateX(200);
+            expect(frx.amount).to.be.eq(200);
+        });
+        it('标签解析', () => {
+            const frx = FontRotateX.parse('\\frx200');
+            expect(frx.amount).to.be.eq(200);
+        });
+    });
+
+    describe('绕Y轴旋转 (\\fry)', () => {
+        it('应用绕Y轴旋转', () => {
+            const fry = new FontRotateY(200);
+            expect(fry.amount).to.be.eq(200);
+        });
+        it('标签解析', () => {
+            const fry = FontRotateY.parse('\\fry200');
+            expect(fry.amount).to.be.eq(200);
+        });
+    });
+
+    describe('绕Z轴旋转 (\\frz)', () => {
+        it('应用绕Z轴旋转', () => {
+            const frz = new FontRotateZ(200);
+            expect(frz.amount).to.be.eq(200);
+        });
+        it('标签解析', () => {
+            const frz = FontRotateZ.parse('\\frz200');
+            expect(frz.amount).to.be.eq(200);
+            const frz2 = FontRotateZ.parse('\\fr200');
+            expect(frz2.amount).to.be.eq(200);
         });
     });
     describe('字体缩放 (\\fsc)', () => {

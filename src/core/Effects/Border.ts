@@ -3,6 +3,7 @@ import Text from '../Entities/Text';
 import BaseEffect from './base/BaseEffect';
 /**
  * 边框宽度
+ * \\bord<size>
  */
 class Border implements Effect{
     isHeadEffect = false;

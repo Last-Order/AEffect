@@ -3,6 +3,7 @@ import Text from '../Entities/Text';
 import BaseEffect from './base/BaseEffect';
 /**
  * 边框模糊
+ * \\be<strength>
  */
 class BlurEdge implements Effect {
     name = 'be';

@@ -28,6 +28,12 @@ class UnknownEffect implements Effect{
             case 'b': return Effects.Bold.parse(effectText);
             case 'bord': return Effects.Border.parse(effectText);
             case 'p': return Effects.DrawingMode.parse(effectText);
+            case 'fad': return Effects.Fade.parse(effectText);
+            case 'frx': return Effects.FontRotateX.parse(effectText);
+            case 'fry': return Effects.FontRotateY.parse(effectText);
+            case 'frz': return Effects.FontRotateZ.parse(effectText);
+            // \\fr 是 \\frz 的别名
+            case 'fr': return Effects.FontRotateZ.parse(effectText);
             case 'fsc': return Effects.FontScale.parse(effectText);
             case 'k': return Effects.K.parse(effectText);
             case 'move': return Effects.Move.parse(effectText);

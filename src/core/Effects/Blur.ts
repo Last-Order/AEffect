@@ -3,6 +3,7 @@ import Text from '../Entities/Text';
 import BaseEffect from './base/BaseEffect';
 /**
  * 边缘模糊 (高斯模糊)
+ * \\blur<strength>
  */
 class Blur implements Effect {
     name = 'blur';

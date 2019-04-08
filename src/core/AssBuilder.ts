@@ -1,4 +1,3 @@
-import Dialogue from './Entities/Dialogue';
 import AEffect from  '../AEffect';
 
 const headerTemplate = `[Script Info]\r\n\

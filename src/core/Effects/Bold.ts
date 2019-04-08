@@ -4,6 +4,7 @@ import BaseEffect from './base/BaseEffect';
 
 /**
  * 字体粗体
+ * \\b<weight>
  */
 class Bold implements Effect{
     name = 'b';

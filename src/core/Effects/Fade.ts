@@ -3,6 +3,7 @@ import Text from '../Entities/Text';
 import BaseEffect from './base/BaseEffect';
 /**
  * 淡入淡出
+ * \\fad(<fadeIn>, <fadeOut>)
  */
 class Fade implements Effect {
     name = 'fade';
