@@ -18,15 +18,16 @@ class K implements Effect{
      */
     constructor(duration: number = 0, startIndex:number = 0) {
         this.startIndex = startIndex;
-        this.duration = duration * 10; // ass 字幕 k 标签实际上以百分之一秒表示
+        this.duration = Math.round(duration);
     }
     addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);
     }
     static parse(text: string) {
-        return new K(+text.match(/(\d+)/)[1]);
+        return new K(+text.match(/(\d+)/)[1] * 10);
     }
     toString() {
+        // ass 字幕 k 标签实际上以百分之一秒表示
         return `\\k${Math.round(this.duration / 10)}`;
     }
 }

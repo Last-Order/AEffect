@@ -6,6 +6,8 @@ import Bold from '../src/core/Effects/Bold';
 import Border from '../src/core/Effects/Border';
 import DrawingMode from '../src/core/Effects/DrawingMode';
 import FontScale from '../src/core/Effects/FontScale';
+import K from '../src/core/Effects/K';
+import Move, { StartWithoutEndError } from '../src/core/Effects/Move';
 import { default as Pos } from '../src/core/Effects/Position';
 import { Fade } from '../src/effects';
 
@@ -98,6 +100,52 @@ describe('正在测试特效标签类', () => {
         it('标签解析', () => {
             const fsc = FontScale.parse('\\fsc200');
             expect(fsc.scale).to.be.eq(200);
+        });
+    });
+
+    describe('卡拉OK时间 (\\k)', () => {
+        it('应用卡拉OK时间', () => {
+            const k = new K(200);
+            expect(k.duration).to.be.eq(200);
+            expect(k.toString()).to.be.eq('\\k20');
+        });
+        it('标签解析', () => {
+            const k = K.parse('\\k100');
+            expect(k.duration).to.be.eq(1000);
+        });
+    });
+
+    describe('移动 (\\move)', () => {
+        it('应用移动', () => {
+            const move1 = new Move(200, 200, 400, 400);
+            expect(move1.startX).to.be.eq(200);
+            expect(move1.startY).to.be.eq(200);
+            expect(move1.endX).to.be.eq(400);
+            expect(move1.endY).to.be.eq(400);
+            expect(() => {
+                new Move(200, 200, 400, 400, 100);
+            }).to.throw(StartWithoutEndError);
+            const move2 = new Move(200, 200, 400, 400, 100, 300);
+            expect(move2.startX).to.be.eq(200);
+            expect(move2.startY).to.be.eq(200);
+            expect(move2.endX).to.be.eq(400);
+            expect(move2.endY).to.be.eq(400);
+            expect(move2.start).to.be.eq(100);
+            expect(move2.end).to.be.eq(300);
+        });
+        it('标签解析', () => {
+            const move1 = Move.parse('\\move(200, 200, 400, 400)');
+            expect(move1.startX).to.be.eq(200);
+            expect(move1.startY).to.be.eq(200);
+            expect(move1.endX).to.be.eq(400);
+            expect(move1.endY).to.be.eq(400);
+            const move2 = Move.parse('\\move(200, 200, 400, 400, 100, 300)');
+            expect(move2.startX).to.be.eq(200);
+            expect(move2.startY).to.be.eq(200);
+            expect(move2.endX).to.be.eq(400);
+            expect(move2.endY).to.be.eq(400);
+            expect(move2.start).to.be.eq(100);
+            expect(move2.end).to.be.eq(300);
         });
     });
 

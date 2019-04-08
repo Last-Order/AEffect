@@ -10,7 +10,7 @@ describe('正在进行综合测试', () => {
     it('特效应用综合测试', () => {
         const AE = new AEffect();
         try {
-            AE.loadFromFile('D:\\Project\\字幕\\奈奈甲子园\\starting now.ass');
+            AE.loadFromFile('../starting now.ass');
 
             // 选择所有 Default 样式的字幕行
             const allDialogs = AE.select({

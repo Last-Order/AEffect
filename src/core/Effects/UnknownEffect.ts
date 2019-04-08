@@ -25,9 +25,12 @@ class UnknownEffect implements Effect{
         switch (effectName){
             case 'blur': return Effects.Blur.parse(effectText);
             case 'be': return Effects.BlurEdge.parse(effectText);
+            case 'b': return Effects.Bold.parse(effectText);
+            case 'bord': return Effects.Border.parse(effectText);
             case 'p': return Effects.DrawingMode.parse(effectText);
             case 'fsc': return Effects.FontScale.parse(effectText);
             case 'k': return Effects.K.parse(effectText);
+            case 'move': return Effects.Move.parse(effectText);
             case 'pos': return Effects.Position.parse(effectText);
             case 'shad': return Effects.Shadow.parse(effectText);
             case 's': return Effects.Strike.parse(effectText);
