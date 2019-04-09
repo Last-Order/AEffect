@@ -96,7 +96,7 @@ class Selector {
     splitIntoSyllables(startPoint: TimePoint | TimePointFunction = 'LineStart',
                        endPoint: TimePoint | TimePointFunction = 'LineEnd',
                        startOffset: number = 0, endOffset: number = 0,
-                       options: SyllabifyOptions = {}) {
+                       options: SyllabifyOptions = {}): Dialogue[] {
         const newDialogs: Dialogue[] = [];
 
         // 默认值赋予
@@ -190,7 +190,7 @@ class Selector {
             this.AE.generatedDialogs.push(newDialog);
             this.generatedDialogs.push(newDialog);
         });
-        return this;
+        return newDialogs;
     }
 
     /**
@@ -215,7 +215,7 @@ class Selector {
      * @returns {Selector}
      */
     forEachDialog(handler: (dialog: Dialogue, index?: number) => any): Selector {
-        this.generatedDialogs.forEach((dialog, index, dialogArray) => {
+        this.generatedDialogs.forEach((dialog, index) => {
             handler(dialog, index);
         });
         return this;
