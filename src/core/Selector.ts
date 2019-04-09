@@ -44,7 +44,7 @@ class Selector {
         for (const key of Object.keys(condition)) {
             dialogs = dialogs.filter((dialog) => {
                 // tslint:disable-next-line:max-line-length
-                return Selector[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
+                return this[`selectBy${key[0].toUpperCase() + key.slice(1)}`](dialog, condition[key]);
             });
         }
         this.dialogs = dialogs.filter(dialog => !dialog.isComment); // 不选中注释行
@@ -52,23 +52,23 @@ class Selector {
         return this;
     }
 
-    static selectByStyleName(dialog: Dialogue, style: string) {
+    private selectByStyleName(dialog: Dialogue, style: string) {
         return dialog.style.name === style;
     }
 
-    static selectByName(dialog: Dialogue, name: string) {
+    private selectByName(dialog: Dialogue, name: string) {
         return dialog.name === name;
     }
 
-    static selectByLayer(dialog: Dialogue, layer: number) {
+    private selectByLayer(dialog: Dialogue, layer: number) {
         return dialog.layer === layer;
     }
 
-    static selectByFontsize(dialog: Dialogue, fontSize: number) {
+    private selectByFontsize(dialog: Dialogue, fontSize: number) {
         return dialog.style.fontsize === fontSize;
     }
 
-    static selectByText(dialog: Dialogue, regExp: RegExp) {
+    private selectByText(dialog: Dialogue, regExp: RegExp) {
         return regExp.test(dialog.text.originalText);
     }
 
@@ -119,11 +119,10 @@ class Selector {
                         const _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
-                        const syllable = dialog.clone();
+                        const syllable = dialog.cloneAsSyllable();
                         // 链接原句与新句
                         syllable.parentDialog = dialog;
                         syllable.syllableIndex = syllableIndex;
-                        syllable.isSyllabified = true;
                         syllable.effect = 'fx';
                         syllable.syllableDuration = _effect.duration;
                         // 复制文字

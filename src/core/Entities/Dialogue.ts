@@ -12,10 +12,11 @@ import Effect from '../Effects/base/Effect';
 import Layout from '../Layout';
 import { TimePoint } from '../../definitions/TimePoint';
 
-export class MissingAlignmentError extends Error{}
-export class MissingResolutionError extends Error{}
+export class MissingAlignmentError extends Error { }
+export class MissingResolutionError extends Error { }
+export class NoParentDialogError extends Error { }
 
-export interface DialogueConstructProperties{
+export interface DialogueConstructProperties {
     layer: number;
     start: Time;
     end: Time;
@@ -43,20 +44,18 @@ class Dialogue {
     marginR: number = 0;
     marginV: number = 0;
     effect: string;
-    parentDialog: Dialogue; // 音节化后原句
+
     text: Text;
     metaInfo: MetaInfo;
-    isComment: boolean;
     properties: DialogueConstructProperties;
-    styleMap: {[index: string]: Style};
+    styleMap: { [index: string]: Style };
 
-    syllableIndex: number = 0; // 音节化后在原句中的位置
-    syllableDuration: number = 0; // 音节本身长度 毫秒
     isSyllabified: boolean = false; // 是否已经音节化
+    isComment: boolean; // 是否为注释行
 
     constructor(
         properties: DialogueConstructProperties,
-        styleMap: {[index: string]: Style},
+        styleMap: { [index: string]: Style },
         metaInfo: MetaInfo,
     ) {
         this.properties = properties;
@@ -149,12 +148,12 @@ class Dialogue {
      * @param offset 偏移 单位毫秒
      */
     static getTimeFromTimePoint(
-            timePoint: TimePoint,
-            dialog: Dialogue,
-            syllableStart: Time,
-            syllableEnd: Time,
-            offset: number = 0,
-        ) {
+        timePoint: TimePoint,
+        dialog: Dialogue,
+        syllableStart: Time,
+        syllableEnd: Time,
+        offset: number = 0,
+    ) {
         switch (timePoint) {
             case 'LineStart': {
                 return dialog.start.clone().add(new Time(offset / 1000));
@@ -175,7 +174,7 @@ class Dialogue {
             }
             case 'SyllableMiddle': {
                 return new Time(syllableStart.add(syllableEnd.sub(syllableStart)).second / 2)
-                           .add(new Time(offset / 1000));
+                    .add(new Time(offset / 1000));
             }
         }
     }
@@ -191,27 +190,27 @@ class Dialogue {
         const temp: string[] = [];
         // tslint:disable-next-line:max-line-length
         ['Layer', 'Start', 'End', 'Style', 'Name', 'MarginL', 'MarginR', 'MarginV', 'Effect', 'Text'].forEach((name, index) => {
-            switch (name){
-            case 'Layer':
-                temp.push(this.layer.toString() || '0'); break;
-            case 'Start':
-                temp.push(this.start.toString()); break;
-            case 'End':
-                temp.push(this.end.toString()); break;
-            case 'Style':
-                temp.push(this.style.name); break;
-            case 'Name':
-                temp.push(this.name || ''); break;
-            case 'MarginL':
-                temp.push(this.marginL.toString() || '0'); break;
-            case 'MarginR':
-                temp.push(this.marginR.toString() || '0'); break;
-            case 'MarginV':
-                temp.push(this.marginV.toString() || '0'); break;
-            case 'Effect':
-                temp.push(this.effect); break;
-            case 'Text':
-                temp.push(this.text.toString()); break;
+            switch (name) {
+                case 'Layer':
+                    temp.push(this.layer.toString() || '0'); break;
+                case 'Start':
+                    temp.push(this.start.toString()); break;
+                case 'End':
+                    temp.push(this.end.toString()); break;
+                case 'Style':
+                    temp.push(this.style.name); break;
+                case 'Name':
+                    temp.push(this.name || ''); break;
+                case 'MarginL':
+                    temp.push(this.marginL.toString() || '0'); break;
+                case 'MarginR':
+                    temp.push(this.marginR.toString() || '0'); break;
+                case 'MarginV':
+                    temp.push(this.marginV.toString() || '0'); break;
+                case 'Effect':
+                    temp.push(this.effect); break;
+                case 'Text':
+                    temp.push(this.text.toString()); break;
 
             }
         });
@@ -224,11 +223,57 @@ class Dialogue {
      * @returns {Dialogue}
      */
     clone(): Dialogue {
-        const clonedDialog = new Dialogue({
-            ...this.properties,
-        },                                { ...this.styleMap }, { ...this.metaInfo });
+        const clonedDialog =
+            new Dialogue({ ...this.properties }, { ...this.styleMap }, { ...this.metaInfo });
         clonedDialog.text = clonedDialog.text.clone();
         return clonedDialog;
+    }
+
+    /**
+     * 复制为 Syllable 实例
+     */
+    cloneAsSyllable(): Syllable {
+        const clonedDialog =
+            new Syllable({ ...this.properties }, { ...this.styleMap }, { ...this.metaInfo });
+        clonedDialog.text = clonedDialog.text.clone();
+        return clonedDialog;
+    }
+}
+
+/**
+ * 音节 由对话行经过音节化产生
+ */
+class Syllable extends Dialogue {
+    parentDialog: Dialogue; // 音节化后原句
+    syllableIndex: number = 0; // 音节化后在原句中的位置
+    syllableDuration: number = 0; // 音节本身长度 毫秒
+
+    get lineLeft() {
+        if (!this.parentDialog) {
+            throw new NoParentDialogError('音节未附属于任何对话行');
+        }
+        return this.parentDialog.lineLeft;
+    }
+
+    get lineRight() {
+        if (!this.parentDialog) {
+            throw new NoParentDialogError('音节未附属于任何对话行');
+        }
+        return this.parentDialog.lineRight;
+    }
+
+    get lineStart() {
+        if (!this.parentDialog) {
+            throw new NoParentDialogError('音节未附属于任何对话行');
+        }
+        return this.parentDialog.lineStart;
+    }
+
+    get lineEnd() {
+        if (!this.parentDialog) {
+            throw new NoParentDialogError('音节未附属于任何对话行');
+        }
+        return this.parentDialog.lineEnd;
     }
 }
 
