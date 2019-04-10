@@ -7,6 +7,7 @@ import Time from './Entities/Time';
 import K from './Effects/K';
 import DrawingMode from './Effects/DrawingMode';
 import { TimePoint, TimePointFunction } from '../definitions/TimePoint';
+import Syllable from './Entities/Syllable';
 
 export class EndBeforeStartError extends Error { }
 
@@ -91,19 +92,19 @@ class Selector {
      * @param startOffset 时间起始点偏移 毫秒
      * @param endOffset 时间结束点偏移 毫秒
      * @param options
-     * @returns {Selector}
+     * @returns {Syllable[]} 生成的音节行
      */
     splitIntoSyllables(startPoint: TimePoint | TimePointFunction = 'LineStart',
                        endPoint: TimePoint | TimePointFunction = 'LineEnd',
                        startOffset: number = 0, endOffset: number = 0,
-                       options: SyllabifyOptions = {}): Dialogue[] {
-        const newDialogs: Dialogue[] = [];
+                       options: SyllabifyOptions = {}): Syllable[] {
+        const newDialogs: Syllable[] = [];
 
         // 默认值赋予
         let _options: SyllabifyOptions;
         _options = {
             autoComment: options.autoComment || false,
-            text: options.text || '',
+            text: (options.text === undefined) ? undefined : '',
             drawingMode: options.drawingMode || false,
         };
 
@@ -119,7 +120,7 @@ class Selector {
                         const _effect = <K>effect; // 你问我为什么强制类型转换 我只能说无可奉告
                         end = new Time(start.second + _effect.duration / 1000);
                         // 生成新 Dialog 对象
-                        const syllable = dialog.cloneAsSyllable();
+                        const syllable = Syllable.cloneFromDialog(dialog);
                         // 链接原句与新句
                         syllable.parentDialog = dialog;
                         syllable.syllableIndex = syllableIndex;
@@ -127,7 +128,9 @@ class Selector {
                         syllable.syllableDuration = _effect.duration;
                         // 复制文字
                         syllable.text.groups = (
-                            new Text(_options.text || textGroup.toString())
+                            new Text(
+                                _options.text !== undefined ? _options.text : textGroup.toString(),
+                            )
                         ).groups;
                         // 去除时间标签
                         syllable.text.groups[0].effectGroup =

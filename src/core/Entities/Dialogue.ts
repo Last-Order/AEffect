@@ -14,7 +14,6 @@ import { TimePoint } from '../../definitions/TimePoint';
 
 export class MissingAlignmentError extends Error { }
 export class MissingResolutionError extends Error { }
-export class NoParentDialogError extends Error { }
 
 export interface DialogueConstructProperties {
     layer: number;
@@ -227,53 +226,6 @@ class Dialogue {
             new Dialogue({ ...this.properties }, { ...this.styleMap }, { ...this.metaInfo });
         clonedDialog.text = clonedDialog.text.clone();
         return clonedDialog;
-    }
-
-    /**
-     * 复制为 Syllable 实例
-     */
-    cloneAsSyllable(): Syllable {
-        const clonedDialog =
-            new Syllable({ ...this.properties }, { ...this.styleMap }, { ...this.metaInfo });
-        clonedDialog.text = clonedDialog.text.clone();
-        return clonedDialog;
-    }
-}
-
-/**
- * 音节 由对话行经过音节化产生
- */
-class Syllable extends Dialogue {
-    parentDialog: Dialogue; // 音节化后原句
-    syllableIndex: number = 0; // 音节化后在原句中的位置
-    syllableDuration: number = 0; // 音节本身长度 毫秒
-
-    get lineLeft() {
-        if (!this.parentDialog) {
-            throw new NoParentDialogError('音节未附属于任何对话行');
-        }
-        return this.parentDialog.lineLeft;
-    }
-
-    get lineRight() {
-        if (!this.parentDialog) {
-            throw new NoParentDialogError('音节未附属于任何对话行');
-        }
-        return this.parentDialog.lineRight;
-    }
-
-    get lineStart() {
-        if (!this.parentDialog) {
-            throw new NoParentDialogError('音节未附属于任何对话行');
-        }
-        return this.parentDialog.lineStart;
-    }
-
-    get lineEnd() {
-        if (!this.parentDialog) {
-            throw new NoParentDialogError('音节未附属于任何对话行');
-        }
-        return this.parentDialog.lineEnd;
     }
 }
 
