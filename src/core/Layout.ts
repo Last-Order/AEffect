@@ -47,6 +47,20 @@ class Layout {
                 textGroup.y = now.y;
                 textGroup.width = text.width;
                 textGroup.height = text.height;
+                textGroup.left = now.x;
+                textGroup.right = now.x + text.width;
+                if (dialog.style.alignment === Alignment.LeftTop) {
+                    textGroup.top = textGroup.y;
+                    textGroup.buttom = textGroup.y + text.height;
+                }
+                if (dialog.style.alignment === Alignment.LeftMiddle) {
+                    textGroup.top = textGroup.y - Math.round(text.height / 2);
+                    textGroup.buttom = textGroup.y + Math.round(text.height / 2);
+                }
+                if (dialog.style.alignment === Alignment.LeftBottom) {
+                    textGroup.top = textGroup.y - text.height;
+                    textGroup.buttom = textGroup.y;
+                }
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
@@ -87,6 +101,20 @@ class Layout {
                 textGroup.y = now.y;
                 textGroup.width = text.width;
                 textGroup.height = text.height;
+                textGroup.left = now.x;
+                textGroup.right = now.x + text.width;
+                if (dialog.style.alignment === Alignment.Top) {
+                    textGroup.top = textGroup.y;
+                    textGroup.buttom = textGroup.y + text.height;
+                }
+                if (dialog.style.alignment === Alignment.Middle) {
+                    textGroup.top = textGroup.y - Math.round(text.height / 2);
+                    textGroup.buttom = textGroup.y + Math.round(text.height / 2);
+                }
+                if (dialog.style.alignment === Alignment.Bottom) {
+                    textGroup.top = textGroup.y - text.height;
+                    textGroup.buttom = textGroup.y;
+                }
                 now.x +=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
@@ -117,6 +145,20 @@ class Layout {
                 textGroup.y = now.y;
                 textGroup.width = text.width;
                 textGroup.height = text.height;
+                textGroup.left = textGroup.x - text.width;
+                textGroup.right = textGroup.x;
+                if (dialog.style.alignment === Alignment.RightBottom) {
+                    textGroup.top = textGroup.y - text.height;
+                    textGroup.buttom = textGroup.y;
+                }
+                if (dialog.style.alignment === Alignment.RightMiddle) {
+                    textGroup.top = textGroup.y - Math.round(text.height / 2);
+                    textGroup.buttom = textGroup.y + Math.round(text.height / 2);
+                }
+                if (dialog.style.alignment === Alignment.RightTop) {
+                    textGroup.top = textGroup.y;
+                    textGroup.buttom = textGroup.y + text.height;
+                }
                 now.x -=
                     text.width *
                     ((dialog.style.scaleX || 100) / 100) +
