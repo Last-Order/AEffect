@@ -2,6 +2,7 @@
  * Effects 标签统一导出点
  * 请按字母表顺序添加
  */
+export { default as Alignment } from '../core/Effects/Alignment';
 export { default as Animation } from '../core/Effects/Animation';
 export { default as Blur } from '../core/Effects/Blur';
 export { default as BlurEdge } from '../core/Effects/BlurEdge';

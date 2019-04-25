@@ -23,6 +23,7 @@ class UnknownEffect implements Effect{
     static parse(effectText: string): Effect {
         const effectName = effectText.match(/^\\([a-zA-Z]+)/)[1];
         switch (effectName){
+            case 'an': return Effects.Alignment.parse(effectText);
             case 'blur': return Effects.Blur.parse(effectText);
             case 'be': return Effects.BlurEdge.parse(effectText);
             case 'b': return Effects.Bold.parse(effectText);
