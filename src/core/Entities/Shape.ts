@@ -34,9 +34,9 @@ class Shape {
     toString(): string {
         let result = '';
         for (const subshape of this.shapes) {
-            result += `m ${subshape[0].x} ${subshape[0].y}`;
+            result += `m ${subshape[0].x} ${subshape[0].y} `;
             for (let i = 1; i <= subshape.length - 1; i = i + 1) {
-                result += `l ${subshape[i].x} ${subshape[i].y}`;
+                result += `l ${subshape[i].x} ${subshape[i].y} `;
             }
         }
         return result;

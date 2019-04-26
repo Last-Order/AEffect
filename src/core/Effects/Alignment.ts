@@ -13,8 +13,9 @@ class Alignment implements Effect {
     /**
      * @param alignment 对齐方式
      */
-    constructor(alignmentType: number) {
+    constructor(alignmentType: number, startIndex: number = 0) {
         this.alignmentType = alignmentType;
+        this.startIndex = startIndex;
     }
     addTo(text: Text) {
         return BaseEffect.defaultHandler(this, text);

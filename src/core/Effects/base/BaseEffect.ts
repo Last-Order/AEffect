@@ -61,7 +61,6 @@ class BaseEffect {
                 start -= textGroup.content.length;
             }
         });
-
         text.groups = newGroups;
         return text;
     }

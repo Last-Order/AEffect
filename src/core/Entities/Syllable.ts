@@ -5,9 +5,12 @@ export class NoParentDialogError extends Error { }
  * 音节 由对话行经过音节化产生
  */
 class Syllable extends Dialogue {
-    parentDialog: Dialogue; // 音节化后原句
-    syllableIndex: number = 0; // 音节化后在原句中的位置
-    syllableDuration: number = 0; // 音节本身长度 毫秒
+    /* 音节化后原句 */
+    parentDialog: Dialogue;
+    /* 音节化后在原句中的位置 */
+    syllableIndex: number = 0;
+    /* 音节本身长度 单位毫秒 */
+    syllableDuration: number = 0;
 
     static cloneFromDialog(dialog: Dialogue): Syllable {
         const clonedDialog =

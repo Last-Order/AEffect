@@ -16,17 +16,17 @@ export class MissingAlignmentError extends Error { }
 export class MissingResolutionError extends Error { }
 
 export interface DialogueConstructProperties {
-    layer: number;
-    start: Time;
-    end: Time;
-    styleName: string;
-    name: string;
-    marginL: number;
-    marginR: number;
-    marginV: number;
-    effect: string;
+    layer?: number;
+    start?: Time;
+    end?: Time;
+    styleName?: string;
+    name?: string;
+    marginL?: number;
+    marginR?: number;
+    marginV?: number;
+    effect?: string;
     text: Text;
-    isComment: boolean;
+    isComment?: boolean;
 }
 
 class Dialogue {
@@ -191,21 +191,21 @@ class Dialogue {
         ['Layer', 'Start', 'End', 'Style', 'Name', 'MarginL', 'MarginR', 'MarginV', 'Effect', 'Text'].forEach((name, index) => {
             switch (name) {
                 case 'Layer':
-                    temp.push(this.layer.toString() || '0'); break;
+                    temp.push(this.layer && this.layer.toString() || '0'); break;
                 case 'Start':
-                    temp.push(this.start.toString()); break;
+                    temp.push(this.start && this.start.toString()); break;
                 case 'End':
-                    temp.push(this.end.toString()); break;
+                    temp.push(this.end && this.end.toString()); break;
                 case 'Style':
                     temp.push(this.style.name); break;
                 case 'Name':
                     temp.push(this.name || ''); break;
                 case 'MarginL':
-                    temp.push(this.marginL.toString() || '0'); break;
+                    temp.push(this.marginL && this.marginL.toString() || '0'); break;
                 case 'MarginR':
-                    temp.push(this.marginR.toString() || '0'); break;
+                    temp.push(this.marginR && this.marginR.toString() || '0'); break;
                 case 'MarginV':
-                    temp.push(this.marginV.toString() || '0'); break;
+                    temp.push(this.marginV && this.marginV.toString() || '0'); break;
                 case 'Effect':
                     temp.push(this.effect); break;
                 case 'Text':
