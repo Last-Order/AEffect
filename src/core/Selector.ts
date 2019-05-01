@@ -126,6 +126,13 @@ class Selector {
                         syllable.syllableIndex = syllableIndex;
                         syllable.effect = 'fx';
                         syllable.syllableDuration = _effect.duration;
+                        // 位置信息复制
+                        syllable.left = textGroup.left;
+                        syllable.right = textGroup.right;
+                        syllable.top = textGroup.top;
+                        syllable.bottom = textGroup.buttom;
+                        syllable.width = textGroup.width;
+                        syllable.height = textGroup.height;
                         // 复制文字
                         syllable.text.groups = (
                             new Text(

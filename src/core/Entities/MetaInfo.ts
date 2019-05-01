@@ -7,7 +7,7 @@ export enum WarpStyle{
 
 class MetaInfo{
     title: string = '';
-    resolution: IRectSize = {
+    resolution: Resolution = {
         width: 1920,
         height: 1080,
     };
@@ -20,7 +20,7 @@ class MetaInfo{
     scriptUpdatedBy: string = '';
 }
 
-export interface IRectSize{
+export interface Resolution{
     width: number;
     height: number;
 }

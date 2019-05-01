@@ -18,29 +18,52 @@ export enum Alignment {
 }
 
 class Style {
-    name: string; // 样式名
-    fontname: string; // 字体名
-    fontsize: number; // 字号
-    primaryColour: Color; // 主要颜色
-    secondaryColour: Color; // 次要颜色
-    outlineColour: Color; // 轮廓颜色
-    backColour: Color; // 阴影颜色
-    bold: boolean; // 是否粗体
-    italic: boolean; // 是否斜体
-    underline: boolean; // 是否下划线
-    strikeOut: boolean; // 是否删除线
-    scaleX: number; // 宽度缩放百分比
-    scaleY: number; // 高度缩放百分比
-    spacing: number; // 文字间距
-    angle: number; // 旋转角度
-    borderStyle: BorderStyle; // 阴影样式
-    outline: number; // 轮廓宽度 （像素）
-    shadow: number; // 阴影宽度 （像素）
-    alignment: Alignment; // 对齐方式 （参考小键盘）
-    marginL: number; // 左侧边距
-    marginR: number; // 右侧边距
-    marginV: number; // 垂直边距
-    encoding: number; // Codepage Number （请使用Unicode编码来避免此字段 GBK:134）
+    /** 样式名 */
+    name: string;
+    /** 字体名 */
+    fontname: string;
+    /** 字号 */
+    fontsize: number;
+    /** 主要颜色 */
+    primaryColour: Color;
+    /** 次要颜色 */
+    secondaryColour: Color;
+    /** 边框颜色 */
+    outlineColour: Color;
+    /** 阴影颜色 */
+    backColour: Color;
+    /** 是否粗体 */
+    bold: boolean;
+    /** 是否斜体 */
+    italic: boolean;
+    /** 是否下划线 */
+    underline: boolean;
+    /** 是否删除线 */
+    strikeOut: boolean;
+    /** 横向缩放百分比 */
+    scaleX: number;
+    /** 纵向缩放百分比 */
+    scaleY: number;
+    /** 文字间距 */
+    spacing: number;
+    /** 旋转角度 */
+    angle: number;
+    /** 阴影样式 */
+    borderStyle: BorderStyle;
+    /** 边框宽度 单位像素 */
+    outline: number;
+    /** 阴影宽度 单位像素 */
+    shadow: number;
+    /** 对齐方式 */
+    alignment: Alignment;
+    /** 左外边距 */
+    marginL: number;
+    /** 右外边距 */
+    marginR: number;
+    /** 垂直边距 */
+    marginV: number;
+    /** Codepage Number （请使用Unicode编码来避免此字段 GBK:134）*/
+    encoding: number;
     constructor(properties = {}) {
         // tslint:disable-next-line:max-line-length
         ['Name', 'Fontname', 'Fontsize', 'PrimaryColour', 'SecondaryColour', 'OutlineColour', 'BackColour', 'Bold', 'Italic', 'StrikeOut', 'StrikeOut', 'ScaleX', 'ScaleY', 'Spacing', 'Angle', 'BorderStyle', 'Outline', 'Shadow', 'Alignment', 'MarginL', 'MarginR', 'MarginV', 'Encoding']

@@ -30,27 +30,44 @@ export interface DialogueConstructProperties {
 }
 
 class Dialogue {
+    /** 显示层 */
     layer: number;
+    /** 开始时间 */
     start: Time;
+    /** 结束时间 */
     end: Time;
-    left?: number;
-    right?: number;
+    /** 行左边缘中点横坐标 */
     lineLeft?: number;
+    /** 行右边缘中点横坐标 */
     lineRight?: number;
+    /** 宽度 */
+    width?: number;
+    /** 高度 */
+    height?: number;
+    /** 行样式表 */
     style: Style;
-    name: string; // 说话人
+    /** 说话人 */
+    name: string;
+    /** 左外边距 */
     marginL: number = 0;
+    /** 右外边距 */
     marginR: number = 0;
+    /** 垂直外边距 */
     marginV: number = 0;
+    /** 特效 */
     effect: string;
 
+    /** 文本 */
     text: Text;
+    /** 视频基本信息 */
     metaInfo: MetaInfo;
     properties: DialogueConstructProperties;
     styleMap: { [index: string]: Style };
 
-    isSyllabified: boolean = false; // 是否已经音节化
-    isComment: boolean; // 是否为注释行
+    /** 是否已经音节化 */
+    isSyllabified: boolean = false;
+    /** 是否为评论 */
+    isComment: boolean;
 
     constructor(
         properties: DialogueConstructProperties,

@@ -11,6 +11,14 @@ class Syllable extends Dialogue {
     syllableIndex: number = 0;
     /* 音节本身长度 单位毫秒 */
     syllableDuration: number = 0;
+    /* 左边缘中点横坐标 */
+    left?: number;
+    /* 右边缘中点横坐标 */
+    right?: number;
+    /* 上边缘中点纵坐标 */
+    top?: number;
+    /* 下边缘中点纵坐标 */
+    bottom?: number;
 
     static cloneFromDialog(dialog: Dialogue): Syllable {
         const clonedDialog =
