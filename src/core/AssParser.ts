@@ -10,13 +10,14 @@ import '../utils/Explode';
 import '../utils/ToFirstLowerCase';
 import Color from './Entities/Color';
 
-export class MissingEventBlockError extends Error{}
-export class InvalidAssError extends Error{}
-export class InvalidStyleFormatDefinitionError extends Error{}
-export class InvalidStyleDefinitionError extends Error{}
-export class MissingStyleDefinitionError extends Error{}
-export class MissingDialogFormatDefinitionError extends Error{}
-export class InvalidDialogFormatDefinitionError extends Error{}
+export class MissingEventBlockError extends Error { }
+export class InvalidAssError extends Error { }
+export class InvalidStyleFormatDefinitionError extends Error { }
+export class InvalidStyleDefinitionError extends Error { }
+export class MissingStyleDefinitionError extends Error { }
+export class MissingDialogFormatDefinitionError extends Error { }
+export class InvalidDialogFormatDefinitionError extends Error { }
+export class LineParsingError extends Error { }
 
 export interface ParseResult {
     metaInfo: MetaInfo;
@@ -100,42 +101,42 @@ export default {
             }
             lineArray.forEach((property, index) => {
                 const key = styleFormat[index].toFirstLowerCase();
-                switch (key){
-                case 'name':
-                case 'fontname':
-                    parsedStyle[styleFormat[index]] = property.trim();
-                    break;
-                case 'fontsize':
-                case 'scaleX':
-                case 'scaleY':
-                case 'spacing':
-                case 'angle':
-                case 'outline':
-                case 'shadow':
-                case 'marginL':
-                case 'marginR':
-                case 'marginV':
-                case 'encoding':
-                    parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
-                    break;
-                case 'primaryColour':
-                case 'secondaryColour':
-                case 'outlineColour':
-                case 'backColour':
-                    parsedStyle[styleFormat[index]] = Color.ASS(property.trim());
-                    break;
-                case 'bold':
-                case 'italic':
-                case 'underline':
-                case 'strikeOut':
-                    parsedStyle[styleFormat[index]] = property.trim() === '-1';
-                    break;
-                case 'alignment':
-                    parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
-                    break;
-                case 'borderStyle':
-                    parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
-                    break;
+                switch (key) {
+                    case 'name':
+                    case 'fontname':
+                        parsedStyle[styleFormat[index]] = property.trim();
+                        break;
+                    case 'fontsize':
+                    case 'scaleX':
+                    case 'scaleY':
+                    case 'spacing':
+                    case 'angle':
+                    case 'outline':
+                    case 'shadow':
+                    case 'marginL':
+                    case 'marginR':
+                    case 'marginV':
+                    case 'encoding':
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
+                        break;
+                    case 'primaryColour':
+                    case 'secondaryColour':
+                    case 'outlineColour':
+                    case 'backColour':
+                        parsedStyle[styleFormat[index]] = Color.ASS(property.trim());
+                        break;
+                    case 'bold':
+                    case 'italic':
+                    case 'underline':
+                    case 'strikeOut':
+                        parsedStyle[styleFormat[index]] = property.trim() === '-1';
+                        break;
+                    case 'alignment':
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
+                        break;
+                    case 'borderStyle':
+                        parsedStyle[styleFormat[index]] = parseInt(property.trim(), 10);
+                        break;
                 }
             });
             parsedAssStyles[parsedStyle.Name] = new Style(parsedStyle);
@@ -168,7 +169,7 @@ export default {
         eventBlock = eventBlock.slice(1);
 
         // 根据样式格式解析对话行
-        eventBlock.forEach((line) => {
+        eventBlock.forEach((line, lineIndex) => {
             const parsedDialog: DialogueConstructProperties = {
                 layer: 0,
                 start: new Time(0),
@@ -192,33 +193,40 @@ export default {
             }
             dialogBody.explode(',', dialogFormat.length).forEach((propertyValue, index) => {
                 const propertyKey = dialogFormat[index].toFirstLowerCase();
-                switch (propertyKey){
-                case 'layer':
-                case 'marginL':
-                case 'marginR':
-                case 'marginV':
-                    parsedDialog[propertyKey] = parseInt(propertyValue, 10);
-                    break;
-                case 'style':
-                    parsedDialog.styleName = propertyValue;
-                    break;
-                case 'name':
-                case 'effect':
-                    parsedDialog[propertyKey] = propertyValue;
-                    break;
-                case 'start':
-                case 'end':
-                    parsedDialog[propertyKey] = Time.parse(propertyValue);
-                    break;
-                case 'text':
-                    parsedDialog[propertyKey] =
-                        // tslint:disable-next-line:max-line-length
-                        !parsedDialog.isComment ? new Text(propertyValue) : new Text(propertyValue, false);
-                    break;
+                switch (propertyKey) {
+                    case 'layer':
+                    case 'marginL':
+                    case 'marginR':
+                    case 'marginV':
+                        parsedDialog[propertyKey] = parseInt(propertyValue, 10);
+                        break;
+                    case 'style':
+                        parsedDialog.styleName = propertyValue;
+                        break;
+                    case 'name':
+                    case 'effect':
+                        parsedDialog[propertyKey] = propertyValue;
+                        break;
+                    case 'start':
+                    case 'end':
+                        parsedDialog[propertyKey] = Time.parse(propertyValue);
+                        break;
+                    case 'text': {
+                        try {
+                            parsedDialog[propertyKey] =
+                                // tslint:disable-next-line:max-line-length
+                                !parsedDialog.isComment ? new Text(propertyValue) : new Text(propertyValue, false);
+                            break;
+                        } catch (e) {
+                            throw new LineParsingError(`行解析错误 于第${lineIndex}行: ${e.message}`);
+                        }
+                    }
                 }
             });
             try {
-                parsedAssDialogs.push(new Dialogue(parsedDialog, parsedAssStyles, metaInfo));
+                const newDialog = new Dialogue(parsedDialog, parsedAssStyles, metaInfo);
+                newDialog.lineIndex = lineIndex;
+                parsedAssDialogs.push(newDialog);
             } catch (e) {
                 throw new InvalidAssError('解析 ASS 文件失败');
             }

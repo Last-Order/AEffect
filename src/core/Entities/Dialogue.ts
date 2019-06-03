@@ -36,10 +36,10 @@ class Dialogue {
     start: Time;
     /** 结束时间 */
     end: Time;
-    /** 行左边缘中点横坐标 */
-    lineLeft?: number;
-    /** 行右边缘中点横坐标 */
-    lineRight?: number;
+    /** 左横坐标 */
+    left?: number;
+    /** 右横坐标 */
+    right?: number;
     /** 宽度 */
     width?: number;
     /** 高度 */
@@ -68,6 +68,8 @@ class Dialogue {
     isSyllabified: boolean = false;
     /** 是否为评论 */
     isComment: boolean;
+    /** 行号 */
+    lineIndex?: number;
 
     constructor(
         properties: DialogueConstructProperties,

@@ -53,7 +53,7 @@ class Text{
                     try {
                         newTextGroup.effectGroup.push(UnknownEffect.parse(`\\${effect}`));
                     } catch (e) {
-                        throw new TextParseError('特效标签解析失败');
+                        throw new TextParseError(`特效标签解析失败: ${e.message}`);
                     }
                 }
                 this.groups.push(newTextGroup);

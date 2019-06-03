@@ -67,8 +67,8 @@ class Layout {
                     ((dialog.style.scaleX || 100) / 100) +
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
-            dialog.lineLeft = base.x; // 行左边缘
-            dialog.lineRight = now.x; // 行右边缘
+            dialog.left = base.x; // 行左边缘
+            dialog.right = now.x; // 行右边缘
         // tslint:disable-next-line:max-line-length
         } else if ([Alignment.Bottom, Alignment.Middle, Alignment.Top].includes(dialog.style.alignment)) {
             // 居中
@@ -123,8 +123,8 @@ class Layout {
                     ((dialog.style.scaleX || 100) / 100) +
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
-            dialog.lineLeft = leftEnd;
-            dialog.lineRight = leftEnd + contentWidth;
+            dialog.left = leftEnd;
+            dialog.right = leftEnd + contentWidth;
         // tslint:disable-next-line:max-line-length
         } else if ([Alignment.RightBottom, Alignment.RightMiddle, Alignment.RightTop].includes(dialog.style.alignment)) {
             // 右对齐
@@ -170,8 +170,8 @@ class Layout {
                     (dialog.style.spacing * (textGroup.content.length - 1) || 0);
             }
             dialog.text.groups.reverse();
-            dialog.lineLeft = now.x; // 行左边缘
-            dialog.lineRight = base.x; // 行右边缘
+            dialog.left = now.x; // 行左边缘
+            dialog.right = base.x; // 行右边缘
         } else {
             throw new InvalidAlignmentError('对话行对齐方式不合法');
         }
