@@ -1,5 +1,6 @@
 import UnknownEffect from '../Effects/UnknownEffect';
 import TextGroup from './TextGroup';
+import Log from '../../utils/Log';
 
 export class TextParseError extends Error {}
 
@@ -53,6 +54,12 @@ class Text{
                     try {
                         newTextGroup.effectGroup.push(UnknownEffect.parse(`\\${effect}`));
                     } catch (e) {
+                        Log.warning('特效标签语法错误: ');
+                        Log.warning(text);
+                        Log.warning(
+                            // tslint:disable-next-line
+                            new Array(text.indexOf(effect)).fill(' ').join('') + new Array(effect.length).fill('^').join('')
+                        );
                         throw new TextParseError(`特效标签解析失败: ${e.message}`);
                     }
                 }

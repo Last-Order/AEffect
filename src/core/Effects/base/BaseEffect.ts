@@ -24,7 +24,7 @@ class BaseEffect {
                     effect.name === newEffect.name ||
                     (newEffect.cantCoexistWith || []).includes(effect.name)
                 ) {
-                    Log.warning(`${newEffect.name} 标签不能与 ${effect.name} 共存，将覆盖。`);
+                    Log.warning(`${newEffect.name} 标签出现重复，后应用者将覆盖。`);
                     duplicateFlag = true;
                     effects[index] = newEffect;
                 }
